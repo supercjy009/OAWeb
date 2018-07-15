@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="assets/layui/css/layui.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<button class="layui-btn" id="query">新增表格数据合并</button>
+<table class="layui-table layui-form" id="testTable2" lay-filter="testTable2">
+    <thead>
+    <tr>
+        <th style="width: 20px;"><input type="checkbox" name="" lay-skin="primary"></th>
+        <th>ID</th>
+        <th>名称</th>
+        <th>其他</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td rowspan="2"><input type="checkbox" name="" lay-skin="primary"></td>
+        <td rowspan="2">1</td>
+        <td>name1_1</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>name1_2</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="/assets/layui/layui.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+    var index = 1;
+    layui.use(['jquery', 'table', 'form'], function ($, table, form) {
+        //执行一个laydate实例
+        // debugger;
+        form.render('checkbox');
+        $('#query').click(function () {
+            index++;
+            $('#testTable2 tbody').html($('#testTable2 tbody').html() + '<tr><td rowspan="2"><input type="checkbox" name="" lay-skin="primary"></td><td rowspan="2">' + index + '</td><td>name' + index + '_1</td><td></td></tr>\n' +
+                '    <tr><td>name' + index + '_2</td><td></td></tr>');
+            form.render('checkbox');
+        });
+    });
+
+</script>
+</body>
+</html>

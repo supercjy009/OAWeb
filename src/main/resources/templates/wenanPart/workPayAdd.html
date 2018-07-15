@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新建支出</title>
+    <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
+</head>
+<body>
+<form class="layui-form" style="margin-top: 20px" lay-filter="payEdit"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>支出日期 </label>
+        <div class="layui-input-block">
+            <input type="text" name="payDate" id="date" placeholder="yyyy-MM-dd" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>支出项目 </label>
+        <div class="layui-input-block">
+            <input type="text" name="payProject" placeholder="请输入" lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>支出金额 </label>
+        <div class="layui-input-block">
+            <input type="text" name="payMoney" placeholder="请输入" lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"> <span style="color: red">*</span>支出说明</label>
+        <div class="layui-input-block">
+            <input type="text" name="remark" placeholder="请输入" lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>支付人</label>
+        <div class="layui-input-inline">
+            <select name="getUser" lay-filter="user" lay-verify="required">
+                <option value="1" selected="">公司</option>
+                <option value="2">个人</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button id="close" class="layui-btn layui-btn-primary">取消</button>
+        </div>
+    </div>
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</form>
+<script src="../assets/js/commonJs.js"></script>
+
+<script src="/assets/layui/layui.js"></script>
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/js/orderJs/workPayAdd.js"></script>

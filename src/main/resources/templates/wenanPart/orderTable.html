@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <!--<link rel="stylesheet" href="../assets/layui/css/layui.css" media="all">-->
+    <style>
+    </style>
+</head>
+<body>
+<div class="tab-bar-container">
+    <div>
+        <div class="loyo-nav-tabs">
+
+            <ul class="loyo-nav-tab pull-left nav nav-pills tab-list">
+                <li class="loyo-tab-item active">
+                    <a>
+                        <h4> 临时任务</h4>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-regions-container clearfix">
+    <div class="loyo-search-section" style="margin-bottom:0; border-bottom: 1px solid #e5e9f0;">
+        <label>填写说明：</label>
+        <p>1、考核标准 依据数量、质量、时间、成本、上级满意度、客户满意度等</p>
+
+        <label>评分说明：</label>
+        <p>评分标准：95-100分：达成目标并超越目标的要求和标准</p>
+    </div>
+
+
+    <div class="loyo-search-section" style="margin-bottom:0;">
+        <button class="btn btn-primary marginr" id="addTask"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+        </button>
+
+        <button class="btn btn-primary marginr"><span>修改</span>
+        </button>
+
+        <button class="btn btn-primary marginr"><span>审批</span>
+        </button>
+
+        <button class="btn btn-primary marginr"><span>上级评分</span>
+        </button>
+
+        <button class="btn btn-primary marginr"><span>导出</span>
+        </button>
+    </div>
+
+    <table id="demo" lay-filter="test"></table>
+</div>
+
+
+<script src="/js/orderJs/orderTable.js"></script>
+<script type="text/html" id="sexTpl">
+    {{#  if(d.sex === '女'){ }}
+    <span style="color: #F581B1;">{{ d.sex }}</span>
+    {{#  } else { }}
+    {{ d.sex }}
+    {{#  } }}
+</script>
+</body>
+</html>

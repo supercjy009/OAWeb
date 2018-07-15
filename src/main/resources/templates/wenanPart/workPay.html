@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="assets/css/table-style.css">
+<script src="/assets/layui/layui.js"></script>
+<body>
+<div class="tab-bar-container">
+    <div>
+        <div class="loyo-nav-tabs">
+
+            <ul class="loyo-nav-tab pull-left nav nav-pills tab-list">
+                <li class="loyo-tab-item active">
+                    <a>
+                        <h4> 办公支出</h4>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-regions-container clearfix">
+    <div class="layui-form" style="padding: 20px 20px 0 20px">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input type="text" id="payDate" placeholder="支出月份"
+                       lay-key="1" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select id="getUser" lay-filter="" lay-verify="required">
+                    <option value="" selected="">支付人</option>
+                    <option value="1">公司</option>
+                    <option value="2">个人</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select id="audit" lay-filter="" lay-verify="required">
+                    <option value="" selected="">审核状态</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="0">待审</option>
+                    <option value="1">已审</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select id="settle" lay-filter="" lay-verify="required">
+                    <option value="" selected="">结算状态</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="0">待结</option>
+                    <option value="1">已结</option>
+                </select>
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+        <!--</div>-->
+    </div>
+
+    <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+
+    <div class="loyo-search-section" style="margin-bottom:0;">
+        <button class="btn btn-primary marginr" id="addWorkPay"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="editWorkPay"><span>修改</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="auditPay"><span>审核</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="settlePay"><span>结算</span>
+        </button>
+
+        <button class="btn btn-primary marginr"><span>导出</span>
+        </button>
+    </div>
+
+    <table id="workPayTable" lay-filter="test"></table>
+</div>
+
+
+<script src="/js/orderJs/workTable.js"></script>
+
+<script>
+    layui.use(['laydate'], function () {
+
+        $("#payDate").attr("lay-key", getRandomString);
+        console.log("ddddddaaate")
+        var laydate = layui.laydate;
+        //日期
+        laydate.render({
+            elem: '#payDate',
+            type: 'month', //只选年月
+            btns: ['clear', 'confirm']
+        });
+    });
+
+</script>
+<script type="text/html" id="auditTpl">
+    {{#  if(d.audit === '0'){ }}
+    <span style="color: #f52727;">{{ '待审' }}</span>
+    {{#  } else { }}
+    {{ '已审' }}
+    {{#  } }}
+</script>
+<script type="text/html" id="settleTpl">
+    {{#  if(d.settle === '0'){ }}
+    <span style="color: #f52727;">{{ '待结' }}</span>
+    {{#  } else { }}
+    {{ '已结' }}
+    {{#  } }}
+</script>
+<script type="text/html" id="userTpl">
+    {{#  if(d.getUser === '1'){ }}
+    {{ '公司' }}
+    {{#  } else { }}
+    {{ '个人' }}
+    {{#  } }}
+</script>
+
+<!--<script type="text/html" id="sexTpl">-->
+<!--{{#  if(d.sex === '女'){ }}-->
+<!--<span style="color: #F581B1;">{{ d.sex }}</span>-->
+<!--{{#  } else { }}-->
+<!--{{ d.sex }}-->
+<!--{{#  } }}-->
+<!--</script>-->
+</body>

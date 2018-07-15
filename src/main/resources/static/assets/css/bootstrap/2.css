@@ -1,0 +1,258 @@
+.loyo-nav-tabs {
+    display: block;
+    background-color: #fafafa;
+    height: 50px;
+    border-bottom: 1px solid #e5e9f0;
+    zoom: 1
+}
+
+.loyo-nav-tabs:before, .loyo-nav-tabs:after {
+    display: table;
+    content: " "
+}
+
+.loyo-nav-tab {
+    height: 50px;
+    padding: 0;
+    display: inline-block
+}
+
+.loyo-nav-tab > li {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 135px;
+    text-align: center
+}
+
+.loyo-nav-tab > li a {
+    display: block;
+    border-radius: 0;
+    height: 50px;
+    line-height: 50px
+}
+
+.loyo-nav-tab h4 {
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 30px
+}
+
+.loyo-nav-operate {
+    margin: 10px 0 0 0
+}
+
+.loyo-nav-operate > div {
+    float: left;
+    margin-right: 20px
+}
+
+.fa-pull-left {
+    float: left
+}
+
+.pull-left {
+    float: left;
+}
+
+.nav {
+    margin-bottom: 0px;
+    padding-left: 0px;
+    list-style: none;
+}
+
+ul, ol {
+    margin-top: 0px;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+.nav-pills > li {
+    float: left;
+}
+
+.nav > li {
+    position: relative;
+    display: block;
+}
+
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.nav.nav-pills > li.active > a {
+    bottom: -1px;
+    color: rgb(44, 157, 252);
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px;
+    border-left: 1px solid rgb(221, 221, 221);
+    border-right: 1px solid rgb(221, 221, 221);
+}
+
+/*.loyo-nav-tab > li.active a {*/
+/*bottom: 0px;*/
+/*top: 0px;*/
+/*margin: 0px;*/
+/*border-bottom: 1px solid rgb(255, 255, 255);*/
+/*}*/
+
+/*.nav.nav-pills > li > a {*/
+/*font-weight: 200;*/
+/*color: rgb(102, 102, 102);*/
+/*transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {*/
+/*color: rgb(255, 255, 255);*/
+/*}*/
+
+.loyo-nav-tab > li a {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 0px;
+}
+
+.nav-pills > li > a {
+    border-radius: 4px;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+ins, a {
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+user agent stylesheet
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.loyo-nav-tab h4 {
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 30px;
+}
+
+h1, h2, h3, h4 {
+    font-weight: bold;
+}
+
+h4, .h4 {
+    font-size: 17px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica Neue", "Microsoft Yahei", "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans-serif;
+    font-weight: 200;
+}
+
+user agent stylesheet
+h4 {
+    display: block;
+    -webkit-margin-before: 1.33em;
+    -webkit-margin-after: 1.33em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+Inherited from a
+.nav.nav-pills > li.active > a {
+    bottom: -1px;
+    color: rgb(44, 157, 252);
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px;
+    border-left: 1px solid rgb(221, 221, 221);
+    border-right: 1px solid rgb(221, 221, 221);
+}
+
+a {
+    color: rgb(44, 157, 252);
+    outline: none !important;
+    text-decoration: none !important;
+}
+
+a {
+    color: rgb(0, 148, 203);
+    text-decoration: none;
+}
+
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table
+}
+
+.clearfix:after {
+    clear: both
+}
+
+.clearfix {
+    zoom: 1
+}
+
+.loyo-search-section {
+    line-height: 30px;
+    margin-left: 20px;
+}
+
+.loyo-search-section i {
+    margin-right: 5px;
+}
+
+.marginr {
+    margin-right: 5px;
+}
+
+.loyo-search-section .search-li label {
+    float: left;
+    line-height: 40px;
+    vertical-align: top;
+    margin: 0px;
+}
+

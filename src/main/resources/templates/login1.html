@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="/js/jquery-1.11.2.min.js"></script>
+    <script src="/js/login.js"></script>
+</head>
+<body>
+错误信息：
+<!--/*@thymesVar id="msg" type="java.lang.String"*/-->
+    <h4 th:text="${msg}"></h4>
+<!--<form action="/login" method="post">-->
+    <p>账号：<input type="text" id="username" value="admin"/></p>
+    <p>密码：<input type="password" id="password" value="123456"/></p>
+    <img onclick = "refresh()" id = "img"/>
+    <p>验证码：<input type="text" id="vcode" value=""/></p>
+<div id = "airport">
+</div>
+    <P><input type="checkbox" id="rememberMe" />记住我</P>
+<!--</form>-->
+<p><input type="submit" onclick="login();" value="登录"/></p>
+</body>
+</html>

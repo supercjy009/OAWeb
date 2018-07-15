@@ -1,0 +1,6 @@
+<script src="/js/login.js"></script>
+<div xmlns:th="http://www.w3.org/1999/xhtml">
+    <img onclick = "refresh()"/>
+    <p>验证码：<input type="text" id="vcode"/></p>
+    <h3 th:text="${_code}" id = "sessioninfo"></h3>
+</div>
