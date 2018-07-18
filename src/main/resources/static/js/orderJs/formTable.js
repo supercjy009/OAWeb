@@ -23,7 +23,13 @@ var header = [ //表头
     , {field: 'remark', title: '客服备注', width: 100, rowspan: 2}
     , {align: 'center', title: '退款详情', colspan: 6}
     , {field: 'audit', title: '审核', templet: '#auditTpl', rowspan: 2}
-    , {field: 'partTimes', title: '兼职QQ', width: 100, rowspan: 2, templet: '<div>{{d.partTimes[0]?d.partTimes[0].partQq:""}}</div>'}
+    , {
+        field: 'partTimes',
+        title: '兼职QQ',
+        width: 100,
+        rowspan: 2,
+        templet: '<div>{{d.partTimes[0]?d.partTimes[0].partQq:""}}</div>'
+    }
     , {field: 'submitState', title: '交稿状态', width: 100, rowspan: 2}
     , {field: 'partPhone', title: '兼职电话', width: 100, rowspan: 2}
     , {field: 'partAlipay', title: '兼职支付宝', width: 100, rowspan: 2}
@@ -160,14 +166,16 @@ layui.use(['table', 'form'], function () {
 
 $("#addWorkPay").click(function () {
     //iframe窗
-    layer.open({
+    var index = layer.open({
         type: 2,
         title: '新建任务',
         shadeClose: true,
         shade: 0.8,
-        area: ['580px', '60%'],
-        content: '/wenanPart/workPayAdd'
+        area: ['100%', '100%'],
+        content: '/wenanPart/orderFormAdd'
     });
+
+    // layer.full(index);
 });
 
 function submitAudit(flag) {
