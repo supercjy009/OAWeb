@@ -2,7 +2,9 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import demo.dto.OrderReqVo;
 import demo.dto.OrderResDto;
+import demo.dto.PartTimeOrderRes;
 import demo.dto.WorkPayReqVo;
 import demo.mapper.OrderEntityMapper;
 import demo.model.OrderEntity;
@@ -25,15 +27,16 @@ public class OrderServiceImp implements OrderService {
     OrderEntityMapper orderEntityMapper;
 
     @Override
-    public PageInfo<OrderResDto> queryAllOrder(WorkPayReqVo vo) {
+    public PageInfo<PartTimeOrderRes> queryAllOrder(OrderReqVo vo) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
-        List<OrderResDto> orderList = orderEntityMapper.selectAllOrder(vo);
+        List<PartTimeOrderRes> orderList = orderEntityMapper.selectAllOrder(vo);
         return new PageInfo<>(orderList);
     }
 
     @Override
     public int addOrder(OrderEntity order) {
         UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        order.setServiceName(userinfoEntity.getName());
         return orderEntityMapper.insert(order);
     }
 

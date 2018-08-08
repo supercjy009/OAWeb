@@ -3,11 +3,11 @@
  */
 var table;
 var h1 = [{align: 'center', title: '客户交易登记表', colspan: 22},
-    {align: 'center', title: '派单登记表', colspan: 12}];
+    {align: 'center', title: '派单登记表', colspan: 14}];
 
 var header = [ //表头
-    {checkbox: true, fixed: true, rowspan: 2}
-    , {title: '序号', type: 'numbers', fixed: true, rowspan: 2}
+    {checkbox: true, rowspan: 2}
+    , {title: '序号', type: 'numbers', rowspan: 2}
     , {field: 'serviceName', title: '接单客服', width: 100, rowspan: 2}
     , {field: 'getOrderDate', title: '接单时间', width: 110, rowspan: 2}
     , {field: 'customerIm', title: '客户IM', width: 100, rowspan: 2}
@@ -16,30 +16,26 @@ var header = [ //表头
     , {field: 'customerMail', title: '客户邮箱', width: 100, rowspan: 2}
     , {field: 'orderContent', title: '订单内容', width: 100, rowspan: 2}
     , {field: 'orderPrice', title: '金额', width: 100, rowspan: 2}
-    , {field: 'payState', title: '付款状态', width: 100, rowspan: 2}
+    , {field: 'payState', title: '付款状态', width: 100, rowspan: 2, templet: '#payStateTpl'}
     , {field: 'payProgress', title: '付款进度', width: 110, rowspan: 2}
     , {field: 'dueDate', title: '催款日', width: 110, rowspan: 2}
     , {field: 'dueMoney', title: '催款金额', width: 100, rowspan: 2}
     , {field: 'remark', title: '客服备注', width: 100, rowspan: 2}
     , {align: 'center', title: '退款详情', colspan: 6}
-    , {field: 'audit', title: '审核', templet: '#auditTpl', rowspan: 2}
-    , {
-        field: 'partTimes',
-        title: '兼职QQ',
-        width: 100,
-        rowspan: 2,
-        templet: '<div>{{d.partTimes[0]?d.partTimes[0].partQq:""}}</div>'
-    }
-    , {field: 'submitState', title: '交稿状态', width: 100, rowspan: 2}
+    , {field: 'audit', title: '审核',  width: 100, templet: '#auditTpl', rowspan: 2}
+    , {checkbox: true, rowspan: 2}
+    , {field: 'partQq', title: '兼职QQ', width: 100, rowspan: 2}
+    , {field: 'submitState', title: '交稿状态', width: 100, rowspan: 2, templet: '#submitStateTpl'}
     , {field: 'partPhone', title: '兼职电话', width: 100, rowspan: 2}
     , {field: 'partAlipay', title: '兼职支付宝', width: 100, rowspan: 2}
     , {field: 'partMoney', title: '稿酬', width: 100, rowspan: 2}
     , {field: 'deduct', title: '应扣', width: 100, rowspan: 2}
     , {field: 'settleDate', title: '结算日', width: 110, rowspan: 2}
     , {field: 'partRemark', title: '客服说明', width: 100, rowspan: 2}
-    , {field: 'partAudit', title: '审核', width: 100, rowspan: 2}
-    , {field: 'partSettleState', title: '结算状态', width: 100, rowspan: 2}
+    , {field: 'partAudit', title: '审核', width: 100, rowspan: 2, templet: '#partAuditTpl'}
+    , {field: 'partSettleState', title: '结算状态', width: 100, rowspan: 2, templet: '#settleTpl'}
     , {field: 'financeRemark', title: '财务备注', width: 100, rowspan: 2}
+    , {field: 'sendServiceName', title: '派单客服', width: 100, rowspan: 2}
 ];
 
 var h2 = [{field: 'recommendIm', title: '推荐人IM', width: 100}
@@ -92,11 +88,10 @@ layui.use(['table', 'form'], function () {
         cols: [h1, header, h2],
         done: function (res, curr, count) {
             // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
-            debugger
             var $title = $(".layui-table-view thead th");
             for (var n = 0; n < $title.length; n++) {
                 var $th = $(".layui-table-view thead th:eq(" + n + ")");
-                var calssType = (n > 18 && n < 30 || n == 1) ? 'back2' : 'back1';
+                var calssType = (n > 18 && n < 32 || n == 1) ? 'back2' : 'back1';
                 $th.addClass(calssType);
             }
 
@@ -104,15 +99,37 @@ layui.use(['table', 'form'], function () {
             if (!data) {
                 return;
             }
+            var indexNum = 0;
+            var clearIndex = false;
             for (var i = 0; i < data.length; i++) {
+                var $indexTd = $(".layui-table-view tbody tr[data-index='" + i + "'] td[data-field='1']");
+                var ind = $indexTd.find('div:eq(0)').text();
+                //设置序号值
+                $indexTd.find('div:eq(0)').text(parseInt(ind) - indexNum);
+                if (clearIndex) {
+                    indexNum == 0;
+                }
                 var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
-                // $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
-                //     // alert("第" + (i + 1) + "行，第" + (j + 1) + "个td的值：" + $(this).text() + "。");
-                //     if (j == 3) {
-                //         $(this).attr("rowspan", "2");
-                //     }
-                // });
 
+                if (data[i + 1] && data[i].orderNumber == data[i + 1].orderNumber) {//隐藏重复的订单
+                    clearIndex = false;
+                    indexNum++;
+                    var $checktrNext = $(".layui-table-view tbody tr[data-index='" + (i + 1) + "']");
+                    $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+                        if (j < 22) {
+                            $(this).attr("rowspan", "2");
+                        }
+                    });
+                    $checktrNext.children('td').each(function (j) { // 遍历 tr 的各个 td
+                        if (j < 22) {
+                            $(this).css("display", "none");
+                        }
+                    });
+                } else {
+                    clearIndex = true;
+                }
+
+                //设置待审核单元格背景颜色
                 var audit = data[i].audit;
                 if (audit === '0') {
                     $checktr.addClass("changeGray");
@@ -134,10 +151,17 @@ layui.use(['table', 'form'], function () {
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    payDate: $('#payDate').val(),
-                    getUser: $('#getUser').val(),
+                    orderDateReq: $('#getOrderDate').val(),
+                    deliveryDateReq: $('#deliveryDate').val(),
+                    payState: $('#payState').val(),
+                    submitState: $('#submitState').val(),
+                    partInfo: $('#partInfo').val(),
+                    serviceName: $('#serviceName').val(),
+                    sendServiceName: $('#sendServiceName').val(),
                     audit: $('#audit').val(),
-                    settle: $('#settle').val()
+                    partAudit: $('#partAudit').val(),
+                    partSettleState: $('#partSettleState').val(),
+                    keyWord: $('#keyWord').val()
                 }
             });
         }
@@ -171,7 +195,7 @@ $("#addWorkPay").click(function () {
         title: '新建任务',
         shadeClose: true,
         shade: 0.8,
-        area: ['100%', '100%'],
+        area: ['50%', '85%'],
         content: '/wenanPart/orderFormAdd'
     });
 

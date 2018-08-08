@@ -77,14 +77,14 @@ public class HomeController {
     @Resource
     StringRedisTemplate redisTemplate01;
 
-    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
     public String index(Map<String, Object> map) {
         map.put("path", "userinfo.html");
 //        ValueOperations<String, String> opsForValue = redisTemplate01.opsForValue();
 //         opsForValue.increment("test", 1);
 //        opsForValue.set("test", "0");
 
-        return "/index";
+        return "index";
     }
 
     @RequestMapping(value = {"/userinfo"}, method = RequestMethod.GET)
@@ -143,7 +143,7 @@ public class HomeController {
      *
      * @return
      */
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> logout() {
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();

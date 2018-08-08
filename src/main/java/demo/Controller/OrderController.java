@@ -1,7 +1,9 @@
 package demo.Controller;
 
 import com.github.pagehelper.PageInfo;
+import demo.dto.OrderReqVo;
 import demo.dto.OrderResDto;
+import demo.dto.PartTimeOrderRes;
 import demo.dto.WorkPayReqVo;
 import demo.model.OrderEntity;
 import demo.model.WorkPayEntity;
@@ -29,9 +31,9 @@ public class OrderController {
     WorkPayService workService;
 
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)
-    public Map<String, Object> queryAllOrder(WorkPayReqVo vo) {
+    public Map<String, Object> queryAllOrder(OrderReqVo vo) {
         Map<String, Object> mapOut = new HashMap<>();
-        PageInfo<OrderResDto> orderPageInfo = orderService.queryAllOrder(vo);
+        PageInfo<PartTimeOrderRes> orderPageInfo = orderService.queryAllOrder(vo);
         mapOut.put("code", 0);
 //        PageInfo<WorkPayEntity> orderPageInfo = workService.queryAllOrder(vo);
         mapOut.put("count", orderPageInfo.getTotal());

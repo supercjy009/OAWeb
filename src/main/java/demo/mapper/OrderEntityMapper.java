@@ -1,7 +1,9 @@
 package demo.mapper;
 
 
+import demo.dto.OrderReqVo;
 import demo.dto.OrderResDto;
+import demo.dto.PartTimeOrderRes;
 import demo.dto.WorkPayReqVo;
 import demo.model.OrderEntity;
 import demo.model.WorkPayEntity;
@@ -57,6 +59,6 @@ public interface OrderEntityMapper {
      */
     int updateByPrimaryKey(OrderEntity record);
 
-    List<OrderResDto> selectAllOrder(WorkPayReqVo vo);
+    List<PartTimeOrderRes> selectAllOrder(OrderReqVo vo);
 
 }

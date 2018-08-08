@@ -63,10 +63,11 @@ footer {
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    width: 220px;
+    width: 200px;
     height: 100%;
     float: left;
-    background-color: #2B333E;
+    /*background-color: #2B333E;*/
+    background-color: #252b3c;
     position: fixed;
     left: 0;
 }
@@ -77,7 +78,7 @@ footer {
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    width: calc(100% - 220px);
+    width: calc(100% - 200px);
     left: 0;
     position: relative;
     float: right;

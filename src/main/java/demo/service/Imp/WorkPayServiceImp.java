@@ -43,6 +43,13 @@ public class WorkPayServiceImp implements WorkPayService {
 
     @Override
     public int updateOrder(WorkPayEntity work) {
+//        WorkPayEntity workBefore = workPayEntityMapper.selectByPrimaryKey(work.getId());
+//        StringBuilder sb = new StringBuilder();
+//        if (workBefore.getPayDate().equals(work.getPayDate())) {
+//            sb.append("1");
+//        }
+        work.setAudit("0");
+        work.setSettle("0");
         return workPayEntityMapper.updateByPrimaryKeySelective(work);
     }
 

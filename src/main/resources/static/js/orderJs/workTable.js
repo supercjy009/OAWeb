@@ -27,8 +27,8 @@ layui.use(['table', 'form'], function () {
     table.render({
         id: 'id',
         elem: '#workPayTable',
-        // height: 'full-400',
         skin: 'row',
+        // height: 'full-280',
         url: ajaxUri + '/webAjax/workpay/queryAllOrder', //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局

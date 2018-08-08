@@ -152,6 +152,12 @@
             <if test="getUser != null">
                 get_user = #{getUser,jdbcType=VARCHAR},
             </if>
+            <if test="audit != null">
+                audit = #{audit,jdbcType=VARCHAR},
+            </if>
+            <if test="settle != null">
+                settle = #{settle,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>

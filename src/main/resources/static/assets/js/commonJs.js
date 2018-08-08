@@ -1,4 +1,5 @@
-ajaxUri = "http://localhost:8080";
+// ajaxUri = "http://47.99.47.49:8080";
+ ajaxUri = "http://localhost:8080";
 workPayInit = false;
 
 function getRandomString(len) {

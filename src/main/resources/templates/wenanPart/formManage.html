@@ -11,7 +11,7 @@
         background-color: #f6ffd9;
     }
 
-    .btn{
+    .btn {
         padding: 6px 12px !important;
     }
 </style>
@@ -49,24 +49,30 @@
                 <select id="payState" lay-filter="" lay-verify="required">
                     <option value="" selected="">付款状态</option>
                     <!--<option value="">全部</option>-->
-                    <option value="0">待审</option>
-                    <option value="1">已审</option>
+                    <option value="1">已付</option>
+                    <option value="0">未付</option>
+                    <option value="2">部分付</option>
+                    <option value="-1">待退款</option>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select id="submitState" lay-filter="" lay-verify="required">
                     <option value="" selected="">交稿状态</option>
                     <!--<option value="">全部</option>-->
-                    <option value="0">待审</option>
-                    <option value="1">已审</option>
+                    <option value="0">待交</option>
+                    <option value="1">已交</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select id="getUser1" lay-filter="" lay-verify="required">
+                <select id="partInfo" lay-filter="" lay-verify="required">
                     <option value="" selected="">兼职信息</option>
-                    <option value="1">公司</option>
-                    <option value="2">个人</option>
+                    <!--<option value="1">a</option>-->
+                    <!--<option value="2">b</option>-->
                 </select>
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" id="keyWord" autocomplete="off" class="layui-input"
+                       placeholder="输入客户IM、订单编号...">
             </div>
 
         </div>
@@ -74,20 +80,27 @@
             <div class="layui-input-inline">
                 <select id="serviceName" lay-filter="" lay-verify="required">
                     <option value="" selected="">接单客服</option>
-                    <option value="1">公司</option>
-                    <option value="2">个人</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select id="getUser" lay-filter="" lay-verify="required">
+                <select id="sendServiceName" lay-filter="" lay-verify="required">
                     <option value="" selected="">派单客服</option>
-                    <option value="1">公司</option>
-                    <option value="2">个人</option>
+                    <!--<option value="1">公司</option>-->
+                    <!--<option value="2">个人</option>-->
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select id="audit" lay-filter="" lay-verify="required">
-                    <option value="" selected="">审核状态</option>
+                    <option value="" selected="">订单审核</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="0">待审</option>
+                    <option value="1">通过</option>
+                    <option value="-1">未通过</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select id="partAudit" lay-filter="" lay-verify="required">
+                    <option value="" selected="">兼职审核</option>
                     <!--<option value="">全部</option>-->
                     <option value="0">待审</option>
                     <option value="1">已审</option>
@@ -95,18 +108,18 @@
             </div>
 
             <div class="layui-input-inline">
-                <select id="settle" lay-filter="" lay-verify="required">
+                <select id="partSettleState" lay-filter="" lay-verify="required">
                     <option value="" selected="">结算状态</option>
                     <!--<option value="">全部</option>-->
                     <option value="0">待结</option>
                     <option value="1">已结</option>
                 </select>
             </div>
-
             <div class="layui-input-inline">
-                <input type="text" id="keyWord" autocomplete="off" class="layui-input"
-                       placeholder="输入客户IM、订单编号">
+                <input type="text" id="settleDate" placeholder="结算日期"
+                       lay-key="1" class="layui-input">
             </div>
+
             <button class="layui-btn" data-type="reload">搜索</button>
         </div>
     </div>
@@ -168,24 +181,51 @@
 <script type="text/html" id="auditTpl">
     {{#  if(d.audit === '0'){ }}
     <span style="color: #f52727;">{{ '待审' }}</span>
-    {{#  } else { }}
+    {{#  } else if(d.audit === '1') { }}
+    {{ '通过' }}
+    {{#  } else if(d.audit === '-1') { }}
+    <span style="color: #f52727;">{{ '未通过' }}</span>
+    {{#  } }}
+</script>
+
+<script type="text/html" id="partAuditTpl">
+    {{#  if(d.partAudit === '0'){ }}
+    <span style="color: #f52727;">{{ '待审' }}</span>
+    {{#  } else if(d.partAudit === '1') { }}
     {{ '已审' }}
     {{#  } }}
 </script>
+
+<script type="text/html" id="payStateTpl">
+
+    {{#  if(d.payState === '0'){ }}
+    <span style="color: #f52727;">{{ '未付' }}</span>
+    {{#  } else if(d.payState === '1') { }}
+    {{ '已付' }}
+    {{#  } else if(d.payState === '2') { }}
+    <span style="color: #ff9597;">{{ '部分付' }}</span>
+    {{#  } else if(d.payState === '-1') { }}
+    <span style="color: #6393ff;">{{ '待退款' }}</span>
+    {{#  } }}
+</script>
+
 <script type="text/html" id="settleTpl">
-    {{#  if(d.settle === '0'){ }}
+    {{#  if(d.partSettleState === '0'){ }}
     <span style="color: #f52727;">{{ '待结' }}</span>
-    {{#  } else { }}
+    {{#  } else if(d.partSettleState === '1') { }}
     {{ '已结' }}
     {{#  } }}
 </script>
-<script type="text/html" id="userTpl">
-    {{#  if(d.getUser === '1'){ }}
-    {{ '公司' }}
-    {{#  } else { }}
-    {{ '个人' }}
+
+
+<script type="text/html" id="submitStateTpl">
+    {{#  if(d.submitState === '0'){ }}
+    <span style="color: #f52727;">{{ '待交' }}</span>
+    {{#  } else if(d.submitState === '1') { }}
+    {{ '已交' }}
     {{#  } }}
 </script>
+
 
 <!--<script type="text/html" id="sexTpl">-->
 <!--{{#  if(d.sex === '女'){ }}-->

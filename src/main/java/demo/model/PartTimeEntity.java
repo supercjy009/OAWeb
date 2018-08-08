@@ -1,5 +1,7 @@
 package demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class PartTimeEntity {
@@ -16,7 +18,7 @@ public class PartTimeEntity {
     private String partMoney;
 
     private String deduct;
-
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date settleDate;
 
     private String partRemark;

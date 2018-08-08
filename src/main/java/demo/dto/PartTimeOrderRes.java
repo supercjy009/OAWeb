@@ -1,10 +1,15 @@
-package demo.model;
+package demo.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import demo.model.OrderEntity;
+import demo.model.PartTimeEntity;
 
 import java.util.Date;
 
-public class OrderEntity {
-    private Integer id;
-
+/**
+ * Created by p51 on 2018/7/27.
+ */
+public class PartTimeOrderRes extends OrderEntity {
     private String partQq;
 
     private String submitState;
@@ -16,7 +21,7 @@ public class OrderEntity {
     private String partMoney;
 
     private String deduct;
-
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date settleDate;
 
     private String partRemark;
@@ -27,19 +32,7 @@ public class OrderEntity {
 
     private String financeRemark;
 
-    private String orderNumber;
-
-    private String serviceName;
-
     private String sendServiceName;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getPartQq() {
         return partQq;
@@ -129,21 +122,6 @@ public class OrderEntity {
         this.financeRemark = financeRemark == null ? null : financeRemark.trim();
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber == null ? null : orderNumber.trim();
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName == null ? null : serviceName.trim();
-    }
 
     public String getSendServiceName() {
         return sendServiceName;
