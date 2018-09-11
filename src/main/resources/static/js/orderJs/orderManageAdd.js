@@ -19,6 +19,14 @@ function init() {
         //日期
         laydate.render({
             elem: '#date',
+            type: 'date', //
+        });
+        laydate.render({
+            elem: '#dueDate',
+            type: 'date', //只选年月日
+        });
+        laydate.render({
+            elem: '#refundDate',
             type: 'date', //只选年月日
         });
 
@@ -29,46 +37,58 @@ function init() {
             // if (data.field.payDate === null || data.field.payDate.length == 0) {
             //     layer.alert("请选择完成日期");
             // } else {
-                data.field.partName = '1';
-                if(editData){
-                    data.field.id = editData[0].id;
-                }
-                var jasondata = JSON.stringify(data.field);
-                // layer.alert(JSON.stringify(data.field), {
-                //     title: '最终的提交信息'
-                // })
+            data.field.partName = '1';
+            if (editData) {
+                data.field.id = editData[0].id;
+            }
+            var jasondata = JSON.stringify(data.field);
+            // layer.alert(JSON.stringify(data.field), {
+            //     title: '最终的提交信息'
+            // })
 
-                $.ajax({
-                    type: 'POST',
-                    url: ajaxUri + '/webAjax/order/' + payUri,
-                    data: jasondata,
-                    dataType: "json",
-                    contentType: "application/json",
-                    complete: function (status) {
-                        var str = status.responseJSON;
-                        console.log(str.code);
-                        if (str.code === 1) {
-                            parent.layer.msg(payUri == 'addOrder' ? '添加成功' : "修改成功");
-                            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                            parent.reloadTable();
-                            parent.layer.close(index);
-                        } else {
-                            parent.layer.alert('添加失败，服务器异常.');
-                        }
+            $.ajax({
+                type: 'POST',
+                url: ajaxUri + '/webAjax/order/' + payUri,
+                data: jasondata,
+                dataType: "json",
+                contentType: "application/json",
+                complete: function (status) {
+                    var str = status.responseJSON;
+                    console.log(str.code);
+                    if (str.code === 1) {
+                        parent.layer.msg(payUri == 'addOrder' ? '添加成功' : "修改成功");
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        parent.reloadTable();
+                        parent.layer.close(index);
+                    } else {
+                        parent.layer.alert('添加失败，服务器异常.');
                     }
-                });
+                }
+            });
             // }
             return false;
         });
 
         if (editData) {
             // alert("aaa"+editData[0].id);
-            form.val('payEdit', {
-                "payDate": editData[0].payDate // "name": "value"
-                , "payProject": editData[0].payProject
-                , "payMoney": editData[0].payMoney
+            console.log("editData= ==========" + JSON.stringify(editData[0].customerIm))
+            form.val('orderEdit', {
+                "customerIm": editData[0].customerIm // "name": "value"
+                , "customerMail": editData[0].customerMail
+                , "orderNumber": editData[0].orderNumber
+                , "deliveryDate": editData[0].deliveryDate
+                , "orderContent": editData[0].orderContent
+                , "orderPrice": editData[0].orderPrice
+                , "payState": editData[0].payState
+                , "dueDate": editData[0].dueDate
+                , "dueMoney": editData[0].dueMoney
                 , "remark": editData[0].remark
-                , "getUser": editData[0].getUser
+                , "recommendIm": editData[0].recommendIm
+                , "customerAccount": editData[0].customerAccount
+                , "refundMoney": editData[0].refundMoney
+                , "refundWay": editData[0].refundWay
+                , "refundDate": editData[0].refundDate
+                , "refundRemark": editData[0].refundRemark
             })
         }
     });

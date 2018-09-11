@@ -8,8 +8,9 @@ import java.util.List;
 public class AuditVo {
     private Long[] ids;
     private String audit;
+    private String partAudit;
     private String settle;
-
+    private String submitState;
 
     public String getAudit() {
         return audit;
@@ -33,5 +34,21 @@ public class AuditVo {
 
     public void setIds(Long[] ids) {
         this.ids = ids;
+    }
+
+    public String getSubmitState() {
+        return submitState;
+    }
+
+    public void setSubmitState(String submitState) {
+        this.submitState = submitState;
+    }
+
+    public String getPartAudit() {
+        return partAudit;
+    }
+
+    public void setPartAudit(String partAudit) {
+        this.partAudit = partAudit;
     }
 }
