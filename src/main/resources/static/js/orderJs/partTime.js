@@ -8,22 +8,22 @@ var header = [ //表头
     {title: '序号', type: 'numbers'}
     // , {field: 'id', title: 'ID', width: 0, style: 'display:none;'}
     , {field: 'startJobDate', title: '入职日期',width: 110}
-    , {field: 'partQq', title: 'QQ'}
+    , {field: 'partQq', title: 'QQ',width: 110}
     , {field: 'recentOrderDate', title: '最近接单日',width: 110}
-    , {field: 'getOrderNumber', title: '接单数量'}
+    , {field: 'getOrderNumber', title: '接单数量',width: 100}
     , {field: 'problemRate', title: '问题率'}
     , {field: 'outSettleCount', title: '接待数'}
     , {field: 'outDeliveryCount', title: '待交数'}
     , {field: 'totalReward', title: '总稿酬'}
     , {field: 'major', title: '专业'}
-    , {field: 'englishLevel', title: '英语水平'}
-    , {field: 'acceptableSubject', title: '可承接科目'}
+    , {field: 'englishLevel', title: '英语水平',width: 110}
+    , {field: 'acceptableSubject', title: '可承接科目',width: 110}
     , {field: 'education', title: '学历'}
     , {field: 'school', title: '学校'}
     , {field: 'age', title: '年龄'}
-    , {field: 'partPhone', title: '联系电话'}
+    , {field: 'partPhone', title: '联系电话',width: 100}
     , {field: 'partAlipay', title: '支付宝'}
-    , {field: 'referrer', title: '有无推荐人', templet: '#auditTpl'}
+    // , {field: 'referrer', title: '有无推荐人', templet: '#auditTpl',width: 110}
     , {field: 'referrer', title: '推荐人'}
 ];
 
@@ -101,15 +101,15 @@ layui.use(['table', 'form'], function () {
 // });
 
 
-$("#addWorkPay").click(function () {
+$("#addEntity").click(function () {
     //iframe窗
     layer.open({
         type: 2,
         title: '新建任务',
         shadeClose: true,
         shade: 0.8,
-        area: ['580px', '60%'],
-        content: '/wenanPart/workPayAdd'
+        area: ['50%', '60%'],
+        content: '/partTime/partUserAdd'
     });
 });
 

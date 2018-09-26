@@ -313,32 +313,6 @@ $("#jiaogaoState").click(function () {
     submitAudit("submit");
 });
 
-$("#editWorkPay").click(function () {
-    var checkStatus = table.checkStatus('id')
-        , data = checkStatus.data;
-    if (data.length === 1) {
-        //iframe窗
-        layer.open({
-            type: 2,
-            title: '编辑任务',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['580px', '60%'],
-            content: '/wenanPart/workPayAdd',
-            success: function (layero, index) {
-                // 获取子页面的iframe
-                var iframe = window['layui-layer-iframe' + index];
-                // 向子页面的全局函数child传参
-
-                iframe.initEdit(data);
-            }
-        });
-    } else if (data.length > 1) {
-        layer.alert("修改时不能勾选多条数据");
-    } else {
-        layer.alert("请先勾选一条数据");
-    }
-});
 
 function reloadTable() {
     // var workPayReload = $('#workPayReload');

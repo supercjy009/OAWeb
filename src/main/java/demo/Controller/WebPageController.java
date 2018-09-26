@@ -40,6 +40,11 @@ public class WebPageController {
         return "partTime/partUserTable";
     }
 
+    @RequestMapping(value = {"/partTime/partUserAdd"}, method = RequestMethod.GET)
+    public String partUserAdd() {
+        return "partTime/partUserAdd";
+    }
+
     @RequestMapping(value = {"/widget/audit"}, method = RequestMethod.GET)
     public String audit() {
         return "widget/audit";
