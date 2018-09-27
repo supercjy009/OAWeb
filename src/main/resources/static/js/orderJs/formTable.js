@@ -194,7 +194,7 @@ $("#editPartTime").click(function () {
         title: "指派兼职",
         shadeClose: true,
         shade: 0.8,
-        area: ['30%', '50%'],
+        area: ['50%', '60%'],
         content: '/widget/addPartTime',
         success: function (layero, index) {
             // 获取子页面的iframe
@@ -211,13 +211,13 @@ $("#zhipai").click(function () {
         title: "指派兼职",
         shadeClose: true,
         shade: 0.8,
-        area: ['30%', '50%'],
+        area: ['50%', '60%'],
         content: '/widget/addPartTime',
         success: function (layero, index) {
             // 获取子页面的iframe
             var iframe = window['layui-layer-iframe' + index];
             // 向子页面的全局函数child传参
-            iframe.initAudit(data, flag);
+            iframe.initAudit();
         }
     });
 });

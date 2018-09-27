@@ -7,4 +7,6 @@ import demo.model.UserinfoEntity;
  */
 public interface UserinfoService {
     UserinfoEntity queryUserInfoByusername(String username);
+
+    int registUser(String username, String password, String salt, Long roleId);
 }

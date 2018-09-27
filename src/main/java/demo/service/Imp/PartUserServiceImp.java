@@ -2,10 +2,9 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import demo.dto.PartUserVo;
+import demo.dto.PartUserReqVo;
 import demo.mapper.PartTimeUserMapper;
 import demo.model.PartTimeUser;
-import demo.model.WorkPayEntity;
 import demo.service.PartUserService;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class PartUserServiceImp implements PartUserService {
 
 
     @Override
-    public PageInfo<PartTimeUser> queryAllOrder(PartUserVo vo) {
+    public PageInfo<PartTimeUser> queryAllOrder(PartUserReqVo vo) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
         List<PartTimeUser> partUserList = partTimeUserMapper.selectAllOrder(vo);
 
@@ -31,7 +30,7 @@ public class PartUserServiceImp implements PartUserService {
 
     @Override
     public int addEntity(PartTimeUser order) {
-        return 0;
+        return partTimeUserMapper.insert(order);
     }
 
     @Override

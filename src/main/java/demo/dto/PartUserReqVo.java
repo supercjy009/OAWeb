@@ -1,6 +1,6 @@
 package demo.dto;
 
-public class PartUserVo {
+public class PartUserReqVo {
     private Integer page;
     private Integer limit;
     private String flag;

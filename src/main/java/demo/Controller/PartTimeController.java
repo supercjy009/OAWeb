@@ -1,11 +1,17 @@
 package demo.Controller;
 
 import com.github.pagehelper.PageInfo;
-import demo.dto.PartUserVo;
+import demo.config.SystemConstant;
+import demo.dto.PartUserAddVo;
+import demo.dto.PartUserReqVo;
 import demo.model.PartTimeUser;
+import demo.model.UserinfoEntity;
 import demo.service.PartUserService;
+import demo.service.UserinfoService;
+import demo.util.MyDES;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.beans.PropertyEditorSupport;
@@ -23,6 +29,11 @@ import java.util.Map;
 public class PartTimeController {
     @Resource
     PartUserService partUserService;
+
+    @Resource
+    UserinfoService userinfoService;
+
+    private static String SALT_STRING = "part";
 
     @InitBinder
     public void InitBinder(WebDataBinder dataBinder) {
@@ -43,7 +54,7 @@ public class PartTimeController {
     }
 
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)
-    public Map<String, Object> queryAllEntity(PartUserVo vo) {
+    public Map<String, Object> queryAllEntity(PartUserReqVo vo) {
         Map<String, Object> mapOut = new HashMap<>();
         PageInfo<PartTimeUser> workPayPageInfo = partUserService.queryAllOrder(vo);
         mapOut.put("code", 0);
@@ -53,14 +64,21 @@ public class PartTimeController {
     }
 
     @RequestMapping(value = "/addEntity", method = RequestMethod.POST)
-    public Map<String, Object> addEntity(@RequestBody PartTimeUser user) {
+    public Map<String, Object> addEntity(@RequestBody PartUserAddVo user) {
         Map<String, Object> mapOut = new HashMap<>();
-        mapOut.put("code", partUserService.addEntity(user));
+        if (StringUtils.isEmpty(user.getPassWord()) || StringUtils.isEmpty(user.getPartQq())) {
+            mapOut.put("code", -1);
+            mapOut.put("message", "qq和密码不能为空");
+        } else {
+            String passWord = user.getPassWord();
+            userinfoService.registUser(user.getPartQq(), passWord, SALT_STRING, SystemConstant.PART_ROLE_ID);
+            mapOut.put("code", partUserService.addEntity(user));
+        }
         return mapOut;
     }
 
     @RequestMapping(value = "/editEntity", method = RequestMethod.POST)
-    public Map<String, Object> updateEntity(@RequestBody PartTimeUser user) {
+    public Map<String, Object> updateEntity(@RequestBody PartUserAddVo user) {
         Map<String, Object> mapOut = new HashMap<>();
         mapOut.put("code", partUserService.updateEntity(user));
         return mapOut;

@@ -1,6 +1,6 @@
 package demo.mapper;
 
-import demo.dto.PartUserVo;
+import demo.dto.PartUserReqVo;
 import demo.model.PartTimeUser;
 
 import java.util.List;
@@ -18,5 +18,5 @@ public interface PartTimeUserMapper {
 
     int updateByPrimaryKey(PartTimeUser record);
 
-    List<PartTimeUser> selectAllOrder(PartUserVo vo);
+    List<PartTimeUser> selectAllOrder(PartUserReqVo vo);
 }
