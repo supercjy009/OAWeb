@@ -1,6 +1,9 @@
 package demo.mapper;
 
+import demo.dto.PartUserReqVo;
 import demo.model.PartTimeUser;
+
+import java.util.List;
 
 public interface PartTimeUserMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +17,6 @@ public interface PartTimeUserMapper {
     int updateByPrimaryKeySelective(PartTimeUser record);
 
     int updateByPrimaryKey(PartTimeUser record);
+
+    List<PartTimeUser> selectAllOrder(PartUserReqVo vo);
 }

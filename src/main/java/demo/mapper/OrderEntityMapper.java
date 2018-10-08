@@ -1,10 +1,7 @@
 package demo.mapper;
 
 
-import demo.dto.OrderReqVo;
-import demo.dto.OrderResDto;
-import demo.dto.PartTimeOrderRes;
-import demo.dto.WorkPayReqVo;
+import demo.dto.*;
 import demo.model.OrderEntity;
 import demo.model.WorkPayEntity;
 
@@ -61,4 +58,5 @@ public interface OrderEntityMapper {
 
     List<PartTimeOrderRes> selectAllOrder(OrderReqVo vo);
 
+    int auditOrder(AuditVo vo);
 }

@@ -1,11 +1,17 @@
 package demo.dto;
 
+import java.util.Date;
+
 /**
  * Created by p51 on 2018/7/25.
  */
 public class OrderReqVo {
     private String orderDateReq; //接单时间(最近七天、当月等等)
+    private Date orderDateStart;
+    private Date orderDateEnd;
     private String deliveryDateReq; //交稿时间
+    private Date deliveryDateStart;
+    private Date deliveryDateEnd;
     private String payState;
     private String submitState;
     private String partInfo;
@@ -16,6 +22,7 @@ public class OrderReqVo {
     private String partSettleState;
     private String keyWord;
     private String partName;
+    private Date settleDate;
     private Integer page;
     private Integer limit;
 
@@ -130,5 +137,45 @@ public class OrderReqVo {
 
     public void setPartSettleState(String partSettleState) {
         this.partSettleState = partSettleState;
+    }
+
+    public Date getOrderDateStart() {
+        return orderDateStart;
+    }
+
+    public void setOrderDateStart(Date orderDateStart) {
+        this.orderDateStart = orderDateStart;
+    }
+
+    public Date getOrderDateEnd() {
+        return orderDateEnd;
+    }
+
+    public void setOrderDateEnd(Date orderDateEnd) {
+        this.orderDateEnd = orderDateEnd;
+    }
+
+    public Date getDeliveryDateStart() {
+        return deliveryDateStart;
+    }
+
+    public void setDeliveryDateStart(Date deliveryDateStart) {
+        this.deliveryDateStart = deliveryDateStart;
+    }
+
+    public Date getDeliveryDateEnd() {
+        return deliveryDateEnd;
+    }
+
+    public void setDeliveryDateEnd(Date deliveryDateEnd) {
+        this.deliveryDateEnd = deliveryDateEnd;
+    }
+
+    public Date getSettleDate() {
+        return settleDate;
+    }
+
+    public void setSettleDate(Date settleDate) {
+        this.settleDate = settleDate;
     }
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <!--<link rel="stylesheet" href="../assets/layui/css/layui.css" media="all">-->
+    <style>
+    </style>
+</head>
+<body>
+<div class="tab-bar-container">
+    <div>
+        <div class="loyo-nav-tabs">
+
+            <ul class="loyo-nav-tab pull-left nav nav-pills tab-list">
+                <li class="loyo-tab-item active">
+                    <a>
+                        <h4> 兼职信息</h4>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-regions-container clearfix">
+    <div class="layui-form" style="padding: 20px 20px 0 20px">
+        <div class="layui-form-item" style="display: inline-block">
+            <div class="layui-input-inline">
+                <input type="text" id="keyWord" autocomplete="off" class="layui-input"
+                       placeholder="账号、QQ、最后接单日...">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+        </div>
+    </div>
+
+    <div class="loyo-search-section" style="margin-bottom:0;">
+        <button class="btn btn-primary marginr" id="addEntity"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="editEntity"><span>修改</span>
+        </button>
+
+        <button class="btn btn-primary marginr"><span>导出</span>
+        </button>
+    </div>
+
+    <table id="partUserTable" lay-filter="test"></table>
+</div>
+
+<script src="/js/orderJs/partTime.js"></script>
+<script type="text/html" id="sexTpl">
+    {{#  if(d.sex === '女'){ }}
+    <span style="color: #F581B1;">{{ d.sex }}</span>
+    {{#  } else { }}
+    {{ d.sex }}
+    {{#  } }}
+</script>
+</body>
+</html>

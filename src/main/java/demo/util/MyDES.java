@@ -84,5 +84,8 @@ public class MyDES {
 		// DES数据解密
 		String s2 = decryptBasedDes(s1);
 		System.err.println(s2);
+
+		String s3 = decryptBasedDes("8f4M1hwFZHzm4znf7M+qiw==");
+		System.out.println(s3);
 	}
 }

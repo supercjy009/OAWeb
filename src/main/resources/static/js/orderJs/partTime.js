@@ -7,14 +7,24 @@ var header = [ //表头
     {checkbox: true, fixed: true},
     {title: '序号', type: 'numbers'}
     // , {field: 'id', title: 'ID', width: 0, style: 'display:none;'}
-    , {field: 'payDate', title: '支出日期'}
-    , {field: 'payUser', title: '支出人'}
-    , {field: 'payProject', title: '支出项目'}
-    , {field: 'payMoney', title: '支出金额'}
-    , {field: 'remark', title: '支出说明'}
-    , {field: 'getUser', title: '支付人', templet: '#userTpl'}
-    , {field: 'audit', title: '审核', templet: '#auditTpl'}
-    , {field: 'settle', title: '结算', templet: '#settleTpl'}
+    , {field: 'startJobDate', title: '入职日期',width: 110}
+    , {field: 'partQq', title: 'QQ',width: 110}
+    , {field: 'recentOrderDate', title: '最近接单日',width: 110}
+    , {field: 'getOrderNumber', title: '接单数量',width: 100}
+    , {field: 'problemRate', title: '问题率'}
+    , {field: 'outSettleCount', title: '接待数'}
+    , {field: 'outDeliveryCount', title: '待交数'}
+    , {field: 'totalReward', title: '总稿酬'}
+    , {field: 'major', title: '专业'}
+    , {field: 'englishLevel', title: '英语水平',width: 110}
+    , {field: 'acceptableSubject', title: '可承接科目',width: 110}
+    , {field: 'education', title: '学历'}
+    , {field: 'school', title: '学校'}
+    , {field: 'age', title: '年龄'}
+    , {field: 'partPhone', title: '联系电话',width: 100}
+    , {field: 'partAlipay', title: '支付宝'}
+    // , {field: 'referrer', title: '有无推荐人', templet: '#auditTpl',width: 110}
+    , {field: 'referrer', title: '推荐人'}
 ];
 
 
@@ -25,10 +35,10 @@ layui.use(['table', 'form'], function () {
     //第一个实例
     table.render({
         id: 'id',
-        elem: '#workPayTable',
+        elem: '#partUserTable',
         skin: 'row',
         // height: 'full-280',
-        url: ajaxUri + '/webAjax/workpay/queryAllOrder', //数据接口
+        url: ajaxUri + '/webAjax/partUser/queryAllOrder', //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
@@ -38,20 +48,15 @@ layui.use(['table', 'form'], function () {
         cols: [header],
         done: function (res, curr, count) {
             //如果是异步请求数据方式，res即为你接口返回的信息。
-            //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-            // console.log(res);
-            //得到当前页码
-            // console.log(curr);
-            // debugger
-            // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
             var data = res.data;
-            for (var i = 0; i < data.length; i++) {
-                var audit = data[i].audit;
-                if (audit === '0') {
-                    var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
-                    $checktr.addClass("changeGray");
-                }
-            }
+            debugger
+            // for (var i = 0; i < data.length; i++) {
+            //     var audit = data[i].audit;
+            //     if (audit === '0') {
+            //         var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
+            //         $checktr.addClass("changeGray");
+            //     }
+            // }
             //得到数据总量
             console.log(count);
         }
@@ -96,15 +101,15 @@ layui.use(['table', 'form'], function () {
 // });
 
 
-$("#addWorkPay").click(function () {
+$("#addEntity").click(function () {
     //iframe窗
     layer.open({
         type: 2,
         title: '新建任务',
         shadeClose: true,
         shade: 0.8,
-        area: ['580px', '60%'],
-        content: '/wenanPart/workPayAdd'
+        area: ['50%', '60%'],
+        content: '/partTime/partUserAdd'
     });
 });
 

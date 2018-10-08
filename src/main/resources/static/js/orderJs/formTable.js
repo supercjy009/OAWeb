@@ -22,7 +22,7 @@ var header = [ //表头
     , {field: 'dueMoney', title: '催款金额', width: 100, rowspan: 2}
     , {field: 'remark', title: '客服备注', width: 100, rowspan: 2}
     , {align: 'center', title: '退款详情', colspan: 6}
-    , {field: 'audit', title: '审核',  width: 100, templet: '#auditTpl', rowspan: 2}
+    , {field: 'audit', title: '审核', width: 100, templet: '#auditTpl', rowspan: 2}
     , {checkbox: true, rowspan: 2}
     , {field: 'partQq', title: '兼职QQ', width: 100, rowspan: 2}
     , {field: 'submitState', title: '交稿状态', width: 100, rowspan: 2, templet: '#submitStateTpl'}
@@ -131,7 +131,7 @@ layui.use(['table', 'form'], function () {
 
                 //设置待审核单元格背景颜色
                 var audit = data[i].audit;
-                if (audit === '0') {
+                if (audit === '0' || audit === '-1') {
                     $checktr.addClass("changeGray");
                 }
             }
@@ -161,6 +161,7 @@ layui.use(['table', 'form'], function () {
                     audit: $('#audit').val(),
                     partAudit: $('#partAudit').val(),
                     partSettleState: $('#partSettleState').val(),
+                    settleDate: $('#settleDate').val(),
                     keyWord: $('#keyWord').val()
                 }
             });
@@ -187,6 +188,40 @@ layui.use(['table', 'form'], function () {
 //     });
 // });
 
+$("#editPartTime").click(function () {
+    layer.open({
+        type: 2,
+        title: "指派兼职",
+        shadeClose: true,
+        shade: 0.8,
+        area: ['50%', '60%'],
+        content: '/widget/addPartTime',
+        success: function (layero, index) {
+            // 获取子页面的iframe
+            var iframe = window['layui-layer-iframe' + index];
+            // 向子页面的全局函数child传参
+            iframe.initAudit(data, flag);
+        }
+    });
+});
+
+$("#zhipai").click(function () {
+    layer.open({
+        type: 2,
+        title: "指派兼职",
+        shadeClose: true,
+        shade: 0.8,
+        area: ['50%', '60%'],
+        content: '/widget/addPartTime',
+        success: function (layero, index) {
+            // 获取子页面的iframe
+            var iframe = window['layui-layer-iframe' + index];
+            // 向子页面的全局函数child传参
+            iframe.initAudit();
+        }
+    });
+});
+
 
 $("#addWorkPay").click(function () {
     //iframe窗
@@ -202,12 +237,43 @@ $("#addWorkPay").click(function () {
     // layer.full(index);
 });
 
+$("#editOrder").click(function () {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length === 1) {
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '编辑任务',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['50%', '85%'],
+            content: '/wenanPart/orderFormAdd',
+            success: function (layero, index) {
+                // 获取子页面的iframe
+                var iframe = window['layui-layer-iframe' + index];
+                // 向子页面的全局函数child传参
+
+                iframe.initEdit(data);
+            }
+        });
+    } else if (data.length > 1) {
+        layer.alert("修改时不能勾选多条数据");
+    } else {
+        layer.alert("请先勾选一条数据");
+    }
+});
+
 function submitAudit(flag) {
     var title
     if (flag == 'audit') {
-        title = "审核";
-    } else {
-        title = "结算";
+        title = "订单审核";
+    } else if (flag == 'partAudit') {
+        title = "兼职审核";
+    } else if (flag == 'submit') {
+        title = "交稿状态";
+    } else if (flag == 'settle') {
+        title = "结算"
     }
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
@@ -218,7 +284,7 @@ function submitAudit(flag) {
             title: title,
             shadeClose: true,
             shade: 0.8,
-            content: '/widget/audit',
+            content: '/widget/auditOrder',
             success: function (layero, index) {
                 // 获取子页面的iframe
                 var iframe = window['layui-layer-iframe' + index];
@@ -235,36 +301,18 @@ $("#auditPay").click(function () {
     submitAudit("audit");
 });
 
+$("#partTimeAudit").click(function () {
+    submitAudit("partAudit");
+});
+
 $("#settlePay").click(function () {
     submitAudit("settle");
 });
 
-$("#editWorkPay").click(function () {
-    var checkStatus = table.checkStatus('id')
-        , data = checkStatus.data;
-    if (data.length === 1) {
-        //iframe窗
-        layer.open({
-            type: 2,
-            title: '编辑任务',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['580px', '60%'],
-            content: '/wenanPart/workPayAdd',
-            success: function (layero, index) {
-                // 获取子页面的iframe
-                var iframe = window['layui-layer-iframe' + index];
-                // 向子页面的全局函数child传参
-
-                iframe.initEdit(data);
-            }
-        });
-    } else if (data.length > 1) {
-        layer.alert("修改时不能勾选多条数据");
-    } else {
-        layer.alert("请先勾选一条数据");
-    }
+$("#jiaogaoState").click(function () {
+    submitAudit("submit");
 });
+
 
 function reloadTable() {
     // var workPayReload = $('#workPayReload');

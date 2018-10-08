@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <title>新建</title>
     <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
+
 </head>
 <body>
-<form class="layui-form" style="margin-top: 20px" lay-filter="payEdit"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+<form class="layui-form" style="margin-top: 20px" lay-filter="orderEdit"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
     <div class="layui-form-item">
         <label class="layui-form-label"> <span style="color: red">*</span>客户IM</label>
         <div class="layui-input-inline">
@@ -63,15 +64,16 @@
     <div class="layui-form-item">
         <label class="layui-form-label"><span style="color: red">*</span>付款进度 </label>
         <div class="layui-input-inline">
-            <input type="text" name="payProgress" placeholder="请输入" lay-verify="" autocomplete="off"
-                   class="layui-input">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" id="addPayProgress"><i
+                    class="lnr lnr-plus-circle"></i><span>添加</span>
+            </button>
         </div>
     </div>
     <!-- lay-verify="required" -->
     <div class="layui-form-item">
         <label class="layui-form-label"><span style="color: red">*</span>催款日 </label>
         <div class="layui-input-inline">
-            <input type="text" name="dueDate" id="cuidate" placeholder="yyyy-MM-dd" autocomplete="off"
+            <input type="text" name="dueDate" id="dueDate" placeholder="yyyy-MM-dd" autocomplete="off"
                    class="layui-input">
         </div>
         <label class="layui-form-label"><span style="color: red">*</span>催款金额 </label>

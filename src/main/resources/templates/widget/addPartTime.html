@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
+</head>
+<body>
+<form class="layui-form" id="partForm" style="padding: 20px 20px 20px 20px">
+    <div class="layui-form-item">
+        <label class="layui-form-label"> <span style="color: red">*</span>兼职QQ</label>
+        <div class="layui-input-inline">
+            <input type="text" id="partQq" name="partQq" placeholder="请输入" lay-verify="" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"> <span style="color: red">*</span>客服说明</label>
+        <div class="layui-input-inline">
+            <input type="text" name="customerAccount" placeholder="请输入" lay-verify="" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>稿酬 </label>
+        <div class="layui-input-inline">
+            <input type="text" name="refundMoney" placeholder="请输入" lay-verify="" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="auditForm">确定</button>
+            <button id="close" class="layui-btn layui-btn-primary">取消</button>
+        </div>
+    </div>
+</form>
+</body>
+<script src="../assets/js/commonJs.js"></script>
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/layui/layui.js"></script>
+<script>
+    //Demo
+    var editData, flagStr;
+
+    $(function () {
+        init();
+    });
+
+    layui.config({
+        base: '/assets/layui/'
+    })
+
+    layui.use(['tableSelect'], function () {
+        var tableSelect = layui.tableSelect;
+        tableSelect.render({
+            elem: '#partQq',	//定义输入框input对象
+            searchKey: 'partQq',	//搜索输入框的name值 默认keyword
+            searchPlaceholder: '兼职QQ',	//搜索输入框的提示文字 默认关键词搜索
+            table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem
+                url: ajaxUri + '/webAjax/partUser/queryAllOrder',
+                cols: [ [
+                    {type:'checkbox'},
+                    {field: 'partQq', title: 'QQ',width: 110}
+                    , {field: 'recentOrderDate', title: '最近接单日',width: 100}
+                    , {field: 'getOrderNumber', title: '接单数量',width: 100}
+                    , {field: 'problemRate', title: '问题率',width: 80}
+                    , {field: 'outSettleCount', title: '待结数',width: 80}
+                    , {field: 'outDeliveryCount', title: '待交数',width: 80}
+                    , {field: 'major', title: '专业'}
+                    , {field: 'englishLevel', title: '英语水平',width: 100}
+                ]]
+            },
+            done: function (elem, data) {
+                //选择完后的回调，包含2个返回值 elem:返回之前input对象；data:表格返回的选中的数据 []
+                //拿到data[]后 就按照业务需求做想做的事情啦~比如加个隐藏域放ID...
+                $(elem).val(data.data[0].partQq);
+            }
+        })
+    });
+
+    function init() {
+        layui.use('form', function () {
+            var form = layui.form;
+            var json = {};
+            //监听提交
+            if (editData) {
+                var arrayObj = new Array();
+                for (var i = 0; i < editData.length; i++) {
+                    arrayObj.push(editData[i].id)
+                }
+                json.ids = arrayObj;
+            }
+            form.on('submit(auditForm)', function (data) {
+                //询问框
+                parent.layer.confirm('确认操作勾选的' + editData.length + '条记录吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    layer.msg(JSON.stringify(data.field));
+                    if (flagStr == 'audit') {
+                        json.audit = data.field.audit;
+                    } else {
+                        json.settle = data.field.audit;
+                    }
+
+                    var jasondata = JSON.stringify(json);
+                    $.ajax({
+                        type: 'POST',
+                        url: ajaxUri + '/webAjax/workpay/auditOrder',
+                        data: jasondata,
+                        dataType: "json",
+                        contentType: "application/json",
+                        complete: function (status) {
+                            var str = status.responseJSON;
+                            console.log(str.code);
+                            if (str.code === editData.length) {
+                                parent.layer.msg("修改成功");
+                                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                                parent.reloadTable();
+                                parent.layer.close(index);
+                            } else {
+                                parent.layer.alert('失败，服务器异常.');
+                            }
+                        }
+                    });
+                });
+
+                return false;
+            });
+        });
+    }
+
+    $("#close").click(function () {
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    });
+
+    function initAudit(data, flag) {
+        if (flag != 'audit') {
+            console.log($('#check1').attr("title"))
+            $('#check1').attr("title", '已结')
+            $('#check2').attr("title", '待结')
+        }
+        flagStr = flag;
+        console.log(data);
+        editData = data;
+        //表单初始赋值
+        init();
+    }
+</script>
+</html>

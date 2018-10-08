@@ -35,9 +35,29 @@ public class WebPageController {
         return "wenanPart/workPayAdd";
     }
 
+    @RequestMapping(value = {"/partTime/partUserTable"}, method = RequestMethod.GET)
+    public String partUserTable() {
+        return "partTime/partUserTable";
+    }
+
+    @RequestMapping(value = {"/partTime/partUserAdd"}, method = RequestMethod.GET)
+    public String partUserAdd() {
+        return "partTime/partUserAdd";
+    }
+
     @RequestMapping(value = {"/widget/audit"}, method = RequestMethod.GET)
     public String audit() {
         return "widget/audit";
+    }
+
+    @RequestMapping(value = {"/widget/auditOrder"}, method = RequestMethod.GET)
+    public String auditOrder() {
+        return "widget/auditOrder";
+    }
+
+    @RequestMapping(value = {"/widget/addPartTime"}, method = RequestMethod.GET)
+    public String addPartTime() {
+        return "widget/addPartTime";
     }
 
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)

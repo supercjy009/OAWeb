@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/6/10.
  */
-var payUri = "addOrder";
+var payUri = "addEntity";
 var form, editData;
 
 $(function () {
@@ -19,14 +19,6 @@ function init() {
         //日期
         laydate.render({
             elem: '#date',
-            type: 'date', //
-        });
-        laydate.render({
-            elem: '#dueDate',
-            type: 'date', //只选年月日
-        });
-        laydate.render({
-            elem: '#refundDate',
             type: 'date', //只选年月日
         });
 
@@ -34,10 +26,7 @@ function init() {
 
         //监听提交
         form.on('submit(formDemo)', function (data) {
-            // if (data.field.payDate === null || data.field.payDate.length == 0) {
-            //     layer.alert("请选择完成日期");
-            // } else {
-            data.field.partName = '1';
+            debugger
             if (editData) {
                 data.field.id = editData[0].id;
             }
@@ -48,7 +37,7 @@ function init() {
 
             $.ajax({
                 type: 'POST',
-                url: ajaxUri + '/webAjax/order/' + payUri,
+                url: ajaxUri + '/webAjax/partUser/' + payUri,
                 data: jasondata,
                 dataType: "json",
                 contentType: "application/json",
@@ -56,7 +45,7 @@ function init() {
                     var str = status.responseJSON;
                     console.log(str.code);
                     if (str.code === 1) {
-                        parent.layer.msg(payUri == 'addOrder' ? '添加成功' : "修改成功");
+                        parent.layer.msg(payUri == 'addEntity' ? '添加成功' : "修改成功");
                         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                         parent.reloadTable();
                         parent.layer.close(index);
@@ -65,30 +54,18 @@ function init() {
                     }
                 }
             });
-            // }
+
             return false;
         });
 
         if (editData) {
             // alert("aaa"+editData[0].id);
-            console.log("editData= ==========" + JSON.stringify(editData[0].customerIm))
-            form.val('orderEdit', {
-                "customerIm": editData[0].customerIm // "name": "value"
-                , "customerMail": editData[0].customerMail
-                , "orderNumber": editData[0].orderNumber
-                , "deliveryDate": editData[0].deliveryDate
-                , "orderContent": editData[0].orderContent
-                , "orderPrice": editData[0].orderPrice
-                , "payState": editData[0].payState
-                , "dueDate": editData[0].dueDate
-                , "dueMoney": editData[0].dueMoney
+            form.val('payEdit', {
+                "payDate": editData[0].payDate // "name": "value"
+                , "payProject": editData[0].payProject
+                , "payMoney": editData[0].payMoney
                 , "remark": editData[0].remark
-                , "recommendIm": editData[0].recommendIm
-                , "customerAccount": editData[0].customerAccount
-                , "refundMoney": editData[0].refundMoney
-                , "refundWay": editData[0].refundWay
-                , "refundDate": editData[0].refundDate
-                , "refundRemark": editData[0].refundRemark
+                , "getUser": editData[0].getUser
             })
         }
     });
@@ -96,7 +73,7 @@ function init() {
 
 function initEdit(data) {
     editData = data;
-    payUri = "editOrder";
+    payUri = "editEntity";
     //表单初始赋值
     init();
 }

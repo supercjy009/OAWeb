@@ -115,6 +115,7 @@
                     <option value="1">已结</option>
                 </select>
             </div>
+
             <div class="layui-input-inline">
                 <input type="text" id="settleDate" placeholder="结算日期"
                        lay-key="1" class="layui-input">
@@ -144,13 +145,15 @@
         </button>
         <button class="btn btn-primary marginr" id="addjiesuan"><span>添加结算日</span>
         </button>
-        <button class="btn btn-primary marginr" id="editCurrentPart" style="margin-right: 20px"><span>修改当前兼职</span>
+        <button class="btn btn-primary marginr" id="editCurrentPart" style="margin-right: 20px"><span>删除当前兼职</span>
         </button>
 
         <button class="btn btn-primary marginr" id="auditPay"><span>订单审核</span>
         </button>
 
-        <button class="btn btn-primary marginr" id="settlePay"><span>兼职审核</span>
+        <button class="btn btn-primary marginr" id="partTimeAudit"><span>兼职审核</span>
+        </button>
+        <button class="btn btn-primary marginr" id="settlePay"><span>结算状态</span>
         </button>
 
         <button class="btn btn-primary marginr"><span>导出</span>
@@ -166,13 +169,29 @@
 <script>
     layui.use(['laydate'], function () {
 
-        $("#payDate").attr("lay-key", getRandomString);
+        $("#getOrderDate").attr("lay-key", getRandomString);
+        $("#deliveryDate").attr("lay-key", getRandomString);
+        $("#settleDate").attr("lay-key", getRandomString);
         console.log("ddddddaaate")
         var laydate = layui.laydate;
         //日期
         laydate.render({
-            elem: '#payDate',
-            type: 'month', //只选年月
+            elem: '#getOrderDate',
+            type: 'date', //只选年月
+            range: '~',
+            btns: ['clear', 'confirm']
+        });
+
+        laydate.render({
+            elem: '#deliveryDate',
+            type: 'date', //只选年月
+            range: '~',
+            btns: ['clear', 'confirm']
+        });
+
+        laydate.render({
+            elem: '#settleDate',
+            type: 'date', //只选年月
             btns: ['clear', 'confirm']
         });
     });
