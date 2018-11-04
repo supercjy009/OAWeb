@@ -1,7 +1,9 @@
 package demo.mapper;
 
 import demo.dto.PartUserReqVo;
+import demo.model.PartTimeEntity;
 import demo.model.PartTimeUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +21,6 @@ public interface PartTimeUserMapper {
     int updateByPrimaryKey(PartTimeUser record);
 
     List<PartTimeUser> selectAllOrder(PartUserReqVo vo);
+
+    PartTimeUser getPartUserByQq(@Param("partQq") String partQq);
 }

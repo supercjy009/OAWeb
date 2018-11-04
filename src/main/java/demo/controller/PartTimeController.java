@@ -1,14 +1,12 @@
-package demo.Controller;
+package demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import demo.config.SystemConstant;
 import demo.dto.PartUserAddVo;
 import demo.dto.PartUserReqVo;
 import demo.model.PartTimeUser;
-import demo.model.UserinfoEntity;
 import demo.service.PartUserService;
 import demo.service.UserinfoService;
-import demo.util.MyDES;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;

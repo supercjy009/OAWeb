@@ -4,9 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import demo.dto.*;
 import demo.mapper.OrderEntityMapper;
-import demo.model.OrderEntity;
-import demo.model.UserinfoEntity;
-import demo.model.WorkPayEntity;
+import demo.mapper.PartTimeEntityMapper;
+import demo.mapper.PartTimeUserMapper;
+import demo.model.*;
 import demo.service.OrderService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,10 @@ import java.util.List;
 public class OrderServiceImp implements OrderService {
     @Resource
     OrderEntityMapper orderEntityMapper;
+    @Resource
+    PartTimeUserMapper partUserMapper;
+    @Resource
+    PartTimeEntityMapper partTimeMapper;
 
     @Override
     public PageInfo<PartTimeOrderRes> queryAllOrder(OrderReqVo vo) throws ParseException {
@@ -60,5 +64,29 @@ public class OrderServiceImp implements OrderService {
     @Override
     public int auditOrder(AuditVo vo) {
         return orderEntityMapper.auditOrder(vo);
+    }
+
+    @Override
+    public int appointPart(AppointPartVo vo) {
+        OrderEntity order = orderEntityMapper.selectByPrimaryKey(vo.getOrderId());
+        PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
+        PartTimeEntity partTimeTmp = partTimeMapper.getOrderPartByQq(vo.getPartQq(), order.getOrderNumber());
+        if (partTimeUser == null) {
+            return -1;
+        }
+        if (partTimeTmp != null) { //已经指派过了
+            return -2;
+        }
+        PartTimeEntity partTime = new PartTimeEntity();
+        partTime.setOrderNumber(order.getOrderNumber());
+        partTime.setPartQq(vo.getPartQq());
+        partTime.setPartMoney(vo.getPartMoney());
+        partTime.setPartRemark(vo.getPartRemark());
+        partTime.setPartSettleState("0");//待结
+        partTime.setSubmitState("0");//待交稿
+        partTime.setPartPhone(partTimeUser.getPartPhone());
+        partTime.setPartAlipay(partTimeUser.getPartAlipay());
+        partTimeMapper.insert(partTime);
+        return 1;
     }
 }

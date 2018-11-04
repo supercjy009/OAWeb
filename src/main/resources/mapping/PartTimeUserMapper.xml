@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="demo.mapper.PartTimeUserMapper">
-  <resultMap id="BaseResultMap" type="demo.model.PartTimeUser">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="start_job_date" jdbcType="TIMESTAMP" property="startJobDate" />
-    <result column="part_qq" jdbcType="VARCHAR" property="partQq" />
-    <result column="recent_order_date" jdbcType="TIMESTAMP" property="recentOrderDate" />
-    <result column="get_order_number" jdbcType="INTEGER" property="getOrderNumber" />
-    <result column="problem_rate" jdbcType="VARCHAR" property="problemRate" />
-    <result column="out_settle_count" jdbcType="INTEGER" property="outSettleCount" />
-    <result column="out_delivery_count" jdbcType="INTEGER" property="outDeliveryCount" />
-    <result column="total_reward" jdbcType="VARCHAR" property="totalReward" />
-    <result column="major" jdbcType="VARCHAR" property="major" />
-    <result column="english_level" jdbcType="VARCHAR" property="englishLevel" />
-    <result column="acceptable_subject" jdbcType="VARCHAR" property="acceptableSubject" />
-    <result column="education" jdbcType="VARCHAR" property="education" />
-    <result column="school" jdbcType="VARCHAR" property="school" />
-    <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="part_phone" jdbcType="VARCHAR" property="partPhone" />
-    <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay" />
-    <result column="referrer" jdbcType="VARCHAR" property="referrer" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="demo.model.PartTimeUser">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="start_job_date" jdbcType="TIMESTAMP" property="startJobDate"/>
+        <result column="part_qq" jdbcType="VARCHAR" property="partQq"/>
+        <result column="recent_order_date" jdbcType="TIMESTAMP" property="recentOrderDate"/>
+        <result column="get_order_number" jdbcType="INTEGER" property="getOrderNumber"/>
+        <result column="problem_rate" jdbcType="VARCHAR" property="problemRate"/>
+        <result column="out_settle_count" jdbcType="INTEGER" property="outSettleCount"/>
+        <result column="out_delivery_count" jdbcType="INTEGER" property="outDeliveryCount"/>
+        <result column="total_reward" jdbcType="VARCHAR" property="totalReward"/>
+        <result column="major" jdbcType="VARCHAR" property="major"/>
+        <result column="english_level" jdbcType="VARCHAR" property="englishLevel"/>
+        <result column="acceptable_subject" jdbcType="VARCHAR" property="acceptableSubject"/>
+        <result column="education" jdbcType="VARCHAR" property="education"/>
+        <result column="school" jdbcType="VARCHAR" property="school"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="part_phone" jdbcType="VARCHAR" property="partPhone"/>
+        <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay"/>
+        <result column="referrer" jdbcType="VARCHAR" property="referrer"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, start_job_date, part_qq, recent_order_date, get_order_number, problem_rate, out_settle_count, 
     out_delivery_count, total_reward, major, english_level, acceptable_subject, education, 
     school, age, part_phone, part_alipay, referrer
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from oa_part_user
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from oa_part_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from oa_part_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="demo.model.PartTimeUser">
+    <insert id="insert" parameterType="demo.model.PartTimeUser">
     insert into oa_part_user (id, start_job_date, part_qq, 
       recent_order_date, get_order_number, problem_rate, 
       out_settle_count, out_delivery_count, total_reward, 
@@ -52,179 +52,179 @@
       #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{referrer,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="demo.model.PartTimeUser">
-    insert into oa_part_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="startJobDate != null">
-        start_job_date,
-      </if>
-      <if test="partQq != null">
-        part_qq,
-      </if>
-      <if test="recentOrderDate != null">
-        recent_order_date,
-      </if>
-      <if test="getOrderNumber != null">
-        get_order_number,
-      </if>
-      <if test="problemRate != null">
-        problem_rate,
-      </if>
-      <if test="outSettleCount != null">
-        out_settle_count,
-      </if>
-      <if test="outDeliveryCount != null">
-        out_delivery_count,
-      </if>
-      <if test="totalReward != null">
-        total_reward,
-      </if>
-      <if test="major != null">
-        major,
-      </if>
-      <if test="englishLevel != null">
-        english_level,
-      </if>
-      <if test="acceptableSubject != null">
-        acceptable_subject,
-      </if>
-      <if test="education != null">
-        education,
-      </if>
-      <if test="school != null">
-        school,
-      </if>
-      <if test="age != null">
-        age,
-      </if>
-      <if test="partPhone != null">
-        part_phone,
-      </if>
-      <if test="partAlipay != null">
-        part_alipay,
-      </if>
-      <if test="referrer != null">
-        referrer,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="startJobDate != null">
-        #{startJobDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="partQq != null">
-        #{partQq,jdbcType=VARCHAR},
-      </if>
-      <if test="recentOrderDate != null">
-        #{recentOrderDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="getOrderNumber != null">
-        #{getOrderNumber,jdbcType=INTEGER},
-      </if>
-      <if test="problemRate != null">
-        #{problemRate,jdbcType=VARCHAR},
-      </if>
-      <if test="outSettleCount != null">
-        #{outSettleCount,jdbcType=INTEGER},
-      </if>
-      <if test="outDeliveryCount != null">
-        #{outDeliveryCount,jdbcType=INTEGER},
-      </if>
-      <if test="totalReward != null">
-        #{totalReward,jdbcType=VARCHAR},
-      </if>
-      <if test="major != null">
-        #{major,jdbcType=VARCHAR},
-      </if>
-      <if test="englishLevel != null">
-        #{englishLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="acceptableSubject != null">
-        #{acceptableSubject,jdbcType=VARCHAR},
-      </if>
-      <if test="education != null">
-        #{education,jdbcType=VARCHAR},
-      </if>
-      <if test="school != null">
-        #{school,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
-      </if>
-      <if test="partPhone != null">
-        #{partPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="partAlipay != null">
-        #{partAlipay,jdbcType=VARCHAR},
-      </if>
-      <if test="referrer != null">
-        #{referrer,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="demo.model.PartTimeUser">
-    update oa_part_user
-    <set>
-      <if test="startJobDate != null">
-        start_job_date = #{startJobDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="partQq != null">
-        part_qq = #{partQq,jdbcType=VARCHAR},
-      </if>
-      <if test="recentOrderDate != null">
-        recent_order_date = #{recentOrderDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="getOrderNumber != null">
-        get_order_number = #{getOrderNumber,jdbcType=INTEGER},
-      </if>
-      <if test="problemRate != null">
-        problem_rate = #{problemRate,jdbcType=VARCHAR},
-      </if>
-      <if test="outSettleCount != null">
-        out_settle_count = #{outSettleCount,jdbcType=INTEGER},
-      </if>
-      <if test="outDeliveryCount != null">
-        out_delivery_count = #{outDeliveryCount,jdbcType=INTEGER},
-      </if>
-      <if test="totalReward != null">
-        total_reward = #{totalReward,jdbcType=VARCHAR},
-      </if>
-      <if test="major != null">
-        major = #{major,jdbcType=VARCHAR},
-      </if>
-      <if test="englishLevel != null">
-        english_level = #{englishLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="acceptableSubject != null">
-        acceptable_subject = #{acceptableSubject,jdbcType=VARCHAR},
-      </if>
-      <if test="education != null">
-        education = #{education,jdbcType=VARCHAR},
-      </if>
-      <if test="school != null">
-        school = #{school,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
-      </if>
-      <if test="partPhone != null">
-        part_phone = #{partPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="partAlipay != null">
-        part_alipay = #{partAlipay,jdbcType=VARCHAR},
-      </if>
-      <if test="referrer != null">
-        referrer = #{referrer,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="demo.model.PartTimeUser">
+    <insert id="insertSelective" parameterType="demo.model.PartTimeUser">
+        insert into oa_part_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="startJobDate != null">
+                start_job_date,
+            </if>
+            <if test="partQq != null">
+                part_qq,
+            </if>
+            <if test="recentOrderDate != null">
+                recent_order_date,
+            </if>
+            <if test="getOrderNumber != null">
+                get_order_number,
+            </if>
+            <if test="problemRate != null">
+                problem_rate,
+            </if>
+            <if test="outSettleCount != null">
+                out_settle_count,
+            </if>
+            <if test="outDeliveryCount != null">
+                out_delivery_count,
+            </if>
+            <if test="totalReward != null">
+                total_reward,
+            </if>
+            <if test="major != null">
+                major,
+            </if>
+            <if test="englishLevel != null">
+                english_level,
+            </if>
+            <if test="acceptableSubject != null">
+                acceptable_subject,
+            </if>
+            <if test="education != null">
+                education,
+            </if>
+            <if test="school != null">
+                school,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="partPhone != null">
+                part_phone,
+            </if>
+            <if test="partAlipay != null">
+                part_alipay,
+            </if>
+            <if test="referrer != null">
+                referrer,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="startJobDate != null">
+                #{startJobDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="partQq != null">
+                #{partQq,jdbcType=VARCHAR},
+            </if>
+            <if test="recentOrderDate != null">
+                #{recentOrderDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="getOrderNumber != null">
+                #{getOrderNumber,jdbcType=INTEGER},
+            </if>
+            <if test="problemRate != null">
+                #{problemRate,jdbcType=VARCHAR},
+            </if>
+            <if test="outSettleCount != null">
+                #{outSettleCount,jdbcType=INTEGER},
+            </if>
+            <if test="outDeliveryCount != null">
+                #{outDeliveryCount,jdbcType=INTEGER},
+            </if>
+            <if test="totalReward != null">
+                #{totalReward,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="englishLevel != null">
+                #{englishLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptableSubject != null">
+                #{acceptableSubject,jdbcType=VARCHAR},
+            </if>
+            <if test="education != null">
+                #{education,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="partPhone != null">
+                #{partPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="partAlipay != null">
+                #{partAlipay,jdbcType=VARCHAR},
+            </if>
+            <if test="referrer != null">
+                #{referrer,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="demo.model.PartTimeUser">
+        update oa_part_user
+        <set>
+            <if test="startJobDate != null">
+                start_job_date = #{startJobDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="partQq != null">
+                part_qq = #{partQq,jdbcType=VARCHAR},
+            </if>
+            <if test="recentOrderDate != null">
+                recent_order_date = #{recentOrderDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="getOrderNumber != null">
+                get_order_number = #{getOrderNumber,jdbcType=INTEGER},
+            </if>
+            <if test="problemRate != null">
+                problem_rate = #{problemRate,jdbcType=VARCHAR},
+            </if>
+            <if test="outSettleCount != null">
+                out_settle_count = #{outSettleCount,jdbcType=INTEGER},
+            </if>
+            <if test="outDeliveryCount != null">
+                out_delivery_count = #{outDeliveryCount,jdbcType=INTEGER},
+            </if>
+            <if test="totalReward != null">
+                total_reward = #{totalReward,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                major = #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="englishLevel != null">
+                english_level = #{englishLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptableSubject != null">
+                acceptable_subject = #{acceptableSubject,jdbcType=VARCHAR},
+            </if>
+            <if test="education != null">
+                education = #{education,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                school = #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="partPhone != null">
+                part_phone = #{partPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="partAlipay != null">
+                part_alipay = #{partAlipay,jdbcType=VARCHAR},
+            </if>
+            <if test="referrer != null">
+                referrer = #{referrer,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="demo.model.PartTimeUser">
     update oa_part_user
     set start_job_date = #{startJobDate,jdbcType=TIMESTAMP},
       part_qq = #{partQq,jdbcType=VARCHAR},
@@ -246,17 +246,25 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <!-- 这个方法是我自己加的 -->
-  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.dto.PartUserReqVo">
-    select
-    <include refid="Base_Column_List"/>
-    from oa_part_user
-    <where>
+    <!-- 这个方法是我自己加的 -->
+    <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.dto.PartUserReqVo">
+        select
+        <include refid="Base_Column_List"/>
+        from oa_part_user
+        <where>
 
-      <if test="flag != null and flag !=''">
-        part_qq = #{flag,jdbcType=VARCHAR}
-      </if>
-    </where>
-    order by recent_order_date desc
-  </select>
+            <if test="flag != null and flag !=''">
+                part_qq = #{flag,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by recent_order_date desc
+    </select>
+
+    <select id="getPartUserByQq" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from oa_part_user
+        where part_qq = #{partQq,jdbcType=BIGINT}
+        limit 1
+    </select>
 </mapper>

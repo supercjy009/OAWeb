@@ -18,4 +18,6 @@ public interface OrderService {
     int updateOrder(OrderEntity order);
 
     int auditOrder(AuditVo vo);
+
+    int appointPart(AppointPartVo vo);
 }

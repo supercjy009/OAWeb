@@ -1,24 +1,19 @@
-package demo.Controller;
+package demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import demo.dto.*;
 import demo.model.OrderEntity;
-import demo.model.WorkPayEntity;
-import demo.service.Imp.SysPermissionSerivceImp;
 import demo.service.OrderService;
 import demo.service.WorkPayService;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -84,6 +79,13 @@ public class OrderController {
     public Map<String, Object> auditOrder(@RequestBody AuditVo vo) {
         Map<String, Object> mapOut = new HashMap<>();
         mapOut.put("code", orderService.auditOrder(vo));
+        return mapOut;
+    }
+
+    @RequestMapping(value = "/appointPart", method = RequestMethod.POST)
+    public Map<String, Object> appointPart(@RequestBody AppointPartVo vo) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", orderService.appointPart(vo));
         return mapOut;
     }
 }

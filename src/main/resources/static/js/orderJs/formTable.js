@@ -206,20 +206,28 @@ $("#editPartTime").click(function () {
 });
 
 $("#zhipai").click(function () {
-    layer.open({
-        type: 2,
-        title: "指派兼职",
-        shadeClose: true,
-        shade: 0.8,
-        area: ['50%', '60%'],
-        content: '/widget/addPartTime',
-        success: function (layero, index) {
-            // 获取子页面的iframe
-            var iframe = window['layui-layer-iframe' + index];
-            // 向子页面的全局函数child传参
-            iframe.initAudit();
-        }
-    });
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length === 1) {
+        layer.open({
+            type: 2,
+            title: "指派兼职",
+            shadeClose: true,
+            shade: 0.8,
+            area: ['50%', '60%'],
+            content: '/widget/addPartTime',
+            success: function (layero, index) {
+                // 获取子页面的iframe
+                var iframe = window['layui-layer-iframe' + index];
+                // 向子页面的全局函数child传参
+                iframe.initAudit(data);
+            }
+        });
+    } else if (data.length > 1) {
+        layer.alert("指派时只能勾选一条数据");
+    } else {
+        layer.alert("请先勾选一条数据");
+    }
 });
 
 

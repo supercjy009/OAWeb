@@ -1,6 +1,7 @@
 package demo.mapper;
 
 import demo.model.PartTimeEntity;
+import org.apache.ibatis.annotations.Param;
 
 public interface PartTimeEntityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +15,6 @@ public interface PartTimeEntityMapper {
     int updateByPrimaryKeySelective(PartTimeEntity record);
 
     int updateByPrimaryKey(PartTimeEntity record);
+
+    PartTimeEntity getOrderPartByQq(@Param("partQq") String partQq, @Param("orderNumber") String orderNumber);
 }

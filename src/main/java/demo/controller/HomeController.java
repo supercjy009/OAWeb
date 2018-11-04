@@ -1,10 +1,8 @@
-package demo.Controller;
+package demo.controller;
 
 import demo.Process.Indexprocess;
-import demo.VerificationCode.Captcha;
 import demo.VerificationCode.GifCaptcha;
 import demo.model.SysPermissionEntity;
-import demo.model.UserinfoEntity;
 import demo.service.Imp.SysPermissionSerivceImp;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
