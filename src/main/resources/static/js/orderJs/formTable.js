@@ -76,7 +76,7 @@ layui.use(['table', 'form'], function () {
     table.render({
         id: 'id',
         elem: '#fromManageTable',
-        // height: 'full-280',
+        height: 'full-280',
         // skin: 'row',
         url: ajaxUri + '/webAjax/order/queryAllOrder', //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档

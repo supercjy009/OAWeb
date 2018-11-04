@@ -471,7 +471,7 @@
         <include refid="All_Column_List"/>
         from oa_order o left join oa_part_time p on o.order_number = p.order_number
         <where>
-            <if test="orderDateReq!=null and orderDateReq!=''">
+            <if test="orderDateReq!=null and orderDateReq!= ''">
                 AND `get_order_date` &gt;= #{orderDateStart, jdbcType=TIMESTAMP} AND `get_order_date` &lt;=
                 #{orderDateEnd, jdbcType=TIMESTAMP}
             </if>
@@ -500,7 +500,7 @@
             <if test="partSettleState != null and partSettleState !=''">
                 AND part_settle_state = #{partSettleState,jdbcType=VARCHAR}
             </if>
-            <if test="settleDate!=null">
+            <if test="settleDate!=null and settleDate!=''">
                 AND settle_date >= DATE_FORMAT(#{settleDate},'%Y-%m-%d 00:00:00')
                 AND settle_date &lt;= DATE_FORMAT(#{settleDate},'%Y-%m-%d 23:59:59')
             </if>
