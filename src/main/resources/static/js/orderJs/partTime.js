@@ -4,24 +4,23 @@
 var table;
 
 var header = [ //表头
-    {checkbox: true, fixed: true},
-    {title: '序号', type: 'numbers'}
-    // , {field: 'id', title: 'ID', width: 0, style: 'display:none;'}
-    , {field: 'startJobDate', title: '入职日期',width: 110}
-    , {field: 'partQq', title: 'QQ',width: 110}
-    , {field: 'recentOrderDate', title: '最近接单日',width: 110}
-    , {field: 'getOrderNumber', title: '接单数量',width: 100}
+    {type:'checkbox'}
+    , {title: '序号', type: 'numbers'}
+    , {field: 'startJobDate', title: '入职日期', width: 110}
+    , {field: 'partQq', title: 'QQ', width: 110}
+    , {field: 'recentOrderDate', title: '最近接单日', width: 110}
+    , {field: 'getOrderNumber', title: '接单数量', width: 100}
     , {field: 'problemRate', title: '问题率'}
     , {field: 'outSettleCount', title: '接待数'}
     , {field: 'outDeliveryCount', title: '待交数'}
     , {field: 'totalReward', title: '总稿酬'}
     , {field: 'major', title: '专业'}
-    , {field: 'englishLevel', title: '英语水平',width: 110}
-    , {field: 'acceptableSubject', title: '可承接科目',width: 110}
+    , {field: 'englishLevel', title: '英语水平', width: 110}
+    , {field: 'acceptableSubject', title: '可承接科目', width: 110}
     , {field: 'education', title: '学历'}
     , {field: 'school', title: '学校'}
     , {field: 'age', title: '年龄'}
-    , {field: 'partPhone', title: '联系电话',width: 100}
+    , {field: 'partPhone', title: '联系电话', width: 100}
     , {field: 'partAlipay', title: '支付宝'}
     // , {field: 'referrer', title: '有无推荐人', templet: '#auditTpl',width: 110}
     , {field: 'referrer', title: '推荐人'}
@@ -36,7 +35,7 @@ layui.use(['table', 'form'], function () {
     table.render({
         id: 'id',
         elem: '#partUserTable',
-        skin: 'row',
+        // skin: 'row',
         // height: 'full-280',
         url: ajaxUri + '/webAjax/partUser/queryAllOrder', //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -49,7 +48,6 @@ layui.use(['table', 'form'], function () {
         done: function (res, curr, count) {
             //如果是异步请求数据方式，res即为你接口返回的信息。
             var data = res.data;
-            debugger
             // for (var i = 0; i < data.length; i++) {
             //     var audit = data[i].audit;
             //     if (audit === '0') {
@@ -100,6 +98,35 @@ layui.use(['table', 'form'], function () {
 //     });
 // });
 
+$("#deleteEntity").click(function () {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length === 1) {
+        layer.confirm('确认删除这条兼职人员信息吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.ajax({
+                type: 'POST',
+                url: ajaxUri + '/webAjax/partUser/deleteEntity',
+                data: {id: data[0].id},
+                complete: function (status) {
+                    var str = status.responseJSON;
+                    console.log(str.code);
+                    if (str.code === 1) {
+                        parent.layer.alert('删除成功');
+                        reloadTable();
+                    } else {
+                        parent.layer.alert('删除失败，服务器异常.');
+                    }
+                }
+            });
+        });
+    } else if (data.length > 1) {
+        layer.alert("删除时不能勾选多条数据");
+    } else {
+        layer.alert("请先勾选一条数据");
+    }
+});
 
 $("#addEntity").click(function () {
     //iframe窗
@@ -113,55 +140,18 @@ $("#addEntity").click(function () {
     });
 });
 
-function submitAudit(flag) {
-    var title
-    if (flag == 'audit') {
-        title = "审核";
-    } else {
-        title = "结算";
-    }
-    var checkStatus = table.checkStatus('id')
-        , data = checkStatus.data;
-    if (data.length >= 1) {
-        //iframe窗
-        layer.open({
-            type: 2,
-            title: title,
-            shadeClose: true,
-            shade: 0.8,
-            content: '/widget/audit',
-            success: function (layero, index) {
-                // 获取子页面的iframe
-                var iframe = window['layui-layer-iframe' + index];
-                // 向子页面的全局函数child传参
-                iframe.initAudit(data, flag);
-            }
-        });
-    } else {
-        layer.alert("请至少勾选一条数据");
-    }
-}
-
-$("#auditPay").click(function () {
-    submitAudit("audit");
-});
-
-$("#settlePay").click(function () {
-    submitAudit("settle");
-});
-
-$("#editWorkPay").click(function () {
+$("#editEntity").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
         //iframe窗
         layer.open({
             type: 2,
-            title: '编辑任务',
+            title: '编辑',
             shadeClose: true,
             shade: 0.8,
-            area: ['580px', '60%'],
-            content: '/wenanPart/workPayAdd',
+            area: ['50%', '60%'],
+            content: '/partTime/partUserAdd',
             success: function (layero, index) {
                 // 获取子页面的iframe
                 var iframe = window['layui-layer-iframe' + index];

@@ -9,6 +9,7 @@ import demo.service.PartUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,11 +31,17 @@ public class PartUserServiceImp implements PartUserService {
 
     @Override
     public int addEntity(PartTimeUser order) {
+        order.setStartJobDate(new Date());
         return partTimeUserMapper.insert(order);
     }
 
     @Override
     public int updateEntity(PartTimeUser order) {
-        return 0;
+        return partTimeUserMapper.updateByPrimaryKeySelective(order);
+    }
+
+    @Override
+    public int deleteEntity(Long id) {
+        return partTimeUserMapper.deleteByPrimaryKey(id);
     }
 }

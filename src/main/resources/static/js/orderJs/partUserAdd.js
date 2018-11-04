@@ -4,13 +4,13 @@
 var payUri = "addEntity";
 var form, editData;
 
-$(function () {
-    init();
-});
-
 $("#close").click(function () {
     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
     parent.layer.close(index);
+});
+
+$(function () {
+    init();
 });
 
 function init() {
@@ -59,13 +59,20 @@ function init() {
         });
 
         if (editData) {
+            $("#passWord").attr("lay-verify", "")
             // alert("aaa"+editData[0].id);
             form.val('payEdit', {
-                "payDate": editData[0].payDate // "name": "value"
-                , "payProject": editData[0].payProject
-                , "payMoney": editData[0].payMoney
-                , "remark": editData[0].remark
-                , "getUser": editData[0].getUser
+                "partQq": editData[0].partQq // "name": "value"
+                , "passWord": editData[0].passWord
+                , "major": editData[0].major
+                , "englishLevel": editData[0].englishLevel
+                , "acceptableSubject": editData[0].acceptableSubject
+                , "education": editData[0].education
+                , "school": editData[0].school
+                , "age": editData[0].age
+                , "partPhone": editData[0].partPhone
+                , "partAlipay": editData[0].partAlipay
+                , "referrer": editData[0].referrer
             })
         }
     });

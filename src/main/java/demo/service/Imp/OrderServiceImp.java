@@ -10,6 +10,7 @@ import demo.model.*;
 import demo.service.OrderService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -67,6 +68,7 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
+    @Transactional
     public int appointPart(AppointPartVo vo) {
         OrderEntity order = orderEntityMapper.selectByPrimaryKey(vo.getOrderId());
         PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
@@ -87,6 +89,11 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartPhone(partTimeUser.getPartPhone());
         partTime.setPartAlipay(partTimeUser.getPartAlipay());
         partTimeMapper.insert(partTime);
+        //更新最近接单日和接单数量
+        partTimeUser.setRecentOrderDate(new Date());
+        int getOrder = partTimeUser.getGetOrderNumber() == null ? 0 : partTimeUser.getGetOrderNumber();
+        partTimeUser.setGetOrderNumber(getOrder + 1);
+        partUserMapper.updateByPrimaryKeySelective(partTimeUser);
         return 1;
     }
 }

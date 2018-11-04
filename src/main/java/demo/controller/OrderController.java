@@ -55,7 +55,6 @@ public class OrderController {
             e.printStackTrace();
         }
         mapOut.put("code", 0);
-//        PageInfo<WorkPayEntity> orderPageInfo = workService.queryAllOrder(vo);
         mapOut.put("count", orderPageInfo.getTotal());
         mapOut.put("data", orderPageInfo.getList());
         return mapOut;

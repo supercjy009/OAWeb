@@ -14,4 +14,5 @@ public interface PartUserService {
 
     int updateEntity(PartTimeUser order);
 
+    int deleteEntity(Long id);
 }

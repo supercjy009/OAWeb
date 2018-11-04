@@ -76,7 +76,7 @@ layui.use(['table', 'form'], function () {
     table.render({
         id: 'id',
         elem: '#fromManageTable',
-        height: 'full-280',
+        // height: 'full-280',
         // skin: 'row',
         url: ajaxUri + '/webAjax/order/queryAllOrder', //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -100,33 +100,42 @@ layui.use(['table', 'form'], function () {
                 return;
             }
             var indexNum = 0;
+            var totalNum = 0;
             var clearIndex = false;
             for (var i = 0; i < data.length; i++) {
                 var $indexTd = $(".layui-table-view tbody tr[data-index='" + i + "'] td[data-field='1']");
                 var ind = $indexTd.find('div:eq(0)').text();
                 //设置序号值
-                $indexTd.find('div:eq(0)').text(parseInt(ind) - indexNum);
+                $indexTd.find('div:eq(0)').text(parseInt(ind) - totalNum);
                 if (clearIndex) {
-                    indexNum == 0;
+                    indexNum = 0;
                 }
                 var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
 
                 if (data[i + 1] && data[i].orderNumber == data[i + 1].orderNumber) {//隐藏重复的订单
                     clearIndex = false;
+                    totalNum++;
                     indexNum++;
-                    var $checktrNext = $(".layui-table-view tbody tr[data-index='" + (i + 1) + "']");
-                    $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
-                        if (j < 22) {
-                            $(this).attr("rowspan", "2");
-                        }
-                    });
-                    $checktrNext.children('td').each(function (j) { // 遍历 tr 的各个 td
-                        if (j < 22) {
-                            $(this).css("display", "none");
-                        }
-                    });
                 } else {
+                    debugger
                     clearIndex = true;
+                    if (indexNum > 0) {
+                        var $checkIndextr = $(".layui-table-view tbody tr[data-index='" + (i - indexNum) + "']");
+                        $checkIndextr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+                            if (j < 22) {
+                                $(this).attr("rowspan", indexNum + 1);
+                            }
+                        });
+                        //隐藏从i 到 i - indexNum之间的行
+                        for (var y = 0; y < indexNum; y++) {
+                            var $nextIndextr = $(".layui-table-view tbody tr[data-index='" + (i - y) + "']");
+                            $nextIndextr.children('td').each(function (j) { // 遍历 tr 的各个 td
+                                if (j < 22) {
+                                    $(this).css("display", "none");
+                                }
+                            });
+                        }
+                    }
                 }
 
                 //设置待审核单元格背景颜色

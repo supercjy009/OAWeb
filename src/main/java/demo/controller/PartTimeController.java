@@ -81,4 +81,11 @@ public class PartTimeController {
         mapOut.put("code", partUserService.updateEntity(user));
         return mapOut;
     }
+
+    @RequestMapping(value = "/deleteEntity", method = RequestMethod.POST)
+    public Map<String, Object> deleteEntity(@RequestParam Long id) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", partUserService.deleteEntity(id));
+        return mapOut;
+    }
 }
