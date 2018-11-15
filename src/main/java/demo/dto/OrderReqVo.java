@@ -21,7 +21,7 @@ public class OrderReqVo {
     private String partAudit;
     private String partSettleState;
     private String keyWord;
-    private String partName;
+    private String partName;//这是文案第几部门
     private Date settleDate;
     private Integer page;
     private Integer limit;

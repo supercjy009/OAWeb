@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/css/bootstrap/formSet.css">
+</head>
+<body>
+<div id="payProgress" class="layui-form-item">
+</div>
+</body>
+<script src="../assets/js/commonJs.js"></script>
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/layui/layui.js"></script>
+
+<script>
+    var orderId;
+
+    function init() {
+        var progressList = [];
+        $.ajax({
+            type: 'POST',
+            url: ajaxUri + '/webAjax/order/viewProgress',
+            data: {id: parseInt(orderId)},
+            complete: function (status) {
+                var str = status.responseJSON;
+                console.log(str.code);
+                if (str.code === 1) {
+                    progressList = str.data;
+                    showProgress(progressList);
+                } else {
+                    parent.layer.alert('查看，服务器异常.');
+                }
+            }
+        });
+    }
+
+    function showProgress(progressList) {
+        for (var i = 0; i < progressList.length; i++) {
+            var data = progressList[i];
+            //iframe窗
+            $("#payProgress").after("<div class='layui-form-item' id='payProgress'>\n" +
+                "<label class='layui-form-label' style='width: auto'><span style='color: red'>*</span> </label>" +
+                "<label class='layui-form-label label_warp'>" + data.payDate + "</label>" +
+                "<label class='layui-form-label label_warp'>" + data.payWay + "</label>" +
+                "<label class='layui-form-label label_warp'>" + data.moneyType + "</label>" +
+                "<label class='layui-form-label label_warp'>" + data.amount + "</label>");
+            $("#progressDate").val('');
+            $("#progressAmount").val('');
+        }
+
+    }
+
+    function initAudit(id) {
+        orderId = id;
+        init();
+    }
+</script>
+</html>

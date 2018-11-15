@@ -217,4 +217,10 @@
         from oa_part_time
         where order_number = #{orderNumber,jdbcType=VARCHAR} AND part_qq = #{partQq,jdbcType=VARCHAR}
     </select>
+
+    <delete id="deletePart">
+    delete from oa_part_time
+    where order_number = #{orderNumber,jdbcType=VARCHAR}
+    and part_qq = #{partQq,jdbcType=VARCHAR}
+  </delete>
 </mapper>

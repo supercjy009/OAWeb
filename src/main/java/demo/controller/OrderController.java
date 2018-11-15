@@ -2,7 +2,9 @@ package demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import demo.dto.*;
+import demo.mapper.PayProgressMapper;
 import demo.model.OrderEntity;
+import demo.model.PayProgress;
 import demo.service.OrderService;
 import demo.service.WorkPayService;
 import org.springframework.web.bind.WebDataBinder;
@@ -14,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +29,8 @@ public class OrderController {
     OrderService orderService;
     @Resource
     WorkPayService workService;
+    @Resource
+    PayProgressMapper progressMapper;
 
     @InitBinder
     public void InitBinder(WebDataBinder dataBinder) {
@@ -60,8 +65,18 @@ public class OrderController {
         return mapOut;
     }
 
+    @RequestMapping(value = "/viewProgress", method = RequestMethod.POST)
+    public Map<String, Object> viewProgress(Long id) {
+        Map<String, Object> mapOut = new HashMap<>();
+        List<PayProgress> progressList = progressMapper.selectByOrderId(id);
+        mapOut.put("code", 1);
+        mapOut.put("data", progressList);
+        return mapOut;
+    }
+
+
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
-    public Map<String, Object> addOrder(@RequestBody OrderEntity order) {
+    public Map<String, Object> addOrder(@RequestBody OrderVo order) {
         Map<String, Object> mapOut = new HashMap<>();
         mapOut.put("code", orderService.addOrder(order));
         return mapOut;
@@ -85,6 +100,13 @@ public class OrderController {
     public Map<String, Object> appointPart(@RequestBody AppointPartVo vo) {
         Map<String, Object> mapOut = new HashMap<>();
         mapOut.put("code", orderService.appointPart(vo));
+        return mapOut;
+    }
+
+    @RequestMapping(value = "/deletePart", method = RequestMethod.POST)
+    public Map<String, Object> deletePart(@RequestBody AppointPartVo vo) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", orderService.deletePart(vo));
         return mapOut;
     }
 }

@@ -4,7 +4,7 @@
 var table;
 
 var header = [ //表头
-    {type:'checkbox'}
+    {type: 'checkbox'}
     , {title: '序号', type: 'numbers'}
     , {field: 'startJobDate', title: '入职日期', width: 110}
     , {field: 'partQq', title: 'QQ', width: 110}

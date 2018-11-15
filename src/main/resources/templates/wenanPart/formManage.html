@@ -16,6 +16,7 @@
     }
 </style>
 <link rel="stylesheet" href="assets/css/table-style.css">
+<link rel="stylesheet" href="assets/layui/css/layui.css">
 <script src="/assets/layui/layui.js"></script>
 <body>
 <div class="tab-bar-container">
@@ -121,50 +122,53 @@
                        lay-key="1" class="layui-input">
             </div>
 
-            <button class="layui-btn" data-type="reload">搜索</button>
+            <button class="layui-btn layui-btn-normal" data-type="reload">搜索</button>
         </div>
     </div>
 
     <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
-
-
-    <div class="loyo-search-section" style="margin-bottom:0;">
-        <button class="btn btn-primary marginr" id="addWorkPay"><i class="lnr lnr-plus-circle"></i><span>新建</span>
-        </button>
-
-        <button class="btn btn-primary marginr" id="zhipai"><i class="lnr lnr-plus-circle"></i><span>指派</span>
-        </button>
-
-        <button class="btn btn-primary marginr" id="jiaogaoState"><span>交稿状态</span>
-        </button>
-
-        <button class="btn btn-primary marginr" id="editOrder"><span>修改订单</span>
-        </button>
-
-        <button class="btn btn-primary marginr" id="editPartTime"><span>修改兼职</span>
-        </button>
-        <button class="btn btn-primary marginr" id="addjiesuan"><span>添加结算日</span>
-        </button>
-        <button class="btn btn-primary marginr" id="editCurrentPart" style="margin-right: 20px"><span>删除当前兼职</span>
-        </button>
-
-        <button class="btn btn-primary marginr" id="auditPay"><span>订单审核</span>
-        </button>
-
-        <button class="btn btn-primary marginr" id="partTimeAudit"><span>兼职审核</span>
-        </button>
-        <button class="btn btn-primary marginr" id="settlePay"><span>结算状态</span>
-        </button>
-
-        <button class="btn btn-primary marginr"><span>导出</span>
-        </button>
-    </div>
-
-    <table id="fromManageTable" lay-filter="test"></table>
+    <table id="fromManageTable" lay-filter="fromManage"></table>
 </div>
 
 
 <script src="/js/orderJs/formTable.js"></script>
+
+<!--<script xmlns:th="http://www.w3.org/1999/xhtml" th:inline="javascript">-->
+    <!--var part = [[${part}]];-->
+    <!--console.log(part);-->
+<!--</script>-->
+
+<script type="text/html" id="toolbarDemo">
+    <div class="loyo-search-section" style="margin-bottom:0;">
+        <button class="layui-btn layui-btn-normal" lay-event="addOrder"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+        </button>
+
+        <button class="layui-btn layui-btn-normal" lay-event="zhipai"><i class="lnr lnr-plus-circle"></i><span>指派</span>
+        </button>
+
+        <button class="layui-btn layui-btn-normal" lay-event="editOrder"><span>修改订单</span>
+        </button>
+
+        <button class="layui-btn layui-btn-normal" lay-event="auditPay" style="margin-right: 20px"><span>订单审核</span>
+        </button>
+
+        <button class="layui-btn layui-btn-warm" lay-event="jiaogaoState"><span>交稿状态</span>
+        </button>
+        <button class="layui-btn layui-btn-warm" lay-event="editPartTime"><span>修改兼职</span>
+        </button>
+        <button class="layui-btn layui-btn-warm" lay-event="addjiesuan"><span>添加结算日</span>
+        </button>
+        <button class="layui-btn layui-btn-warm" lay-event="deleteCurrentPart"><span>删除当前兼职</span>
+        </button>
+        <button class="layui-btn layui-btn-warm" lay-event="partTimeAudit"><span>兼职审核</span>
+        </button>
+        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>结算状态</span>
+        </button>
+
+        <!--<button class="layui-btn layui-btn-normal marginr"><span>导出</span>-->
+        <!--</button>-->
+    </div>
+</script>
 
 <script>
     layui.use(['laydate'], function () {

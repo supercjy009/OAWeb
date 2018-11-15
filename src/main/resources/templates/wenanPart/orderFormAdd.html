@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>新建</title>
+    <link rel="stylesheet" href="/assets/vendor/linearicons/style.css">
     <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
-
+    <link rel="stylesheet" href="/assets/css/jquery.datetimepicker.css" media="all">
+    <link rel="stylesheet" href="/assets/css/bootstrap/formSet.css">
 </head>
 <body>
 <form class="layui-form" style="margin-top: 20px" lay-filter="orderEdit"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
@@ -29,8 +31,7 @@
         </div>
         <label class="layui-form-label"><span style="color: red">*</span>交稿时间 </label>
         <div class="layui-input-inline">
-            <input type="text" name="deliveryDate" id="date" placeholder="yyyy-MM-dd" autocomplete="off"
-                   class="layui-input">
+            <input id="datetimepicker" type="text" class="layui-input" placeholder="yyyy-mm-dd hh:mm">
         </div>
     </div>
 
@@ -61,12 +62,49 @@
     </div>
 
 
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="payProgress">
         <label class="layui-form-label"><span style="color: red">*</span>付款进度 </label>
         <div class="layui-input-inline">
-            <button class="layui-btn layui-btn-sm layui-btn-normal" id="addPayProgress"><i
-                    class="lnr lnr-plus-circle"></i><span>添加</span>
-            </button>
+            <input type="text" name="progressDate" id="progressDate" placeholder="yyyy-MM-dd" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <select name="progressWay" id="progressWay" lay-filter="user" lay-verify="">
+                <option value="微" selected="">微</option>
+                <option value="支">支</option>
+                <option value="PP">PP</option>
+                <option value="工">工</option>
+                <option value="农">农</option>
+                <option value="中">中</option>
+                <option value="建">建</option>
+                <option value="淘宝">淘宝</option>
+                <option value="西联">西联</option>
+                <option value="其他">其他</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="progressMoneyType" id="progressMoneyType" lay-filter="user" lay-verify="">
+                <option value="人民币" selected="">人民币</option>
+                <option value="美元">美元</option>
+                <option value="澳币">澳币</option>
+                <option value="加币">加币</option>
+                <option value="英镑">英镑</option>
+                <option value="欧元">欧元</option>
+                <option value="台币">台币</option>
+                <option value="新西兰元">新西兰元</option>
+                <option value="新加坡元">新加坡元</option>
+            </select>
+        </div>
+        <label style="float:left;padding: 9px 15px;"><span style="color: red">*</span>金额 </label>
+        <div class="layui-input-inline">
+            <input type="text" name="progressAmount" id="progressAmount" placeholder="请输入" lay-verify=""
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <div class="layui-btn layui-btn-sm layui-btn-normal" id="addPayProgress"><i
+                    class="lnr lnr-plus-circle" style="margin-right: 5px;"></i><span>添加</span>
+            </div>
         </div>
     </div>
     <!-- lay-verify="required" -->
@@ -122,16 +160,16 @@
         <label class="layui-form-label"><span style="color: red">*</span>退款途径</label>
         <div class="layui-input-inline">
             <select name="refundWay" lay-filter="user" lay-verify="">
-                <option value="1" selected="">微</option>
-                <option value="2">支</option>
-                <option value="3">PP</option>
-                <option value="4">工</option>
-                <option value="5">农</option>
-                <option value="6">中</option>
-                <option value="7">建</option>
-                <option value="8">淘宝</option>
-                <option value="9">西联</option>
-                <option value="0">其他</option>
+                <option value="微" selected="">微</option>
+                <option value="支">支</option>
+                <option value="PP">PP</option>
+                <option value="工">工</option>
+                <option value="农">农</option>
+                <option value="中">中</option>
+                <option value="建">建</option>
+                <option value="淘宝">淘宝</option>
+                <option value="西联">西联</option>
+                <option value="其他">其他</option>
             </select>
         </div>
         <label class="layui-form-label"><span style="color: red">*</span>退款日 </label>
@@ -150,7 +188,8 @@
     <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
 </form>
 <script src="../assets/js/commonJs.js"></script>
-
 <script src="/assets/layui/layui.js"></script>
+<!--<script src="/assets/js/jquery.js"></script>-->
 <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/js/jquery.datetimepicker.full.js"></script>
 <script src="/js/orderJs/orderManageAdd.js"></script>

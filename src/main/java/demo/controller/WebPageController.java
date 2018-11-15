@@ -25,6 +25,7 @@ public class WebPageController {
         return "wenanPart/orderFormAdd";
     }
 
+    //办公支出
     @RequestMapping(value = {"/wenanPart/workPay"}, method = RequestMethod.GET)
     public String workPay() {
         return "wenanPart/workPay";
@@ -33,6 +34,17 @@ public class WebPageController {
     @RequestMapping(value = {"/wenanPart/workPayAdd"}, method = RequestMethod.GET)
     public String workPayAdd() {
         return "wenanPart/workPayAdd";
+    }
+
+    //主关键词
+    @RequestMapping(value = {"/wenanPart/keyWord"}, method = RequestMethod.GET)
+    public String keyWord() {
+        return "wenanPart/keyWord";
+    }
+
+    @RequestMapping(value = {"/wenanPart/keyWordAdd"}, method = RequestMethod.GET)
+    public String keyWordAdd() {
+        return "wenanPart/keyWordAdd";
     }
 
     @RequestMapping(value = {"/partTime/partUserTable"}, method = RequestMethod.GET)
@@ -58,6 +70,16 @@ public class WebPageController {
     @RequestMapping(value = {"/widget/addPartTime"}, method = RequestMethod.GET)
     public String addPartTime() {
         return "widget/addPartTime";
+    }
+
+    @RequestMapping(value = {"/widget/addPayProgress"}, method = RequestMethod.GET)
+    public String addPayProgress() {
+        return "widget/addPayProgress";
+    }
+
+    @RequestMapping(value = {"/widget/viewPayProgress"}, method = RequestMethod.GET)
+    public String viewPayProgress() {
+        return "widget/viewPayProgress";
     }
 
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)

@@ -28,7 +28,7 @@ layui.use(['table', 'form'], function () {
         elem: '#workPayTable',
         skin: 'row',
         // height: 'full-280',
-        url: ajaxUri + '/webAjax/workpay/queryAllOrder', //数据接口
+        url: ajaxUri + '/webAjax/workpay/queryAllOrder?partName=' + partNow, //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
@@ -69,7 +69,8 @@ layui.use(['table', 'form'], function () {
                     payDate: $('#payDate').val(),
                     getUser: $('#getUser').val(),
                     audit: $('#audit').val(),
-                    settle: $('#settle').val()
+                    settle: $('#settle').val(),
+                    partName: partNow
                 }
             });
         }
@@ -104,7 +105,14 @@ $("#addWorkPay").click(function () {
         shadeClose: true,
         shade: 0.8,
         area: ['580px', '60%'],
-        content: '/wenanPart/workPayAdd'
+        content: '/wenanPart/workPayAdd',
+        success: function (layero, index) {
+            // 获取子页面的iframe
+            var iframe = window['layui-layer-iframe' + index];
+            // 向子页面的全局函数child传参
+
+            iframe.initEdit("", partNow);
+        }
     });
 });
 

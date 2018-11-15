@@ -6,6 +6,7 @@ import demo.dto.*;
 import demo.mapper.OrderEntityMapper;
 import demo.mapper.PartTimeEntityMapper;
 import demo.mapper.PartTimeUserMapper;
+import demo.mapper.PayProgressMapper;
 import demo.model.*;
 import demo.service.OrderService;
 import org.apache.shiro.SecurityUtils;
@@ -31,6 +32,8 @@ public class OrderServiceImp implements OrderService {
     PartTimeUserMapper partUserMapper;
     @Resource
     PartTimeEntityMapper partTimeMapper;
+    @Resource
+    PayProgressMapper progressMapper;
 
     @Override
     public PageInfo<PartTimeOrderRes> queryAllOrder(OrderReqVo vo) throws ParseException {
@@ -51,10 +54,26 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
-    public int addOrder(OrderEntity order) {
+    public int addOrder(OrderVo order) {
+        OrderEntity entity = orderEntityMapper.selectByOrderNumber(order.getOrderNumber());
+        if (entity != null) {
+            return -100;
+        }
         UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
         order.setServiceName(userinfoEntity.getName());
-        return orderEntityMapper.insert(order);
+        order.setServiceId(userinfoEntity.getUid().toString());
+        order.setGetOrderDate(new Date());
+        order.setAudit("0");
+        orderEntityMapper.insert(order);
+        Long orderId = order.getId();
+        if (order.getProgressList() != null && order.getProgressList().size() != 0) {
+            for (int i = 0; i < order.getProgressList().size(); i++) {
+                PayProgress payProgress = order.getProgressList().get(i);
+                payProgress.setOrderId(orderId.intValue());
+                progressMapper.insert(payProgress);
+            }
+        }
+        return 1;
     }
 
     @Override
@@ -95,5 +114,16 @@ public class OrderServiceImp implements OrderService {
         partTimeUser.setGetOrderNumber(getOrder + 1);
         partUserMapper.updateByPrimaryKeySelective(partTimeUser);
         return 1;
+    }
+
+    @Override
+    @Transactional
+    public int deletePart(AppointPartVo vo) {
+        PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
+        //更新接单数量
+        int getOrder = partTimeUser.getGetOrderNumber() == null ? 0 : partTimeUser.getGetOrderNumber();
+        partTimeUser.setGetOrderNumber(getOrder - 1);
+        partUserMapper.updateByPrimaryKeySelective(partTimeUser);
+        return partTimeMapper.deletePart(vo.getOrderNumber(), vo.getPartQq());
     }
 }

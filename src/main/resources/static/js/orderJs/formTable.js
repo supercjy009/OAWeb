@@ -9,15 +9,15 @@ var header = [ //表头
     {checkbox: true, rowspan: 2}
     , {title: '序号', type: 'numbers', rowspan: 2}
     , {field: 'serviceName', title: '接单客服', width: 100, rowspan: 2}
-    , {field: 'getOrderDate', title: '接单时间', width: 110, rowspan: 2}
+    , {field: 'getOrderDate', title: '接单时间', width: 145, rowspan: 2}
     , {field: 'customerIm', title: '客户IM', width: 100, rowspan: 2}
     , {field: 'orderNumber', title: '订单编号', width: 100, rowspan: 2}
-    , {field: 'deliveryDate', title: '交稿时间', width: 110, rowspan: 2}
+    , {field: 'deliveryDate', title: '交稿时间', width: 145, rowspan: 2}
     , {field: 'customerMail', title: '客户邮箱', width: 100, rowspan: 2}
     , {field: 'orderContent', title: '订单内容', width: 100, rowspan: 2}
     , {field: 'orderPrice', title: '金额', width: 100, rowspan: 2}
     , {field: 'payState', title: '付款状态', width: 100, rowspan: 2, templet: '#payStateTpl'}
-    , {field: 'payProgress', title: '付款进度', width: 110, rowspan: 2}
+    , {field: 'payDate', event: 'viewProgress', style: 'cursor: pointer;', title: '付款进度', width: 110, rowspan: 2}
     , {field: 'dueDate', title: '催款日', width: 110, rowspan: 2}
     , {field: 'dueMoney', title: '催款金额', width: 100, rowspan: 2}
     , {field: 'remark', title: '客服备注', width: 100, rowspan: 2}
@@ -46,28 +46,6 @@ var h2 = [{field: 'recommendIm', title: '推荐人IM', width: 100}
     , {field: 'refundRemark', title: '退款说明', width: 100}];
 
 
-// $.fn.rowspan = function (combined) {
-//     return this.each(function () {
-//         var that;
-//         $('tr', this).each(function (row) {
-//             $('td:eq(' + combined + ')', this).filter(':visible').each(function (col) {
-//                 if (that != null && $(this).html() == $(that).html()) {
-//                     rowspan = $(that).attr("rowSpan");
-//                     if (rowspan == undefined) {
-//                         $(that).attr("rowSpan", 1);
-//                         rowspan = $(that).attr("rowSpan");
-//                     }
-//                     rowspan = Number(rowspan) + 1;
-//                     $(that).attr("rowSpan", rowspan);
-//                     $(this).hide();
-//                 } else {
-//                     that = this;
-//                 }
-//             });
-//         });
-//     });
-// }
-
 layui.use(['table', 'form'], function () {
     var form = layui.form;
 
@@ -78,7 +56,9 @@ layui.use(['table', 'form'], function () {
         elem: '#fromManageTable',
         height: 'full-280',
         // skin: 'row',
-        url: ajaxUri + '/webAjax/order/queryAllOrder', //数据接口
+        url: ajaxUri + '/webAjax/order/queryAllOrder?partName=' + partNow, //数据接口
+        toolbar: '#toolbarDemo',
+        defaultToolbar: ['filter', 'exports'],
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
@@ -117,7 +97,6 @@ layui.use(['table', 'form'], function () {
                     totalNum++;
                     indexNum++;
                 } else {
-                    debugger
                     clearIndex = true;
                     if (indexNum > 0) {
                         var $checkIndextr = $(".layui-table-view tbody tr[data-index='" + (i - indexNum) + "']");
@@ -150,6 +129,49 @@ layui.use(['table', 'form'], function () {
         }
     });
 
+    table.on('tool(fromManage)', function (obj) {
+        var data = obj.data;
+        if (obj.event === 'viewProgress') {
+            viewProgress(data);
+        }
+    });
+
+    //头工具栏事件
+    table.on('toolbar(fromManage)', function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
+        switch (obj.event) {
+            case 'addOrder':
+                addOrder();
+                break;
+            case 'zhipai':
+                zhipai();
+                break;
+            case 'jiaogaoState':
+                jiaogaoState();
+                break;
+            case 'editOrder':
+                editOrder();
+                break;
+            case 'editPartTime':
+                editPartTime();
+                break;
+            case 'addjiesuan':
+                addjiesuan();
+                break;
+            case 'deleteCurrentPart':
+                deleteCurrentPart();
+                break;
+            case 'auditPay':
+                auditPay();
+                break;
+            case 'partTimeAudit':
+                partTimeAudit();
+                break;
+            case 'settlePay':
+                settlePay();
+                break;
+        }
+    });
 
     var $ = layui.$, active = {
         reload: function () {
@@ -171,7 +193,8 @@ layui.use(['table', 'form'], function () {
                     partAudit: $('#partAudit').val(),
                     partSettleState: $('#partSettleState').val(),
                     settleDate: $('#settleDate').val(),
-                    keyWord: $('#keyWord').val()
+                    keyWord: $('#keyWord').val(),
+                    partName: partNow
                 }
             });
         }
@@ -185,23 +208,70 @@ layui.use(['table', 'form'], function () {
 
 });
 
+function deleteCurrentPart() {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length === 1) {
+        layer.confirm('确认删除这条兼职人员信息吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            var deletePart = {};
+            deletePart.partQq = data[0].partQq;
+            deletePart.orderId = data[0].id;
+            deletePart.orderNumber = data[0].orderNumber;
+            var jasondata = JSON.stringify(deletePart);
+            $.ajax({
+                type: 'POST',
+                url: ajaxUri + '/webAjax/order/deletePart',
+                data: jasondata,
+                dataType: "json",
+                contentType: "application/json",
+                complete: function (status) {
+                    var str = status.responseJSON;
+                    console.log(str.code);
+                    if (str.code === 1) {
+                        parent.layer.alert('删除成功');
+                        reloadTable();
+                    } else {
+                        parent.layer.alert('删除失败，服务器异常.');
+                    }
+                }
+            });
+        });
+    } else if (data.length > 1) {
+        layer.alert("删除时不能勾选多条数据");
+    } else {
+        layer.alert("请先勾选一条数据");
+    }
+}
 
-// layui.use(['laydate'], function () {
-//     console.log("ddddddaaate")
-//     var laydate = layui.laydate;
-//     //日期
-//     laydate.render({
-//         elem: '#payDate',
-//         type: 'month', //只选年月
-//         btns: ['clear', 'confirm']
-//     });
-// });
+
+function viewProgress(data) {
+    layer.open({
+        type: 2,
+        title: false,
+        closeBtn: 0,
+        shadeClose: true,
+        area: ['500px','400px'],
+        content: '/widget/viewPayProgress',
+        success: function (layero, index) {
+            // 获取子页面的iframe
+            var iframe = window['layui-layer-iframe' + index];
+            // 向子页面的全局函数child传参
+            iframe.initAudit(data.id);
+        }
+    });
+}
+
+$("#deleteCurrentPart").click(function () {
+
+});
 
 $("#editPartTime").click(function () {
     layer.open({
         type: 2,
         title: "指派兼职",
-        shadeClose: true,
+        shadeClose: false,
         shade: 0.8,
         area: ['50%', '60%'],
         content: '/widget/addPartTime',
@@ -214,14 +284,14 @@ $("#editPartTime").click(function () {
     });
 });
 
-$("#zhipai").click(function () {
+function zhipai() {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
         layer.open({
             type: 2,
             title: "指派兼职",
-            shadeClose: true,
+            shadeClose: false,
             shade: 0.8,
             area: ['50%', '60%'],
             content: '/widget/addPartTime',
@@ -237,22 +307,27 @@ $("#zhipai").click(function () {
     } else {
         layer.alert("请先勾选一条数据");
     }
-});
+}
 
-
-$("#addWorkPay").click(function () {
+function addOrder() {
     //iframe窗
     var index = layer.open({
         type: 2,
         title: '新建任务',
         shadeClose: true,
         shade: 0.8,
-        area: ['50%', '85%'],
-        content: '/wenanPart/orderFormAdd'
-    });
+        area: ['70%', '90%'],
+        content: '/wenanPart/orderFormAdd',
+        success: function (layero, index) {
+            // 获取子页面的iframe
+            var iframe = window['layui-layer-iframe' + index];
+            // 向子页面的全局函数child传参
 
-    // layer.full(index);
-});
+            iframe.initEdit("", partNow);
+        }
+    });
+}
+
 
 $("#editOrder").click(function () {
     var checkStatus = table.checkStatus('id')
@@ -314,21 +389,21 @@ function submitAudit(flag) {
     }
 }
 
-$("#auditPay").click(function () {
+function auditPay() {
     submitAudit("audit");
-});
+}
 
-$("#partTimeAudit").click(function () {
+function partTimeAudit() {
     submitAudit("partAudit");
-});
+}
 
-$("#settlePay").click(function () {
+function settlePay() {
     submitAudit("settle");
-});
+}
 
-$("#jiaogaoState").click(function () {
+function jiaogaoState() {
     submitAudit("submit");
-});
+}
 
 
 function reloadTable() {

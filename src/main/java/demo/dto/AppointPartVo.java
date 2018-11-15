@@ -3,6 +3,8 @@ package demo.dto;
 public class AppointPartVo {
     private Long orderId;
 
+    private String orderNumber;
+
     private String partQq;
     //稿酬
     private String partMoney;
@@ -39,5 +41,13 @@ public class AppointPartVo {
 
     public void setPartRemark(String partRemark) {
         this.partRemark = partRemark;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }

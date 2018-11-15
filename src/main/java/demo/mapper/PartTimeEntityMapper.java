@@ -17,4 +17,6 @@ public interface PartTimeEntityMapper {
     int updateByPrimaryKey(PartTimeEntity record);
 
     PartTimeEntity getOrderPartByQq(@Param("partQq") String partQq, @Param("orderNumber") String orderNumber);
+
+    int deletePart(@Param("orderNumber") String orderNumber, @Param("partQq") String partQq);
 }

@@ -3,10 +3,7 @@
  */
 var payUri = "addOrder";
 var form, editData;
-
-$(function () {
-    init();
-});
+var partSet = "";
 
 $("#close").click(function () {
     var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
@@ -29,8 +26,8 @@ function init() {
             if (data.field.payDate === null || data.field.payDate.length == 0) {
                 layer.alert("请选择完成日期");
             } else {
-                data.field.partName = '1';
-                if(editData){
+                data.field.partName = partSet;
+                if (editData) {
                     data.field.id = editData[0].id;
                 }
                 var jasondata = JSON.stringify(data.field);
@@ -74,9 +71,12 @@ function init() {
     });
 }
 
-function initEdit(data) {
-    editData = data;
-    payUri = "editOrder";
+function initEdit(data, part) {
+    partSet = part;
+    if (data && data != "") {
+        editData = data;
+        payUri = "editOrder";
+    }
     //表单初始赋值
     init();
 }

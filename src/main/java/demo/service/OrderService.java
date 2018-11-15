@@ -13,11 +13,13 @@ import java.util.List;
 public interface OrderService {
     PageInfo<PartTimeOrderRes> queryAllOrder(OrderReqVo vo) throws ParseException;
 
-    int addOrder(OrderEntity order);
+    int addOrder(OrderVo order);
 
     int updateOrder(OrderEntity order);
 
     int auditOrder(AuditVo vo);
 
     int appointPart(AppointPartVo vo);
+
+    int deletePart(AppointPartVo vo);
 }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo.mapper.PayProgressMapper">
+  <resultMap id="BaseResultMap" type="demo.model.PayProgress">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="pay_date" jdbcType="TIMESTAMP" property="payDate" />
+    <result column="pay_way" jdbcType="VARCHAR" property="payWay" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="money_type" jdbcType="VARCHAR" property="moneyType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, pay_date, pay_way, amount, money_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oa_pay_process
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from oa_pay_process
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="demo.model.PayProgress">
+    insert into oa_pay_process (id, order_id, pay_date, 
+      pay_way, amount, money_type
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=INTEGER}, #{payDate,jdbcType=TIMESTAMP}, 
+      #{payWay,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{moneyType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="demo.model.PayProgress">
+    insert into oa_pay_process
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="payDate != null">
+        pay_date,
+      </if>
+      <if test="payWay != null">
+        pay_way,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="moneyType != null">
+        money_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="payDate != null">
+        #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payWay != null">
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyType != null">
+        #{moneyType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="demo.model.PayProgress">
+    update oa_pay_process
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="payDate != null">
+        pay_date = #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payWay != null">
+        pay_way = #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyType != null">
+        money_type = #{moneyType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="demo.model.PayProgress">
+    update oa_pay_process
+    set order_id = #{orderId,jdbcType=INTEGER},
+      pay_date = #{payDate,jdbcType=TIMESTAMP},
+      pay_way = #{payWay,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      money_type = #{moneyType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByOrderId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from oa_pay_process
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+</mapper>

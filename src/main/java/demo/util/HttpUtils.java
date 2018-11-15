@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author gongxufan
  * @date 17-11-30
  **/
 public class HttpUtils {

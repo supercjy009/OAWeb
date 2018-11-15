@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "/webAjax/partUser")
-public class PartTimeController {
+public class PartUserController {
     @Resource
     PartUserService partUserService;
 

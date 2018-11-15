@@ -8,6 +8,7 @@ import demo.model.UserinfoEntity;
 import demo.service.UserinfoService;
 import demo.util.MyDES;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -33,6 +34,7 @@ public class UserinfoServiceImp implements UserinfoService {
     }
 
     @Override
+    @Transactional
     public int registUser(String username, String password, String salt, Long roleId) {
         UserinfoEntity userinfoEntity = new UserinfoEntity();
         userinfoEntity.setName(username);
