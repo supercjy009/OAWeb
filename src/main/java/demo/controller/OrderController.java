@@ -82,8 +82,8 @@ public class OrderController {
         return mapOut;
     }
 
-    @RequestMapping(value = "/updateOrder", method = RequestMethod.GET)
-    public Map<String, Object> updateOrder(@RequestBody OrderEntity order) {
+    @RequestMapping(value = "/editOrder", method = RequestMethod.POST)
+    public Map<String, Object> updateOrder(@RequestBody OrderVo order) {
         Map<String, Object> mapOut = new HashMap<>();
         mapOut.put("code", orderService.updateOrder(order));
         return mapOut;

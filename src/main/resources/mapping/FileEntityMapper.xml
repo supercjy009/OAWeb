@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo.mapper.FileEntityMapper">
+  <resultMap id="BaseResultMap" type="demo.model.FileEntity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_uri" jdbcType="VARCHAR" property="fileUri" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="part_name" jdbcType="VARCHAR" property="partName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_date, create_user, file_name, file_uri, type, part_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oa_file_manage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from oa_file_manage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="demo.model.FileEntity">
+    insert into oa_file_manage (id, create_date, create_user, 
+      file_name, file_uri, type, 
+      part_name)
+    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{fileName,jdbcType=VARCHAR}, #{fileUri,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{partName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="demo.model.FileEntity">
+    insert into oa_file_manage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileUri != null">
+        file_uri,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="partName != null">
+        part_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUri != null">
+        #{fileUri,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null">
+        #{partName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="demo.model.FileEntity">
+    update oa_file_manage
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUri != null">
+        file_uri = #{fileUri,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="partName != null">
+        part_name = #{partName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="demo.model.FileEntity">
+    update oa_file_manage
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_uri = #{fileUri,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      part_name = #{partName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- 这个方法是我自己加的 -->
+  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.dto.FileReqVo">
+    select
+    <include refid="Base_Column_List"/>
+    from oa_file_manage
+    <where>
+      <if test="createDate != null">
+        <![CDATA[`create_date` <= DATE_ADD(#{createDate, jdbcType=TIMESTAMP},INTERVAL 1 MONTH ) AND `create_date` >= #{createDate, jdbcType=TIMESTAMP}]]>
+      </if>
+      <if test="userId != null">
+        and create_user = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="type != null and type != ''">
+        and type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="partName != null and partName != ''">
+        and part_name = #{partName,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by create_date desc
+  </select>
+</mapper>

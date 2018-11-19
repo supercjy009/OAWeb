@@ -64,11 +64,11 @@
 
     <div class="layui-form-item" id="payProgress">
         <label class="layui-form-label"><span style="color: red">*</span>付款进度 </label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" id="progressDateDiv">
             <input type="text" name="progressDate" id="progressDate" placeholder="yyyy-MM-dd" autocomplete="off"
                    class="layui-input">
         </div>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" id="progressWayDiv">
             <select name="progressWay" id="progressWay" lay-filter="user" lay-verify="">
                 <option value="微" selected="">微</option>
                 <option value="支">支</option>
@@ -82,7 +82,7 @@
                 <option value="其他">其他</option>
             </select>
         </div>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" id="progressMoneyTypeDiv">
             <select name="progressMoneyType" id="progressMoneyType" lay-filter="user" lay-verify="">
                 <option value="人民币" selected="">人民币</option>
                 <option value="美元">美元</option>
@@ -96,7 +96,7 @@
             </select>
         </div>
         <label style="float:left;padding: 9px 15px;"><span style="color: red">*</span>金额 </label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" id="progressAmountDiv">
             <input type="text" name="progressAmount" id="progressAmount" placeholder="请输入" lay-verify=""
                    autocomplete="off"
                    class="layui-input">

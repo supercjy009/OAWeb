@@ -7,9 +7,52 @@ var header = [ //表头
     {checkbox: true, fixed: true},
     {title: '序号', type: 'numbers'}
     // , {field: 'id', title: 'ID', width: 0, style: 'display:none;'}
-    , {field: 'keyWord', title: '关键词'}
+    , {field: 'createDate', align: 'center', title: '上传日期'}
+    , {field: 'userName', align: 'center', title: '上传人'}
+    , {field: 'fileName', title: '文件名'}
+    , {field: 'type', align: 'center', title: '分类', templet: '#switchTpl'}
 ];
 
+layui.use(['laydate'], function () {
+    $("#createDate").attr("lay-key", getRandomString);
+    var laydate = layui.laydate;
+    //日期
+    laydate.render({
+        elem: '#createDate',
+        type: 'month', //只选年月
+        btns: ['clear', 'confirm'],
+        done: function (value, date) {
+            reloadTable(value);
+        }
+    });
+});
+
+layui.use('upload', function () {
+    var upload = layui.upload;
+
+    //执行实例
+    var uploadInst = upload.render({
+        elem: '#addFile' //绑定元素
+        , accept: "file"
+        , url: ajaxUri + '/webAjax/file/addOrder' //上传接口
+        , data: {
+            partName: partNow
+        }, before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+            layer.load(); //上传loading
+        }
+        , done: function (res) {
+            //上传完毕回调
+            layer.closeAll('loading'); //关闭loading
+            layer.alert("上传成功!");
+            reloadTable();
+        }
+        , error: function () {
+            //请求异常回调
+            layer.closeAll('loading'); //关闭loading
+            layer.alert("上传失败...");
+        }
+    });
+});
 
 layui.use(['table', 'form'], function () {
     var form = layui.form;
@@ -18,11 +61,11 @@ layui.use(['table', 'form'], function () {
     //第一个实例
     table.render({
         id: 'id',
-        elem: '#workPayTable',
+        elem: '#fileTable',
         skin: 'line',
-        height: 'full-500',
+        height: full,
         // height: 'full-280',
-        url: ajaxUri + '/webAjax/keyWord/queryAllOrder', //数据接口
+        url: ajaxUri + '/webAjax/file/queryAllOrder?partName=' + partNow, //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
@@ -36,7 +79,6 @@ layui.use(['table', 'form'], function () {
             // console.log(res);
             //得到当前页码
             // console.log(curr);
-            // debugger
             // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
             var data = res.data;
             //得到数据总量
@@ -53,10 +95,9 @@ layui.use(['table', 'form'], function () {
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    payDate: $('#payDate').val(),
-                    getUser: $('#getUser').val(),
-                    audit: $('#audit').val(),
-                    settle: $('#settle').val()
+                    createDate: $('#createDate').val(),
+                    userId: $('#user').val(),
+                    type: $('#type').val()
                 }
             });
         }
@@ -66,6 +107,37 @@ layui.use(['table', 'form'], function () {
         var type = $(this).data('type');
         // console.log(active[type]);
         active[type] ? active[type].call(this) : '';
+    });
+
+    form.on('select(typeSele1)', function (data) { //监听下拉框
+        reloadTable();
+    })
+
+    form.on('select(typeSelect)', function (data) {
+        // var index = tr.data('index');
+        // var tr = selectElem.parents('tr').first();
+        // 原始的select
+        var selectElem = $(data.elem);
+        // layer.tips(selectElem.attr("value"), data.othis);
+        var id = selectElem.attr("value");
+        console.log(id);
+        $.ajax({
+            type: 'POST',
+            url: ajaxUri + '/webAjax/file/setType',
+            data: {
+                id: id,
+                type: data.value
+            },
+            complete: function (status) {
+                var str = status.responseJSON;
+                console.log(str.code);
+                if (str.code === 1) {
+                    layer.msg('设置成功');
+                } else {
+                    layer.msg('设置成功，服务器异常.');
+                }
+            }
+        });
     });
 
 });
@@ -83,48 +155,13 @@ layui.use(['table', 'form'], function () {
 // });
 
 
-$("#addKeyWord").click(function () {
-    //iframe窗
-    layer.open({
-        type: 2,
-        title: '新建主关键词',
-        shadeClose: true,
-        shade: 0.8,
-        area: ['580px', '60%'],
-        content: '/wenanPart/keyWordAdd',
-        success: function (layero, index) {
-            // 获取子页面的iframe
-            var iframe = window['layui-layer-iframe' + index];
-            // 向子页面的全局函数child传参
-
-            iframe.initEdit("", partNow);
-        }
-    });
-});
-
-
-$("#editKeyWord").click(function () {
+$("#downFile").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
-        //iframe窗
-        layer.open({
-            type: 2,
-            title: '编辑任务',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['580px', '60%'],
-            content: '/wenanPart/keyWordAdd',
-            success: function (layero, index) {
-                // 获取子页面的iframe
-                var iframe = window['layui-layer-iframe' + index];
-                // 向子页面的全局函数child传参
-
-                iframe.initEdit(data);
-            }
-        });
+        window.open('/webAjax/file/downloadFile?uri=' + data[0].fileUri)
     } else if (data.length > 1) {
-        layer.alert("修改时不能勾选多条数据");
+        layer.alert("下载时不能勾选多条数据");
     } else {
         layer.alert("请先勾选一条数据");
     }
@@ -134,12 +171,12 @@ $("#deleteEntity").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
-        layer.confirm('确认删除这条主关键词吗？', {
+        layer.confirm('确认删除此文件吗？', {
             btn: ['确定', '取消'] //按钮
         }, function () {
             $.ajax({
                 type: 'POST',
-                url: ajaxUri + '/webAjax/keyWord/deleteEntity',
+                url: ajaxUri + '/webAjax/file/deleteEntity',
                 data: {id: data[0].id},
                 complete: function (status) {
                     var str = status.responseJSON;
@@ -160,17 +197,17 @@ $("#deleteEntity").click(function () {
     }
 });
 
-function reloadTable() {
+function reloadTable(date) {
     // var workPayReload = $('#workPayReload');
     table.reload('id', {
         page: {
             curr: 1 //重新从第 1 页开始
         }
-        // , where: {
-        //     key: {
-        //         id: workPayReload.val()
-        //     }
-        // }
+        , where: {
+            createDate: date ? date : $('#createDate').val(),
+            userId: $('#user').val(),
+            type: $('#type').val()
+        }
     });
 }
 

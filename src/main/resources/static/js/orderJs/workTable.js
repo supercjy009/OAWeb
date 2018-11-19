@@ -26,8 +26,8 @@ layui.use(['table', 'form'], function () {
     table.render({
         id: 'id',
         elem: '#workPayTable',
-        skin: 'row',
-        // height: 'full-280',
+        skin: 'line',
+        height: full,
         url: ajaxUri + '/webAjax/workpay/queryAllOrder?partName=' + partNow, //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
@@ -69,8 +69,7 @@ layui.use(['table', 'form'], function () {
                     payDate: $('#payDate').val(),
                     getUser: $('#getUser').val(),
                     audit: $('#audit').val(),
-                    settle: $('#settle').val(),
-                    partName: partNow
+                    settle: $('#settle').val()
                 }
             });
         }

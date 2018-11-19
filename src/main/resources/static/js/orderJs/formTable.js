@@ -54,7 +54,7 @@ layui.use(['table', 'form'], function () {
     table.render({
         id: 'id',
         elem: '#fromManageTable',
-        height: 'full-280',
+        height: full,
         // skin: 'row',
         url: ajaxUri + '/webAjax/order/queryAllOrder?partName=' + partNow, //数据接口
         toolbar: '#toolbarDemo',
@@ -193,8 +193,7 @@ layui.use(['table', 'form'], function () {
                     partAudit: $('#partAudit').val(),
                     partSettleState: $('#partSettleState').val(),
                     settleDate: $('#settleDate').val(),
-                    keyWord: $('#keyWord').val(),
-                    partName: partNow
+                    keyWord: $('#keyWord').val()
                 }
             });
         }
@@ -212,6 +211,10 @@ function deleteCurrentPart() {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
+        if (data[0].partQq == null) {
+            layer.alert("此订单尚未指派兼职，请确认");
+            return;
+        }
         layer.confirm('确认删除这条兼职人员信息吗？', {
             btn: ['确定', '取消'] //按钮
         }, function () {
@@ -241,7 +244,7 @@ function deleteCurrentPart() {
     } else if (data.length > 1) {
         layer.alert("删除时不能勾选多条数据");
     } else {
-        layer.alert("请先勾选一条数据");
+        layer.alert("请先勾选一条兼职数据");
     }
 }
 
@@ -252,7 +255,7 @@ function viewProgress(data) {
         title: false,
         closeBtn: 0,
         shadeClose: true,
-        area: ['500px','400px'],
+        area: ['500px', '400px'],
         content: '/widget/viewPayProgress',
         success: function (layero, index) {
             // 获取子页面的iframe
@@ -268,9 +271,13 @@ $("#deleteCurrentPart").click(function () {
 });
 
 $("#editPartTime").click(function () {
+
+});
+
+function editPartTime() {
     layer.open({
         type: 2,
-        title: "指派兼职",
+        title: "修改兼职",
         shadeClose: false,
         shade: 0.8,
         area: ['50%', '60%'],
@@ -282,7 +289,7 @@ $("#editPartTime").click(function () {
             iframe.initAudit(data, flag);
         }
     });
-});
+}
 
 function zhipai() {
     var checkStatus = table.checkStatus('id')
@@ -330,6 +337,9 @@ function addOrder() {
 
 
 $("#editOrder").click(function () {
+});
+
+function editOrder() {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
@@ -339,7 +349,7 @@ $("#editOrder").click(function () {
             title: '编辑任务',
             shadeClose: true,
             shade: 0.8,
-            area: ['50%', '85%'],
+            area: ['70%', '90%'],
             content: '/wenanPart/orderFormAdd',
             success: function (layero, index) {
                 // 获取子页面的iframe
@@ -354,7 +364,31 @@ $("#editOrder").click(function () {
     } else {
         layer.alert("请先勾选一条数据");
     }
-});
+}
+
+function addjiesuan() {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length >= 1) {
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '添加结算日',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['30%', '50%'],
+            content: '/widget/settleDate',
+            success: function (layero, index) {
+                // 获取子页面的iframe
+                var iframe = window['layui-layer-iframe' + index];
+                // 向子页面的全局函数child传参
+                iframe.initAudit(data, 0);
+            }
+        });
+    } else {
+        layer.alert("请至少勾选一条数据");
+    }
+}
 
 function submitAudit(flag) {
     var title

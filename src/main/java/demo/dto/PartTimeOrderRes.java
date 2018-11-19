@@ -10,6 +10,7 @@ import java.util.Date;
  * Created by p51 on 2018/7/27.
  */
 public class PartTimeOrderRes extends OrderEntity {
+    private Long partId;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date payDate; //最新付款进度的日期
 
@@ -140,5 +141,13 @@ public class PartTimeOrderRes extends OrderEntity {
 
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
+    }
+
+    public Long getPartId() {
+        return partId;
+    }
+
+    public void setPartId(Long partId) {
+        this.partId = partId;
     }
 }

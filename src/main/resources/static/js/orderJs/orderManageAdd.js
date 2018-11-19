@@ -44,9 +44,7 @@ function init() {
 
         //监听提交
         form.on('submit(formDemo)', function (data) {
-            // if (data.field.payDate === null || data.field.payDate.length == 0) {
-            //     layer.alert("请选择完成日期");
-            // } else {
+            debugger
             data.field.partName = partSet;
             var pdata = {};
             //把表单上的也加进去
@@ -88,7 +86,6 @@ function init() {
                     }
                 }
             });
-            // }
             return false;
         });
 
@@ -131,19 +128,33 @@ $("#addPayProgress").click(function () {
     data.progressMoneyName = $("#progressMoneyType").find("option:selected").text();
     if ($("#progressAmount").val().trim() != '') {
         data.amount = $("#progressAmount").val();
-    }
-    else {
+    } else {
         layer.alert("请填写付款进度金额");
         return;
     }
     progressList.push(data);
+    var progressDateDiv = $("#progressDateDiv").clone();
+    progressDateDiv.children().eq(0).attr("disabled", "disabled")
+    var progressWayDiv = $("#progressWayDiv").clone();
+    progressWayDiv.children().eq(0).attr("disabled", "disabled")
+    var progressMoneyTypeDiv = $("#progressMoneyTypeDiv").clone();
+    progressMoneyTypeDiv.children().eq(0).attr("disabled", "disabled")
+    var progressAmountDiv = $("#progressAmountDiv").clone();
+    progressAmountDiv.children().eq(0).attr("disabled", "disabled");
+    var itemDiv = $("<div class='layui-form-item' style='margin:0 0 5px 110px'></div>");
+    itemDiv.append(progressDateDiv);
+    itemDiv.append(progressWayDiv);
+    itemDiv.append(progressMoneyTypeDiv);
+    itemDiv.append(progressAmountDiv);
+    $("#payProgress").after(itemDiv);
+    // form.render();
     //iframe窗
-    $("#payProgress").after("<div class='layui-form-item' id='payProgress'>\n" +
-        "<label class='layui-form-label'><span style='color: red'>*</span> </label>" +
-        "<label class='layui-form-label label_warp'>" + data.payDate + "</label>" +
-        "<label class='layui-form-label label_warp'>" + data.progressWayName + "</label>" +
-        "<label class='layui-form-label label_warp'>" + data.progressMoneyName + "</label>" +
-        "<label class='layui-form-label label_warp'>" + data.amount + "</label>");
+    // $("#payProgress").after("<div class='layui-form-item' id='payProgress'>\n" +
+    //     "<label class='layui-form-label'><span style='color: red'>*</span> </label>" +
+    //     "<label class='layui-form-label label_warp'>" + data.payDate + "</label>" +
+    //     "<label class='layui-form-label label_warp'>" + data.progressWayName + "</label>" +
+    //     "<label class='layui-form-label label_warp'>" + data.progressMoneyName + "</label>" +
+    //     "<label class='layui-form-label label_warp'>" + data.amount + "</label>");
     $("#progressDate").val('');
     $("#progressAmount").val('');
 });

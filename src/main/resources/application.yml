@@ -24,6 +24,12 @@ spring.datasource.max-active: 20 #连接池中最大活跃连接数
 spring.datasource.max-idle: 8 #指定连接池最大的空闲连接数量
 spring.datasource.min-idle: 8 #指定必须保持连接的最小值
 spring.datasource.initial-size: 10  #指定启动连接池时，初始建立的连接数量
+spring:
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
 
 mybatis:
   mapperLocations: classpath:mapping/*.xml
@@ -49,6 +55,12 @@ spring.thymeleaf.content-type: text/html
 spring.thymeleaf.cache: false
 #thymeleaf end
 
+file:
+  #静态资源对外暴露的访问路径
+  staticAccessPath: /api/file/**
+  #文件上传目录（注意Linux和Windows上的目录结构不同）
+#  uploadFolder: /root/uploadFiles/
+  uploadFolder: d://tmp/
 
 #redis设置
 #redis

@@ -46,6 +46,11 @@ public class WebPageController {
     public String keyWordAdd() {
         return "wenanPart/keyWordAdd";
     }
+    //文件柜
+    @RequestMapping(value = {"/wenanPart/fileManage"}, method = RequestMethod.GET)
+    public String fileManage() {
+        return "wenanPart/fileManage";
+    }
 
     @RequestMapping(value = {"/partTime/partUserTable"}, method = RequestMethod.GET)
     public String partUserTable() {
@@ -55,6 +60,11 @@ public class WebPageController {
     @RequestMapping(value = {"/partTime/partUserAdd"}, method = RequestMethod.GET)
     public String partUserAdd() {
         return "partTime/partUserAdd";
+    }
+
+    @RequestMapping(value = {"/widget/settleDate"}, method = RequestMethod.GET)
+    public String settleDate() {
+        return "widget/settleDate";
     }
 
     @RequestMapping(value = {"/widget/audit"}, method = RequestMethod.GET)

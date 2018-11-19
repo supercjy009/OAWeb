@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="assets/css/table-style.css">
+<script src="/assets/layui/layui.js"></script>
+<style>
+    .layui-table-cell {
+        overflow: visible !important;
+        height: 40px;
+    }
+</style>
+<body>
+<div class="tab-bar-container">
+    <div>
+        <div class="loyo-nav-tabs">
+
+            <ul class="loyo-nav-tab pull-left nav nav-pills tab-list">
+                <li class="loyo-tab-item active">
+                    <a>
+                        <h4> 文件柜</h4>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-regions-container clearfix">
+    <div class="layui-form" style="padding: 20px 20px 0 20px">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input type="text" id="createDate" placeholder="上传月份" lay-filter="createDate"
+                       lay-key="1" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select id="user" lay-filter="" lay-verify="required">
+                    <option value="" selected="">上传人</option>
+                    <!--<option value="1">公司</option>-->
+                    <!--<option value="2">个人</option>-->
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select id="type" lay-filter="typeSele1" lay-verify="required">
+                    <option value="" selected="">分类</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="1">绩效考核</option>
+                    <option value="2">问卷</option>
+                    <option value="1000">其他</option>
+                </select>
+            </div>
+            <!--<button class="layui-btn" data-type="reload">搜索</button>-->
+            <!--</div>-->
+        </div>
+
+        <div class="tab-regions-container clearfix">
+            <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+
+            <div class="loyo-search-section" style="margin-top:15px;">
+                <button type="button" class="layui-btn layui-btn-normal" id="addFile">
+                    <i class="layui-icon">&#xe67c;</i>上传
+                </button>
+
+                <button class="btn btn-primary marginr" id="downFile"><span>导出</span>
+                </button>
+
+                <button class="btn btn-primary marginr" id="deleteEntity"><span>删除</span>
+                </button>
+
+            </div>
+
+            <table id="fileTable" lay-filter="test"></table>
+        </div>
+
+
+        <script src="/js/orderJs/fileTable.js"></script>
+
+        <script type="text/html" id="switchTpl">
+            <select name="type" lay-filter="typeSelect" value="{{d.id}}">
+                <option value=""></option>
+                <option value="1" {{ d.type==
+                '1' ? 'selected' : '' }}>绩效考核</option>
+                <option value="2" {{ d.type==
+                '2' ? 'selected' : '' }}>问卷</option>
+                <option value="1000" {{ d.type==
+                '1000' ? 'selected' : '' }}>其他</option>
+            </select>
+        </script>
+
+</body>

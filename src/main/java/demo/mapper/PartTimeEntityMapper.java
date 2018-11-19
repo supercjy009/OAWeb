@@ -1,5 +1,6 @@
 package demo.mapper;
 
+import demo.dto.SettleDateVo;
 import demo.model.PartTimeEntity;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,4 +20,6 @@ public interface PartTimeEntityMapper {
     PartTimeEntity getOrderPartByQq(@Param("partQq") String partQq, @Param("orderNumber") String orderNumber);
 
     int deletePart(@Param("orderNumber") String orderNumber, @Param("partQq") String partQq);
+
+    int addSettleDate(SettleDateVo vo);
 }

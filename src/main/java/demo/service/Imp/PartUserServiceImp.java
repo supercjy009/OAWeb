@@ -3,6 +3,8 @@ package demo.service.Imp;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import demo.dto.PartUserReqVo;
+import demo.dto.SettleDateVo;
+import demo.mapper.PartTimeEntityMapper;
 import demo.mapper.PartTimeUserMapper;
 import demo.model.PartTimeUser;
 import demo.service.PartUserService;
@@ -19,7 +21,8 @@ import java.util.List;
 public class PartUserServiceImp implements PartUserService {
     @Resource
     PartTimeUserMapper partTimeUserMapper;
-
+    @Resource
+    PartTimeEntityMapper partTimeEntityMapper;
 
     @Override
     public PageInfo<PartTimeUser> queryAllOrder(PartUserReqVo vo) {
@@ -43,5 +46,10 @@ public class PartUserServiceImp implements PartUserService {
     @Override
     public int deleteEntity(Long id) {
         return partTimeUserMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int addSettleDate(SettleDateVo vo) {
+        return partTimeEntityMapper.addSettleDate(vo);
     }
 }

@@ -15,7 +15,7 @@ public interface OrderService {
 
     int addOrder(OrderVo order);
 
-    int updateOrder(OrderEntity order);
+    int updateOrder(OrderVo order);
 
     int auditOrder(AuditVo vo);
 

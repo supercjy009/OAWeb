@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import demo.config.SystemConstant;
 import demo.dto.PartUserAddVo;
 import demo.dto.PartUserReqVo;
+import demo.dto.SettleDateVo;
 import demo.model.PartTimeUser;
 import demo.service.PartUserService;
 import demo.service.UserinfoService;
@@ -17,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,6 +88,13 @@ public class PartUserController {
     public Map<String, Object> deleteEntity(@RequestParam Long id) {
         Map<String, Object> mapOut = new HashMap<>();
         mapOut.put("code", partUserService.deleteEntity(id));
+        return mapOut;
+    }
+
+    @RequestMapping(value = "/addSettleDate", method = RequestMethod.POST)
+    public Map<String, Object> addSettleDate(@RequestBody SettleDateVo vo) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", partUserService.addSettleDate(vo));
         return mapOut;
     }
 }

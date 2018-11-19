@@ -77,8 +77,19 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
-    public int updateOrder(OrderEntity order) {
-        return orderEntityMapper.updateByPrimaryKey(order);
+    public int updateOrder(OrderVo order) {
+        Long orderId = order.getId();
+        if (order.getProgressList() != null && order.getProgressList().size() != 0) {
+            for (int i = 0; i < order.getProgressList().size(); i++) {
+                PayProgress payProgress = order.getProgressList().get(i);
+                if (payProgress.getId() != null) {
+
+                }
+                payProgress.setOrderId(orderId.intValue());
+                progressMapper.insert(payProgress);
+            }
+        }
+        return orderEntityMapper.updateByPrimaryKeySelective(order);
     }
 
     @Override
@@ -120,6 +131,9 @@ public class OrderServiceImp implements OrderService {
     @Transactional
     public int deletePart(AppointPartVo vo) {
         PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
+        if (partTimeUser == null) {
+            return -100;
+        }
         //更新接单数量
         int getOrder = partTimeUser.getGetOrderNumber() == null ? 0 : partTimeUser.getGetOrderNumber();
         partTimeUser.setGetOrderNumber(getOrder - 1);

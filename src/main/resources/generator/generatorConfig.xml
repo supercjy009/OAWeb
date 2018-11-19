@@ -48,6 +48,6 @@
         <!--<table tableName="oa_keyword" domainObjectName="KeyWordEntity" enableCountByExample="false"-->
         <!--enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
         <!--selectByExampleQueryId="false"></table>-->
-
+        <!--<table tableName="oa_file_manage" domainObjectName="FileEntity" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
     </context>
 </generatorConfiguration>
