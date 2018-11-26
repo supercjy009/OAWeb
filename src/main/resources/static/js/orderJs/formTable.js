@@ -219,6 +219,7 @@ function deleteCurrentPart() {
             btn: ['确定', '取消'] //按钮
         }, function () {
             var deletePart = {};
+            deletePart.partId = data[0].partId;
             deletePart.partQq = data[0].partQq;
             deletePart.orderId = data[0].id;
             deletePart.orderNumber = data[0].orderNumber;
@@ -266,29 +267,29 @@ function viewProgress(data) {
     });
 }
 
-$("#deleteCurrentPart").click(function () {
-
-});
-
-$("#editPartTime").click(function () {
-
-});
-
 function editPartTime() {
-    layer.open({
-        type: 2,
-        title: "修改兼职",
-        shadeClose: false,
-        shade: 0.8,
-        area: ['50%', '60%'],
-        content: '/widget/addPartTime',
-        success: function (layero, index) {
-            // 获取子页面的iframe
-            var iframe = window['layui-layer-iframe' + index];
-            // 向子页面的全局函数child传参
-            iframe.initAudit(data, flag);
-        }
-    });
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length === 1) {
+        layer.open({
+            type: 2,
+            title: "修改兼职",
+            shadeClose: false,
+            shade: 0.8,
+            area: ['50%', '60%'],
+            content: '/widget/addPartTime',
+            success: function (layero, index) {
+                // 获取子页面的iframe
+                var iframe = window['layui-layer-iframe' + index];
+                // 向子页面的全局函数child传参
+                iframe.initAudit(data, "edit");
+            }
+        });
+    } else if (data.length > 1) {
+        layer.alert("修改时只能勾选一条兼职");
+    } else {
+        layer.alert("请先勾选一条数据");
+    }
 }
 
 function zhipai() {
@@ -306,7 +307,7 @@ function zhipai() {
                 // 获取子页面的iframe
                 var iframe = window['layui-layer-iframe' + index];
                 // 向子页面的全局函数child传参
-                iframe.initAudit(data);
+                iframe.initAudit(data,"add");
             }
         });
     } else if (data.length > 1) {
@@ -335,9 +336,6 @@ function addOrder() {
     });
 }
 
-
-$("#editOrder").click(function () {
-});
 
 function editOrder() {
     var checkStatus = table.checkStatus('id')

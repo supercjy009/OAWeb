@@ -22,4 +22,6 @@ public interface OrderService {
     int appointPart(AppointPartVo vo);
 
     int deletePart(AppointPartVo vo);
+
+    int editPart(AppointPartVo vo);
 }

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Part;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,13 +132,30 @@ public class OrderServiceImp implements OrderService {
     @Transactional
     public int deletePart(AppointPartVo vo) {
         PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
-        if (partTimeUser == null) {
-            return -100;
+        if (partTimeUser != null) {
+            //更新接单数量
+            int getOrder = partTimeUser.getGetOrderNumber() == null ? 0 : partTimeUser.getGetOrderNumber();
+            partTimeUser.setGetOrderNumber(getOrder - 1);
+            partUserMapper.updateByPrimaryKeySelective(partTimeUser);
         }
-        //更新接单数量
-        int getOrder = partTimeUser.getGetOrderNumber() == null ? 0 : partTimeUser.getGetOrderNumber();
-        partTimeUser.setGetOrderNumber(getOrder - 1);
-        partUserMapper.updateByPrimaryKeySelective(partTimeUser);
-        return partTimeMapper.deletePart(vo.getOrderNumber(), vo.getPartQq());
+        return partTimeMapper.deleteByPrimaryKey(vo.getPartId());
+    }
+
+    @Override
+    @Transactional
+    public int editPart(AppointPartVo vo) {
+        PartTimeEntity partTime = partTimeMapper.selectByPrimaryKey(vo.getPartId());
+        PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
+        if (StringUtils.isEmpty(partTime.getDeduct()) && partTimeUser != null) {
+            //更新问题率
+            Integer issue = partTimeUser.getProblemRate() == null ? 0 : Integer.valueOf(partTimeUser.getProblemRate());
+            partTimeUser.setProblemRate(String.valueOf(issue + 1));
+            partUserMapper.updateByPrimaryKeySelective(partTimeUser);
+
+        }
+        partTime.setPartRemark(vo.getPartRemark());
+        partTime.setPartMoney(vo.getPartMoney());
+        partTime.setDeduct(vo.getDeduct());
+        return partTimeMapper.updateByPrimaryKeySelective(partTime);
     }
 }

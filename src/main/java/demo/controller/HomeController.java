@@ -197,7 +197,6 @@ public class HomeController {
         System.out.println("HomeController.login()");
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         logger.info("info");
-        logger.error("err");
         HttpSession session1 = request.getSession(true);
         System.out.println(session1.getId());
         String username = (String) map.get("uname");

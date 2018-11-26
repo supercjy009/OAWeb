@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
 </head>
 <body>
-<form class="layui-form" id="partForm" style="padding: 20px 20px 20px 20px">
+<form class="layui-form" style="padding: 20px 20px 20px 20px" lay-filter="payEdit">
     <div class="layui-form-item">
         <label class="layui-form-label"> <span style="color: red">*</span>兼职QQ</label>
         <div class="layui-input-inline">
@@ -29,6 +29,14 @@
         </div>
     </div>
 
+    <div class="layui-form-item" style="display: none" id="deductDiv">
+        <label class="layui-form-label"><span style="color: red">*</span>应扣 </label>
+        <div class="layui-input-inline">
+            <input type="text" name="deduct" placeholder="请输入" lay-verify="" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="addPartForm">确定</button>
@@ -43,7 +51,7 @@
 <script>
     //Demo
     var editData, flagStr;
-
+    var postUri = "appointPart";
     layui.config({
         base: '/assets/layui/'
     })
@@ -81,27 +89,27 @@
             var form = layui.form;
             var json = {};
             json.orderId = editData[0].id;
-            // if (editData) {
-            //     var arrayObj = new Array();
-            //     for (var i = 0; i < editData.length; i++) {
-            //         arrayObj.push(editData[i].id)
-            //     }
-            //     json.orderIds = arrayObj;
-            // }
+
             //监听提交
             form.on('submit(addPartForm)', function (data) {
+                var msg = '确认指派吗？';
+                if (postUri == "editPart") {
+                    msg = '确认修改吗？';
+                    json.partId = editData[0].partId
+                }
                 json.partQq = data.field.partQq;
                 json.partRemark = data.field.partRemark;
                 json.partQq = data.field.partQq;
                 json.partMoney = data.field.partMoney;
+                json.deduct = data.field.deduct
                 //询问框
-                parent.layer.confirm('确认指派吗？', {
+                parent.layer.confirm(msg, {
                     btn: ['确定', '取消'] //按钮
                 }, function () {
                     var jasondata = JSON.stringify(json);
                     $.ajax({
                         type: 'POST',
-                        url: ajaxUri + '/webAjax/order/appointPart',
+                        url: ajaxUri + '/webAjax/order/' + postUri,
                         data: jasondata,
                         dataType: "json",
                         contentType: "application/json",
@@ -109,14 +117,14 @@
                             var str = status.responseJSON;
                             console.log(str.code);
                             if (str.code === 1) {
-                                parent.layer.msg("指派成功");
+                                parent.layer.msg("操作成功");
                                 var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
                                 parent.reloadTable();
                                 parent.layer.close(index);
                             } else if (str.code === -1){
-                                parent.layer.alert('指派失败，兼职qq不存在');
+                                parent.layer.alert('失败，兼职qq不存在');
                             } else if (str.code === -2){
-                                parent.layer.alert('指派失败，同一兼职人员不能重复指派');
+                                parent.layer.alert('失败，同一兼职人员不能重复指派');
                             }
                         }
                     });
@@ -124,6 +132,18 @@
 
                 return false;
             });
+
+            if (postUri == "editPart") {
+                $("#deductDiv").show();
+                // alert("aaa"+editData[0].id);
+                form.val('payEdit', {
+                    "partQq": editData[0].partQq // "name": "value"
+                    , "partRemark": editData[0].partRemark
+                    , "partMoney": editData[0].partMoney
+                    , "deduct" : editData[0].deduct
+                })
+                $("#partQq").attr("disabled",true)
+            }
         });
     }
 
@@ -132,9 +152,12 @@
         parent.layer.close(index);
     });
 
-    function initAudit(data) {
+    function initAudit(data,flag) {
         console.log(data);
         editData = data;
+        if (flag== "edit") {
+            postUri = "editPart";
+        }
         //表单初始赋值
         init();
     }

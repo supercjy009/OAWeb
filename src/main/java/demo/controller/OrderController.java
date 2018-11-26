@@ -103,6 +103,13 @@ public class OrderController {
         return mapOut;
     }
 
+    @RequestMapping(value = "/editPart", method = RequestMethod.POST)
+    public Map<String, Object> editPart(@RequestBody AppointPartVo vo) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", orderService.editPart(vo));
+        return mapOut;
+    }
+
     @RequestMapping(value = "/deletePart", method = RequestMethod.POST)
     public Map<String, Object> deletePart(@RequestBody AppointPartVo vo) {
         Map<String, Object> mapOut = new HashMap<>();
