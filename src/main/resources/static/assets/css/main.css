@@ -87,7 +87,7 @@ footer {
 
 #wrapper #sidebar-nav,
 #wrapper .main {
-    padding-top: 80px;
+    padding-top: 50px;
 }
 
 @media screen and (max-width: 767px) {
@@ -146,7 +146,7 @@ footer {
 }
 
 .main-content {
-    padding: 12px 8px;
+    margin-top: 5px;
 }
 
 .main-wrapper {
@@ -221,7 +221,7 @@ html.fullscreen-bg #wrapper {
 
 .navbar-default .brand {
     float: left;
-    padding: 30px 39px;
+    padding: 15px 39px;
     background-color: #fff;
 }
 
@@ -246,12 +246,14 @@ html.fullscreen-bg #wrapper {
 
 .navbar-btn {
     float: left;
-    padding: 16px 0;
+    /*padding: 16px 0;*/
+    padding: 0;
 }
 
 .navbar-btn button {
     font-size: 24px;
-    padding: 4px 8px;
+    /*padding: 4px 8px;*/
+    padding: 3px;
     line-height: .7;
     border: none;
     background: none;
@@ -320,7 +322,8 @@ html.fullscreen-bg #wrapper {
 }
 
 .navbar-nav > li > a {
-    padding: 28px 20px;
+    /*padding: 28px 20px;*/
+    padding: 15px 20px;
 }
 
 .navbar-nav > li > a > i {

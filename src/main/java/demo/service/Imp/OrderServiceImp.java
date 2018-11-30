@@ -2,7 +2,7 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import demo.dto.*;
+import demo.model.dto.*;
 import demo.mapper.OrderEntityMapper;
 import demo.mapper.PartTimeEntityMapper;
 import demo.mapper.PartTimeUserMapper;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Part;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -119,6 +118,8 @@ public class OrderServiceImp implements OrderService {
         partTime.setSubmitState("0");//待交稿
         partTime.setPartPhone(partTimeUser.getPartPhone());
         partTime.setPartAlipay(partTimeUser.getPartAlipay());
+        partTime.setPartMoneyReal("0");//实发稿酬
+        partTime.setCreateTime(new Date());//派单日期
         partTimeMapper.insert(partTime);
         //更新最近接单日和接单数量
         partTimeUser.setRecentOrderDate(new Date());

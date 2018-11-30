@@ -116,7 +116,7 @@
   </update>
 
   <!-- 这个方法是我自己加的 -->
-  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.dto.FileReqVo">
+  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.model.dto.FileReqVo">
     select
     <include refid="Base_Column_List"/>
     from oa_file_manage

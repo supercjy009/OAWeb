@@ -1,8 +1,7 @@
-package demo.dto;
+package demo.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import demo.model.OrderEntity;
-import demo.model.PartTimeEntity;
 
 import java.util.Date;
 

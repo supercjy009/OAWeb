@@ -1,9 +1,8 @@
 package demo.mapper;
 
 
-import demo.dto.*;
+import demo.model.dto.*;
 import demo.model.OrderEntity;
-import demo.model.WorkPayEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

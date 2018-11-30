@@ -2,9 +2,9 @@ package demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import demo.config.SystemConstant;
-import demo.dto.PartUserAddVo;
-import demo.dto.PartUserReqVo;
-import demo.dto.SettleDateVo;
+import demo.model.dto.PartUserAddVo;
+import demo.model.dto.PartUserReqVo;
+import demo.model.dto.SettleDateVo;
 import demo.model.PartTimeUser;
 import demo.service.PartUserService;
 import demo.service.UserinfoService;
@@ -18,7 +18,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -1,11 +1,9 @@
 package demo.service;
 
 import com.github.pagehelper.PageInfo;
-import demo.dto.PartUserReqVo;
-import demo.dto.SettleDateVo;
+import demo.model.dto.PartUserReqVo;
+import demo.model.dto.SettleDateVo;
 import demo.model.PartTimeUser;
-
-import java.util.List;
 
 /**
  * Created by p51 on 2018/5/16.

@@ -1,9 +1,7 @@
 package demo.service;
 
 import com.github.pagehelper.PageInfo;
-import demo.dto.AuditVo;
-import demo.dto.KeyWordReqVo;
-import demo.dto.WorkPayReqVo;
+import demo.model.dto.KeyWordReqVo;
 import demo.model.KeyWordEntity;
 
 /**

@@ -2,13 +2,14 @@
  * Created by p51 on 2018/5/30.
  */
 var table;
-var h1 = [{align: 'center', title: '客户交易登记表', colspan: 22},
+var h1 = [
+    {align: 'center', title: '客户交易登记表', colspan: 22},
     {align: 'center', title: '派单登记表', colspan: 14}];
 
 var header = [ //表头
-    {checkbox: true, rowspan: 2}
-    , {title: '序号', type: 'numbers', rowspan: 2}
-    , {field: 'serviceName', title: '接单客服', width: 100, rowspan: 2}
+    {checkbox: true, rowspan: 2},
+    {title: '序号', type: 'numbers', rowspan: 2},
+    {field: 'serviceName', title: '接单客服', width: 100, rowspan: 2}
     , {field: 'getOrderDate', title: '接单时间', width: 145, rowspan: 2}
     , {field: 'customerIm', title: '客户IM', width: 100, rowspan: 2}
     , {field: 'orderNumber', title: '订单编号', width: 100, rowspan: 2}
@@ -83,10 +84,13 @@ layui.use(['table', 'form'], function () {
             var totalNum = 0;
             var clearIndex = false;
             for (var i = 0; i < data.length; i++) {
-                var $indexTd = $(".layui-table-view tbody tr[data-index='" + i + "'] td[data-field='1']");
-                var ind = $indexTd.find('div:eq(0)').text();
-                //设置序号值
-                $indexTd.find('div:eq(0)').text(parseInt(ind) - totalNum);
+                var indexTds = $(".layui-table-view tbody tr[data-index='" + i + "'] td[data-field='1']");
+                for (var x = 0; x < indexTds.length; x++) {
+                    var indexTd = indexTds[x];
+                    var ind = $(indexTd).find('div:eq(0)').text();
+                    //设置序号值
+                    $(indexTd).find('div:eq(0)').text(parseInt(ind) - totalNum);
+                }
                 if (clearIndex) {
                     indexNum = 0;
                 }
@@ -99,20 +103,26 @@ layui.use(['table', 'form'], function () {
                 } else {
                     clearIndex = true;
                     if (indexNum > 0) {
-                        var $checkIndextr = $(".layui-table-view tbody tr[data-index='" + (i - indexNum) + "']");
-                        $checkIndextr.children('td').each(function (j) {  // 遍历 tr 的各个 td
-                            if (j < 22) {
-                                $(this).attr("rowspan", indexNum + 1);
-                            }
-                        });
-                        //隐藏从i 到 i - indexNum之间的行
-                        for (var y = 0; y < indexNum; y++) {
-                            var $nextIndextr = $(".layui-table-view tbody tr[data-index='" + (i - y) + "']");
-                            $nextIndextr.children('td').each(function (j) { // 遍历 tr 的各个 td
-                                if (j < 22) {
-                                    $(this).css("display", "none");
+                        for (ci = 0; ci < 2; ci++) {
+                            var checkIndextrs = $(".layui-table-view tbody tr[data-index='" + (i - indexNum) + "']");
+                            var $checkIndextr = $(checkIndextrs[ci]);
+                            // debugger
+                            var left = ci == 0 ? 22 : 3;
+                            $checkIndextr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+                                if (j < left) {
+                                    $(this).attr("rowspan", indexNum + 1);
                                 }
                             });
+                            //隐藏从i 到 i - indexNum之间的行
+                            for (var y = 0; y < indexNum; y++) {
+                                var nextIndextrs = $(".layui-table-view tbody tr[data-index='" + (i - y) + "']");
+                                var $nextIndextr = $(nextIndextrs[ci]);
+                                $nextIndextr.children('td').each(function (j) { // 遍历 tr 的各个 td
+                                    if (j < left) {
+                                        $(this).css("display", "none");
+                                    }
+                                });
+                            }
                         }
                     }
                 }
@@ -307,7 +317,7 @@ function zhipai() {
                 // 获取子页面的iframe
                 var iframe = window['layui-layer-iframe' + index];
                 // 向子页面的全局函数child传参
-                iframe.initAudit(data,"add");
+                iframe.initAudit(data, "add");
             }
         });
     } else if (data.length > 1) {

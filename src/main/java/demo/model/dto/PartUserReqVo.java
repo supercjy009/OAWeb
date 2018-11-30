@@ -1,9 +1,10 @@
-package demo.dto;
+package demo.model.dto;
 
 public class PartUserReqVo {
     private Integer page;
     private Integer limit;
     private String flag;
+
 
     public String getFlag() {
         return flag;

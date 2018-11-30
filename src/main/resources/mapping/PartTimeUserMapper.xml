@@ -247,7 +247,7 @@
   </update>
 
     <!-- 这个方法是我自己加的 -->
-    <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.dto.PartUserReqVo">
+    <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.model.dto.PartUserReqVo">
         select
         <include refid="Base_Column_List"/>
         from oa_part_user

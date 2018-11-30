@@ -81,7 +81,7 @@
   </update>
 
   <!-- 这个方法是我自己加的 -->
-  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.dto.KeyWordReqVo">
+  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.model.dto.KeyWordReqVo">
     select
     <include refid="Base_Column_List"/>
     from oa_keyword

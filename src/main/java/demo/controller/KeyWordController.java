@@ -1,12 +1,9 @@
 package demo.controller;
 
 import com.github.pagehelper.PageInfo;
-import demo.dto.AuditVo;
-import demo.dto.KeyWordReqVo;
-import demo.dto.WorkPayReqVo;
+import demo.model.dto.KeyWordReqVo;
 import demo.model.KeyWordEntity;
 import demo.service.KeyWordService;
-import demo.service.WorkPayService;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,9 +1,8 @@
 package demo.controller;
 
 import com.github.pagehelper.PageInfo;
-import demo.dto.*;
+import demo.model.dto.*;
 import demo.mapper.PayProgressMapper;
-import demo.model.OrderEntity;
 import demo.model.PayProgress;
 import demo.service.OrderService;
 import demo.service.WorkPayService;

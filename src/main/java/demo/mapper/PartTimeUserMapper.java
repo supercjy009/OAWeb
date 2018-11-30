@@ -1,7 +1,6 @@
 package demo.mapper;
 
-import demo.dto.PartUserReqVo;
-import demo.model.PartTimeEntity;
+import demo.model.dto.PartUserReqVo;
 import demo.model.PartTimeUser;
 import org.apache.ibatis.annotations.Param;
 

@@ -1,6 +1,4 @@
-package demo.dto;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+package demo.model.dto;
 
 import java.util.Date;
 

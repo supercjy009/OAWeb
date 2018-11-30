@@ -1,6 +1,4 @@
-package demo.dto;
-
-import java.util.List;
+package demo.model.dto;
 
 /**
  * Created by p51 on 2018/6/11.

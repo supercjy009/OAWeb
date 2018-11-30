@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="../assets/layui/css/layui.css" media="all">
+<body>
+<div class="tab-bar-container">
+    <div>
+        <div class="loyo-nav-tabs">
+
+            <ul class="loyo-nav-tab pull-left nav nav-pills tab-list">
+                <li class="loyo-tab-item active">
+                    <a>
+                        <h4>接单登记表</h4>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-regions-container clearfix">
+    <div class="layui-form" style="padding: 20px 20px 0 20px">
+        <div class="layui-form-item" style="display: inline-block">
+            <div class="layui-input-inline">
+                <select id="partAudit" lay-filter="" lay-verify="required">
+                    <option value="" selected="">审核状态</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="0">待审</option>
+                    <option value="1">已审</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select id="partSettleState" lay-filter="" lay-verify="required">
+                    <option value="" selected="">结算状态</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="0">待结</option>
+                    <option value="1">已结</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select id="moneyState" lay-filter="" lay-verify="required">
+                    <option value="" selected="">稿酬状态</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="0">稿酬为空</option>
+                    <option value="1">稿酬不为空</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <input type="text" id="settleDate" placeholder="结算日期"
+                       lay-key="1" class="layui-input">
+            </div>
+
+            <div class="layui-input-inline">
+                <input type="text" id="keyWord" autocomplete="off" class="layui-input"
+                       placeholder="订单编号、客服名...">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+        </div>
+    </div>
+
+    <div class="loyo-search-section" style="margin-bottom:0;">
+        <button class="btn btn-primary marginr" id="addEntity"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="editEntity"><span>修改</span>
+        </button>
+
+        <button class="layui-btn layui-btn-normal" lay-event="auditPay" style="margin-right: 20px"><span>审核</span>
+        </button>
+
+        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>结算状态</span>
+        </button>
+
+        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>结算日</span>
+        </button>
+
+        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>实发稿酬</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="deleteEntity" style="margin-right: 20px"><span>删除</span>
+        </button>
+
+        <button class="btn btn-primary marginr"><span>导出</span>
+        </button>
+    </div>
+
+    <table id="partOrderTable" lay-filter="test"></table>
+</div>
+<script src="/assets/layui/layui.js"></script>
+<script src="/js/orderJs/partOrderTable.js"></script>
+
+<script>
+    layui.use(['laydate'], function () {
+        $("#settleDate").attr("lay-key", getRandomString);
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#settleDate',
+            type: 'date', //只选年月
+            btns: ['clear', 'confirm']
+        });
+    });
+
+</script>
+
+<script type="text/html" id="submitStateTpl">
+    {{#  if(d.submitState === '0'){ }}
+    <span style="color: #f52727;">{{ '待交' }}</span>
+    {{#  } else if(d.submitState === '1') { }}
+    {{ '已交' }}
+    {{#  } }}
+</script>
+
+<script type="text/html" id="partAuditTpl">
+    {{#  if(d.partAudit === '0'){ }}
+    <span style="color: #f52727;">{{ '待审' }}</span>
+    {{#  } else if(d.partAudit === '1') { }}
+    {{ '已审' }}
+    {{#  } }}
+</script>
+
+<script type="text/html" id="settleTpl">
+    {{#  if(d.partSettleState === '0'){ }}
+    <span style="color: #f52727;">{{ '待结' }}</span>
+    {{#  } else if(d.partSettleState === '1') { }}
+    {{ '已结' }}
+    {{#  } }}
+</script>
+</body>

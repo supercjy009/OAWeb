@@ -62,6 +62,11 @@ public class WebPageController {
         return "partTime/partUserAdd";
     }
 
+    @RequestMapping(value = {"/partTime/partOrderTable"}, method = RequestMethod.GET)
+    public String partOrderTable() {
+        return "partTime/partOrderTable";
+    }
+
     @RequestMapping(value = {"/widget/settleDate"}, method = RequestMethod.GET)
     public String settleDate() {
         return "widget/settleDate";

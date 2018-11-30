@@ -2,7 +2,7 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import demo.dto.FileReqVo;
+import demo.model.dto.FileReqVo;
 import demo.mapper.FileEntityMapper;
 import demo.model.FileEntity;
 import demo.model.UserinfoEntity;

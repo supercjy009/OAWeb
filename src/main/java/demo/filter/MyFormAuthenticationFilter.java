@@ -1,7 +1,6 @@
 package demo.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import demo.dto.ResultDto;
+import demo.model.dto.ResultDto;
 import demo.util.HttpUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
@@ -9,8 +8,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author gongxufan

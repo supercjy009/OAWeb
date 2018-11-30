@@ -2,8 +2,8 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import demo.dto.PartUserReqVo;
-import demo.dto.SettleDateVo;
+import demo.model.dto.PartUserReqVo;
+import demo.model.dto.SettleDateVo;
 import demo.mapper.PartTimeEntityMapper;
 import demo.mapper.PartTimeUserMapper;
 import demo.model.PartTimeUser;

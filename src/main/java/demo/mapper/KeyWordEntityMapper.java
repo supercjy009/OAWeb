@@ -1,8 +1,7 @@
 package demo.mapper;
 
-import demo.dto.KeyWordReqVo;
+import demo.model.dto.KeyWordReqVo;
 import demo.model.KeyWordEntity;
-import demo.model.WorkPayEntity;
 
 import java.util.List;
 

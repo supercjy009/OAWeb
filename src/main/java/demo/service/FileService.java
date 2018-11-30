@@ -1,7 +1,7 @@
 package demo.service;
 
 import com.github.pagehelper.PageInfo;
-import demo.dto.FileReqVo;
+import demo.model.dto.FileReqVo;
 import demo.model.FileEntity;
 import org.springframework.web.multipart.MultipartFile;
 

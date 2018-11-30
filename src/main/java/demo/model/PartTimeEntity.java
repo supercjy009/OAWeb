@@ -1,7 +1,5 @@
 package demo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class PartTimeEntity {
@@ -18,7 +16,7 @@ public class PartTimeEntity {
     private String partMoney;
 
     private String deduct;
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+
     private Date settleDate;
 
     private String partRemark;
@@ -34,6 +32,10 @@ public class PartTimeEntity {
     private String serviceName;
 
     private String sendServiceName;
+
+    private String partMoneyReal;
+
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -153,5 +155,21 @@ public class PartTimeEntity {
 
     public void setSendServiceName(String sendServiceName) {
         this.sendServiceName = sendServiceName == null ? null : sendServiceName.trim();
+    }
+
+    public String getPartMoneyReal() {
+        return partMoneyReal;
+    }
+
+    public void setPartMoneyReal(String partMoneyReal) {
+        this.partMoneyReal = partMoneyReal == null ? null : partMoneyReal.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -1,4 +1,4 @@
-package demo.dto;
+package demo.model.dto;
 
 /**
  * @author cjy

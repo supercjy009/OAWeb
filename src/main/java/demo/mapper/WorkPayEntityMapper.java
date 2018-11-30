@@ -1,7 +1,7 @@
 package demo.mapper;
 
-import demo.dto.AuditVo;
-import demo.dto.WorkPayReqVo;
+import demo.model.dto.AuditVo;
+import demo.model.dto.WorkPayReqVo;
 import demo.model.WorkPayEntity;
 
 import java.util.List;

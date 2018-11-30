@@ -2,7 +2,7 @@
  ajaxUri = "http://localhost:8080";
 workPayInit = false;
 var partNow = "";
-var full = 'full-320';
+var full = 'full-220';
 
 function getRandomString(len) {
     len = len || 32;

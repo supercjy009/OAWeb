@@ -1,8 +1,12 @@
 package demo.mapper;
 
-import demo.dto.SettleDateVo;
+import demo.model.dto.PartOrderReqVo;
+import demo.model.dto.PartTimeDto;
+import demo.model.dto.SettleDateVo;
 import demo.model.PartTimeEntity;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface PartTimeEntityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -22,4 +26,6 @@ public interface PartTimeEntityMapper {
     int deletePart(@Param("orderNumber") String orderNumber, @Param("partQq") String partQq);
 
     int addSettleDate(SettleDateVo vo);
+
+    List<PartTimeDto> selectAllOrder(PartOrderReqVo vo);
 }

@@ -1,6 +1,6 @@
 package demo.mapper;
 
-import demo.dto.FileReqVo;
+import demo.model.dto.FileReqVo;
 import demo.model.FileEntity;
 
 import java.util.List;

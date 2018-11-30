@@ -1,16 +1,9 @@
 package demo.controller;
 
 import com.github.pagehelper.PageInfo;
-import demo.dto.AuditVo;
-import demo.dto.FileReqVo;
-import demo.dto.KeyWordReqVo;
-import demo.dto.WorkPayReqVo;
+import demo.model.dto.FileReqVo;
 import demo.model.FileEntity;
-import demo.model.KeyWordEntity;
 import demo.service.FileService;
-import demo.service.KeyWordService;
-import demo.service.WorkPayService;
-import demo.shiro.MyShiroRealm;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
