@@ -51,14 +51,17 @@ layui.use(['table', 'form'], function () {
         done: function (res, curr, count) {
             //如果是异步请求数据方式，res即为你接口返回的信息。
             var data = res.data;
-            // for (var i = 0; i < data.length; i++) {
-            //     var audit = data[i].audit;
-            //     if (audit === '0') {
-            //         var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
-            //         $checktr.addClass("changeGray");
-            //     }
-            // }
-            //得到数据总量
+            if (!data) {
+                return;
+            }
+            for (var i = 0; i < data.length; i++) {
+                var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
+                //设置待审核单元格背景颜色
+                var audit = data[i].partAuditFinance;
+                if (audit == null || audit === '0' || audit === '-1') {
+                    $checktr.addClass("changeGray");
+                }
+            }
             console.log(count);
         }
     });
