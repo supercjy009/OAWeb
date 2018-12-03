@@ -37,6 +37,7 @@ public class PartTimeServiceImp implements PartTimeService {
 
     @Override
     public int updateOrder(PartTimeEntity order) {
-        return partTimeMapper.updateByPrimaryKey(order);
+        order.setPartAuditFinance("0");
+        return partTimeMapper.updateByPrimaryKeySelective(order);
     }
 }

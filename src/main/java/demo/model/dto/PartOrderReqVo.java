@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class PartOrderReqVo {
-    private String partAudit;
-    private String partSettleState;
+    private String partAuditFinance;
+    private String partSettleStateFinance;
     private String moneyState;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date settleDate;
@@ -31,22 +31,6 @@ public class PartOrderReqVo {
         this.limit = limit;
     }
 
-    public String getPartAudit() {
-        return partAudit;
-    }
-
-    public void setPartAudit(String partAudit) {
-        this.partAudit = partAudit;
-    }
-
-    public String getPartSettleState() {
-        return partSettleState;
-    }
-
-    public void setPartSettleState(String partSettleState) {
-        this.partSettleState = partSettleState;
-    }
-
     public String getMoneyState() {
         return moneyState;
     }
@@ -69,5 +53,21 @@ public class PartOrderReqVo {
 
     public void setSettleDate(Date settleDate) {
         this.settleDate = settleDate;
+    }
+
+    public String getPartAuditFinance() {
+        return partAuditFinance;
+    }
+
+    public void setPartAuditFinance(String partAuditFinance) {
+        this.partAuditFinance = partAuditFinance;
+    }
+
+    public String getPartSettleStateFinance() {
+        return partSettleStateFinance;
+    }
+
+    public void setPartSettleStateFinance(String partSettleStateFinance) {
+        this.partSettleStateFinance = partSettleStateFinance;
     }
 }

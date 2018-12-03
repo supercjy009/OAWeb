@@ -12,21 +12,21 @@ var h1 = [
 
 var header = [ //表头
     {field: 'createTime', title: '接单日期', width: 110}
-    , {field: 'serviceName', title: '客服', width: 100}
+    , {field: 'sendServiceName', title: '客服', width: 100}
     , {field: 'partPhone', title: '兼职电话', width: 100}
     , {field: 'partAlipay', title: '支付宝', width: 100}
     , {field: 'orderNumber', title: '订单编号', width: 100}
     , {field: 'deliveryDate', title: '规定交稿时间', width: 145}
-    , {field: 'partMoney', title: '稿酬', width: 100}
+    , {field: 'partMoneyFinance', title: '稿酬', width: 100}
     , {field: 'submitState', title: '交稿状态', width: 100, templet: '#submitStateTpl'}
-    , {field: 'partRemark', title: '兼职说明', width: 100}
+    , {field: 'partUserRemark', title: '兼职说明', width: 100}
 
-    , {field: 'partAudit', title: '审核', width: 100, templet: '#partAuditTpl'}
-    , {field: 'partSettleState', title: '结算状态', width: 100, templet: '#settleTpl'}
+    , {field: 'partAuditFinance', title: '审核', width: 100, templet: '#partAuditTpl'}
+    , {field: 'partSettleStateFinance', title: '结算状态', width: 100, templet: '#settleTpl'}
     , {field: 'settleDate', title: '结算日', width: 110}
     , {field: 'partRemark', title: '主管说明', width: 100}
     , {field: 'partMoneyReal', title: '实发稿酬', width: 100}
-    , {field: 'financeRemark', title: '财务备注', width: 100}
+    , {field: 'partFinanceRemark', title: '财务备注', width: 100}
 ];
 
 
@@ -133,29 +133,21 @@ $("#deleteEntity").click(function () {
 });
 
 $("#addEntity").click(function () {
-    //iframe窗
-    layer.open({
-        type: 2,
-        title: '新建',
-        shadeClose: true,
-        shade: 0.8,
-        area: ['50%', '60%'],
-        content: '/partTime/partOrderAdd'
-    });
+    editEntity(0);
 });
 
-$("#editEntity").click(function () {
+function editEntity(flag) {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
         //iframe窗
         layer.open({
             type: 2,
-            title: '编辑',
+            title: flag == 1 ? '编辑' : '添加',
             shadeClose: true,
             shade: 0.8,
             area: ['50%', '60%'],
-            content: '/partTime/partUserAdd',
+            content: '/partTime/partOrderEdit',
             success: function (layero, index) {
                 // 获取子页面的iframe
                 var iframe = window['layui-layer-iframe' + index];
@@ -165,10 +157,14 @@ $("#editEntity").click(function () {
             }
         });
     } else if (data.length > 1) {
-        layer.alert("修改时不能勾选多条数据");
+        layer.alert("不能勾选多条数据");
     } else {
         layer.alert("请先勾选一条数据");
     }
+}
+
+$("#editEntity").click(function () {
+    editEntity(1);
 });
 
 function reloadTable() {

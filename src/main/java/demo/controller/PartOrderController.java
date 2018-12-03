@@ -2,6 +2,7 @@ package demo.controller;
 
 import com.github.pagehelper.PageInfo;
 import demo.config.SystemConstant;
+import demo.model.PartTimeEntity;
 import demo.model.dto.*;
 import demo.model.PartTimeUser;
 import demo.service.PartTimeService;
@@ -58,6 +59,13 @@ public class PartOrderController {
         mapOut.put("code", 0);
         mapOut.put("count", partPageInfo.getTotal());
         mapOut.put("data", partPageInfo.getList());
+        return mapOut;
+    }
+
+    @RequestMapping(value = "/editEntity", method = RequestMethod.POST)
+    public Map<String, Object> updateEntity(@RequestBody PartTimeEntity entity) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", partService.updateOrder(entity));
         return mapOut;
     }
 }

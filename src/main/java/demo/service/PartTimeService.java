@@ -14,5 +14,4 @@ public interface PartTimeService {
     int addOrder(PartTimeEntity order);
 
     int updateOrder(PartTimeEntity order);
-
 }

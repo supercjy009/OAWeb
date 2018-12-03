@@ -104,7 +104,7 @@
 </script>
 
 <script type="text/html" id="submitStateTpl">
-    {{#  if(d.submitState === '0'){ }}
+    {{#  if(d.submitState === '0' || d.submitState == null){ }}
     <span style="color: #f52727;">{{ '待交' }}</span>
     {{#  } else if(d.submitState === '1') { }}
     {{ '已交' }}
@@ -112,17 +112,17 @@
 </script>
 
 <script type="text/html" id="partAuditTpl">
-    {{#  if(d.partAudit === '0'){ }}
+    {{#  if(d.partAuditFinance === '0' || d.partAuditFinance == null){ }}
     <span style="color: #f52727;">{{ '待审' }}</span>
-    {{#  } else if(d.partAudit === '1') { }}
+    {{#  } else if(d.partAuditFinance === '1') { }}
     {{ '已审' }}
     {{#  } }}
 </script>
 
 <script type="text/html" id="settleTpl">
-    {{#  if(d.partSettleState === '0'){ }}
+    {{#  if(d.partSettleStateFinance === '0' || d.partSettleStateFinance == null){ }}
     <span style="color: #f52727;">{{ '待结' }}</span>
-    {{#  } else if(d.partSettleState === '1') { }}
+    {{#  } else if(d.partSettleStateFinance === '1') { }}
     {{ '已结' }}
     {{#  } }}
 </script>

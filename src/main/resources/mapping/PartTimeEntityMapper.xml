@@ -19,7 +19,13 @@
     <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName" />
     <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="part_money_finance" jdbcType="VARCHAR" property="partMoneyFinance" />
+    <result column="part_audit_finance" jdbcType="VARCHAR" property="partAuditFinance" />
+    <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance" />
+    <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark" />
+    <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark" />
   </resultMap>
+
 
   <resultMap id="QueryResultMap" type="demo.model.dto.PartTimeDto">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -39,20 +45,27 @@
     <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName" />
     <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="part_money_finance" jdbcType="VARCHAR" property="partMoneyFinance" />
+    <result column="part_audit_finance" jdbcType="VARCHAR" property="partAuditFinance" />
+    <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance" />
+    <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark" />
+    <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark" />
     <result column="delivery_date" jdbcType="TIMESTAMP" property="deliveryDate" />
   </resultMap>
 
-  <sql id="Base_Column_List">
-    id, part_qq, submit_state, part_phone, part_alipay, part_money, deduct, settle_date,
-    part_remark, part_audit, part_settle_state, finance_remark, order_number, service_name,
-    send_service_name, part_money_real, create_time
-  </sql>
   <sql id="Query_Column_List">
     p.id, p.part_qq, p.submit_state, p.part_phone, p.part_alipay, p.part_money, p.deduct, p.settle_date,
     p.part_remark, p.part_audit, p.part_settle_state, p.finance_remark, p.order_number, p.service_name,
-    p.send_service_name, p.part_money_real, p.create_time
+    p.send_service_name, p.part_money_real, p.create_time, p.part_money_finance, p.part_audit_finance,
+    p.part_settle_state_finance, p.part_finance_remark,p.part_user_remark
   </sql>
 
+  <sql id="Base_Column_List">
+    id, part_qq, submit_state, part_phone, part_alipay, part_money, deduct, settle_date, 
+    part_remark, part_audit, part_settle_state, finance_remark, order_number, service_name, 
+    send_service_name, part_money_real, create_time, part_money_finance, part_audit_finance, 
+    part_settle_state_finance, part_finance_remark, part_user_remark
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -69,13 +82,17 @@
       deduct, settle_date, part_remark, 
       part_audit, part_settle_state, finance_remark, 
       order_number, service_name, send_service_name, 
-      part_money_real, create_time)
+      part_money_real, create_time, part_money_finance, 
+      part_audit_finance, part_settle_state_finance, 
+      part_finance_remark, part_user_remark)
     values (#{id,jdbcType=INTEGER}, #{partQq,jdbcType=VARCHAR}, #{submitState,jdbcType=VARCHAR}, 
       #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{partMoney,jdbcType=VARCHAR}, 
       #{deduct,jdbcType=VARCHAR}, #{settleDate,jdbcType=TIMESTAMP}, #{partRemark,jdbcType=VARCHAR}, 
       #{partAudit,jdbcType=VARCHAR}, #{partSettleState,jdbcType=VARCHAR}, #{financeRemark,jdbcType=VARCHAR}, 
       #{orderNumber,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, #{sendServiceName,jdbcType=VARCHAR}, 
-      #{partMoneyReal,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+      #{partMoneyReal,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{partMoneyFinance,jdbcType=VARCHAR}, 
+      #{partAuditFinance,jdbcType=VARCHAR}, #{partSettleStateFinance,jdbcType=VARCHAR}, 
+      #{partFinanceRemark,jdbcType=VARCHAR}, #{partUserRemark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="demo.model.PartTimeEntity">
     insert into oa_part_time
@@ -131,6 +148,21 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="partMoneyFinance != null">
+        part_money_finance,
+      </if>
+      <if test="partAuditFinance != null">
+        part_audit_finance,
+      </if>
+      <if test="partSettleStateFinance != null">
+        part_settle_state_finance,
+      </if>
+      <if test="partFinanceRemark != null">
+        part_finance_remark,
+      </if>
+      <if test="partUserRemark != null">
+        part_user_remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -183,6 +215,21 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partMoneyFinance != null">
+        #{partMoneyFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partAuditFinance != null">
+        #{partAuditFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partSettleStateFinance != null">
+        #{partSettleStateFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partFinanceRemark != null">
+        #{partFinanceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="partUserRemark != null">
+        #{partUserRemark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -237,6 +284,21 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="partMoneyFinance != null">
+        part_money_finance = #{partMoneyFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partAuditFinance != null">
+        part_audit_finance = #{partAuditFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partSettleStateFinance != null">
+        part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partFinanceRemark != null">
+        part_finance_remark = #{partFinanceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="partUserRemark != null">
+        part_user_remark = #{partUserRemark,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -257,7 +319,12 @@
       service_name = #{serviceName,jdbcType=VARCHAR},
       send_service_name = #{sendServiceName,jdbcType=VARCHAR},
       part_money_real = #{partMoneyReal,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      part_money_finance = #{partMoneyFinance,jdbcType=VARCHAR},
+      part_audit_finance = #{partAuditFinance,jdbcType=VARCHAR},
+      part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR},
+      part_finance_remark = #{partFinanceRemark,jdbcType=VARCHAR},
+      part_user_remark = #{partUserRemark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -275,20 +342,20 @@
   </delete>
 
   <!-- 这个方法是我自己加的 -->
-  <select id="selectAllOrder" resultMap="QueryResultMap" parameterType="demo.model.dto.PartOrderReqVo">
+  <select id="selectAllOrder" parameterType="demo.model.dto.PartOrderReqVo" resultMap="QueryResultMap">
     select
-    <include refid="Query_Column_List"/>,o.delivery_date
+    <include refid="Query_Column_List" />,o.delivery_date
     from oa_part_time p
     left join oa_order o on p.order_number = o.order_number
     <where>
       <if test="keyWord != null and keyWord !=''">
         (p.service_name LIKE '%${keyWord}%' OR p.order_number LIKE '%${keyWord}%')
       </if>
-      <if test="partAudit != null and partAudit !=''">
-        and p.part_audit = #{partAudit,jdbcType=VARCHAR}
+      <if test="partAuditFinance != null and partAuditFinance !=''">
+        and p.part_audit_finance = #{partAuditFinance,jdbcType=VARCHAR}
       </if>
-      <if test="partSettleState != null and partSettleState !=''">
-        and p.part_settle_state = #{partSettleState,jdbcType=VARCHAR}
+      <if test="partSettleStateFinance != null and partSettleStateFinance !=''">
+        and p.part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR}
       </if>
       <if test="moneyState != null and moneyState !='' and moneyState == 1">
         and p.part_money != null
@@ -297,7 +364,7 @@
         and p.part_money == null
       </if>
       <if test="settleDate!=null">
-        AND `settle_date` >= DATE_FORMAT(#{settleDate},'%Y-%m-%d 00:00:00')
+        AND `settle_date` &gt;= DATE_FORMAT(#{settleDate},'%Y-%m-%d 00:00:00')
         AND `settle_date` &lt;= DATE_FORMAT(#{settleDate},'%Y-%m-%d 23:59:59')
       </if>
     </where>

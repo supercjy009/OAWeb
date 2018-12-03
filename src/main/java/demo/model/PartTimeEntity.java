@@ -37,6 +37,16 @@ public class PartTimeEntity {
 
     private Date createTime;
 
+    private String partMoneyFinance;
+
+    private String partAuditFinance;
+
+    private String partSettleStateFinance;
+
+    private String partFinanceRemark;
+
+    private String partUserRemark;
+
     public Integer getId() {
         return id;
     }
@@ -171,5 +181,45 @@ public class PartTimeEntity {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getPartMoneyFinance() {
+        return partMoneyFinance;
+    }
+
+    public void setPartMoneyFinance(String partMoneyFinance) {
+        this.partMoneyFinance = partMoneyFinance == null ? null : partMoneyFinance.trim();
+    }
+
+    public String getPartAuditFinance() {
+        return partAuditFinance;
+    }
+
+    public void setPartAuditFinance(String partAuditFinance) {
+        this.partAuditFinance = partAuditFinance == null ? null : partAuditFinance.trim();
+    }
+
+    public String getPartSettleStateFinance() {
+        return partSettleStateFinance;
+    }
+
+    public void setPartSettleStateFinance(String partSettleStateFinance) {
+        this.partSettleStateFinance = partSettleStateFinance == null ? null : partSettleStateFinance.trim();
+    }
+
+    public String getPartFinanceRemark() {
+        return partFinanceRemark;
+    }
+
+    public void setPartFinanceRemark(String partFinanceRemark) {
+        this.partFinanceRemark = partFinanceRemark == null ? null : partFinanceRemark.trim();
+    }
+
+    public String getPartUserRemark() {
+        return partUserRemark;
+    }
+
+    public void setPartUserRemark(String partUserRemark) {
+        this.partUserRemark = partUserRemark == null ? null : partUserRemark.trim();
     }
 }

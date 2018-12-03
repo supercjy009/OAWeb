@@ -89,6 +89,7 @@ public class OrderServiceImp implements OrderService {
                 progressMapper.insert(payProgress);
             }
         }
+        order.setAudit("0");
         return orderEntityMapper.updateByPrimaryKeySelective(order);
     }
 

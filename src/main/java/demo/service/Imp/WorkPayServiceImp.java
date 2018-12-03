@@ -49,7 +49,7 @@ public class WorkPayServiceImp implements WorkPayService {
 //            sb.append("1");
 //        }
         work.setAudit("0");
-        work.setSettle("0");
+//        work.setSettle("0");
         return workPayEntityMapper.updateByPrimaryKeySelective(work);
     }
 
