@@ -89,11 +89,4 @@ public class PartUserController {
         mapOut.put("code", partUserService.deleteEntity(id));
         return mapOut;
     }
-
-    @RequestMapping(value = "/addSettleDate", method = RequestMethod.POST)
-    public Map<String, Object> addSettleDate(@RequestBody SettleDateVo vo) {
-        Map<String, Object> mapOut = new HashMap<>();
-        mapOut.put("code", partUserService.addSettleDate(vo));
-        return mapOut;
-    }
 }

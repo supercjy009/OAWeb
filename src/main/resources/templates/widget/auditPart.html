@@ -8,13 +8,16 @@
 <body>
 <div class="layui-form" id="auditForm" style="padding: 20px 20px 20px 20px">
     <div class="layui-form-item">
-        <input type="text" id="settleDate" name="settleDate" placeholder="结算日期"
-               lay-key="1" class="layui-input">
+        <input type="radio" id="check1" name="audit" value="0" title="待审" checked="">
     </div>
-    <div style="position: absolute;bottom: 20px;right: 20px">
-        <button class="layui-btn" lay-submit lay-filter="auditForm">确定</button>
-        <button id="close" class="layui-btn layui-btn-primary">取消</button>
+    <div class="layui-form-item">
+        <input type="radio" id="check2" name="audit" value="1" title="已审">
     </div>
+    <div class="layui-form-item" id="item3">
+        <input type="radio" id="check3" name="audit" value="-1" title="未结">
+    </div>
+    <button class="layui-btn" lay-submit lay-filter="auditForm">确定</button>
+    <button id="close" class="layui-btn layui-btn-primary">取消</button>
 </div>
 </body>
 <script src="../assets/js/commonJs.js"></script>
@@ -28,15 +31,6 @@
     //        init();
     //    });
     function init() {
-        layui.use(['laydate'], function () {
-            var laydate = layui.laydate;
-            laydate.render({
-                elem: '#settleDate',
-                type: 'date', //只选年月
-                btns: ['clear', 'confirm']
-            });
-        });
-
         layui.use('form', function () {
             var form = layui.form;
             var json = {};
@@ -44,7 +38,7 @@
             if (editData) {
                 var arrayObj = new Array();
                 for (var i = 0; i < editData.length; i++) {
-                    arrayObj.push(flagStr === 11 ? editData[i].id : editData[i].partId)
+                    arrayObj.push(editData[i].id)
                 }
                 json.ids = arrayObj;
             }
@@ -54,11 +48,16 @@
                     btn: ['确定', '取消'] //按钮
                 }, function () {
                     layer.msg(JSON.stringify(data.field));
-                    json.settleDate = data.field.settleDate
+                    if (flagStr == 'audit') {
+                        json.audit = data.field.audit;
+                    } else {
+                        json.settle = data.field.audit;
+                    }
+
                     var jasondata = JSON.stringify(json);
                     $.ajax({
                         type: 'POST',
-                        url: ajaxUri + '/webAjax/partOrder/addSettleDate',
+                        url: ajaxUri + '/webAjax/partOrder/auditOrder',
                         data: jasondata,
                         dataType: "json",
                         contentType: "application/json",
@@ -79,13 +78,6 @@
 
                 return false;
             });
-
-            // if (editData) {
-            //     // alert("aaa"+editData[0].id);
-            //     form.val('auditForm', {
-            //         settleDate: editData[0].settleDate
-            //     })
-            // }
         });
     }
 
@@ -95,6 +87,13 @@
     });
 
     function initAudit(data, flag) {
+        if (flag != 'audit') {
+            console.log($('#check1').attr("title"))
+            $('#check1').attr("title", '待结')
+            $('#check2').attr("title", '已结')
+        } else {
+            $('#item3').hide()
+        }
         flagStr = flag;
         console.log(data);
         editData = data;

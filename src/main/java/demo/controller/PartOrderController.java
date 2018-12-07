@@ -68,4 +68,18 @@ public class PartOrderController {
         mapOut.put("code", partService.updateOrder(entity));
         return mapOut;
     }
+
+    @RequestMapping(value = "/auditOrder", method = RequestMethod.POST)
+    public Map<String, Object> auditOrder(@RequestBody AuditVo vo) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", partService.auditOrder(vo));
+        return mapOut;
+    }
+
+    @RequestMapping(value = "/addSettleDate", method = RequestMethod.POST)
+    public Map<String, Object> addSettleDate(@RequestBody SettleDateVo vo) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", partService.addSettleDate(vo));
+        return mapOut;
+    }
 }

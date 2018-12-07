@@ -1,5 +1,6 @@
 package demo.mapper;
 
+import demo.model.dto.AuditVo;
 import demo.model.dto.PartOrderReqVo;
 import demo.model.dto.PartTimeDto;
 import demo.model.dto.SettleDateVo;
@@ -28,4 +29,6 @@ public interface PartTimeEntityMapper {
     int addSettleDate(SettleDateVo vo);
 
     List<PartTimeDto> selectAllOrder(PartOrderReqVo vo);
+
+    int auditOrder(AuditVo vo);
 }

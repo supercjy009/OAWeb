@@ -17,5 +17,4 @@ public interface PartUserService {
 
     int deleteEntity(Long id);
 
-    int addSettleDate(SettleDateVo vo);
 }

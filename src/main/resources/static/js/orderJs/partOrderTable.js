@@ -6,7 +6,7 @@ var table;
 var h1 = [
     {checkbox: true, fixed: 'left', rowspan: 2, fixed: 'left'}
     , {title: '序号', type: 'numbers', rowspan: 2, fixed: 'left'}
-    , {field: 'partQq', title: '兼职QQ', rowspan: 2, width: 100, fixed: 'left'}
+    , {field: 'partQq', title: '兼职QQ', rowspan: 2, width: 100}
     , {align: 'center', title: '兼职接单登记表', colspan: 9}
     , {align: 'center', title: '财务结算登记表', colspan: 6}];
 
@@ -59,7 +59,8 @@ layui.use(['table', 'form'], function () {
                 //设置待审核单元格背景颜色
                 var audit = data[i].partAuditFinance;
                 if (audit == null || audit === '0' || audit === '-1') {
-                    $checktr.addClass("changeGray");
+                    $($checktr[0]).addClass("changeGray");
+                    $($checktr[1]).addClass("changeGray");
                 }
             }
             console.log(count);
@@ -169,6 +170,105 @@ function editEntity(flag) {
 $("#editEntity").click(function () {
     editEntity(1);
 });
+
+$("#auditPay").click(function () {
+    submitAudit("audit");
+});
+
+$("#settlePay").click(function () {
+    submitAudit("settle");
+});
+
+//结算日
+$("#setSettleDate").click(function () {
+    addjiesuan();
+});
+
+//实发稿酬
+$("#setRealMoney").click(function () {
+    setRealMoney();
+});
+
+function submitAudit(flag) {
+    var title
+    if (flag == 'audit') {
+        title = "审核";
+    } else if (flag == 'settle') {
+        title = "结算"
+    }
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length >= 1) {
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: 0.8,
+            area: ['240px', '270px'],
+            content: '/widget/auditPart',
+            success: function (layero, index) {
+                // 获取子页面的iframe
+                var iframe = window['layui-layer-iframe' + index];
+                // 向子页面的全局函数child传参
+                iframe.initAudit(data, flag);
+            }
+        });
+    } else {
+        layer.alert("请至少勾选一条数据");
+    }
+}
+
+function addjiesuan() {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length >= 1) {
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '添加结算日',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['30%', '50%'],
+            content: '/widget/settleDate',
+            success: function (layero, index) {
+                // 获取子页面的iframe
+                var iframe = window['layui-layer-iframe' + index];
+                // 向子页面的全局函数child传参
+                iframe.initAudit(data, 11);
+            }
+        });
+    } else {
+        layer.alert("请至少勾选一条数据");
+    }
+}
+
+function setRealMoney() {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length === 1) {
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '实发稿酬',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['50%', '60%'],
+            content: '/partTime/partOrderMoneyEdit',
+            success: function (layero, index) {
+                // 获取子页面的iframe
+                var iframe = window['layui-layer-iframe' + index];
+                // 向子页面的全局函数child传参
+
+                iframe.initEdit(data);
+            }
+        });
+    } else if (data.length > 1) {
+        layer.alert("不能勾选多条数据");
+    } else {
+        layer.alert("请先勾选一条数据");
+    }
+}
 
 function reloadTable() {
     // var workPayReload = $('#workPayReload');

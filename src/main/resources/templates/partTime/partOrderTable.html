@@ -67,16 +67,17 @@
         <button class="btn btn-primary marginr" id="editEntity"><span>修改</span>
         </button>
 
-        <button class="layui-btn layui-btn-normal" lay-event="auditPay" style="margin-right: 20px"><span>审核</span>
+        <button class="btn btn-primary marginr" lay-event="auditPay" id="auditPay" style="margin-right: 20px">
+            <span>审核</span>
         </button>
 
-        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>结算状态</span>
+        <button class="btn btn-primary marginr" lay-event="settlePay" id="settlePay"><span>结算状态</span>
         </button>
 
-        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>结算日</span>
+        <button class="btn btn-primary marginr" lay-event="settleDate" id="setSettleDate"><span>结算日</span>
         </button>
 
-        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>实发稿酬</span>
+        <button class="btn btn-primary marginr" lay-event="setRealMoney" id="setRealMoney"><span>实发稿酬</span>
         </button>
 
         <button class="btn btn-primary marginr" id="deleteEntity" style="margin-right: 20px"><span>删除</span>
@@ -125,6 +126,8 @@
     <span style="color: #f52727;">{{ '待结' }}</span>
     {{#  } else if(d.partSettleStateFinance === '1') { }}
     {{ '已结' }}
+    {{#  } else if(d.partSettleStateFinance === '-1') { }}
+    <span style="color: #f52727;">{{ '未结' }}</span>
     {{#  } }}
 </script>
 </body>

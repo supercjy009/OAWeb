@@ -48,8 +48,5 @@ public class PartUserServiceImp implements PartUserService {
         return partTimeUserMapper.deleteByPrimaryKey(id);
     }
 
-    @Override
-    public int addSettleDate(SettleDateVo vo) {
-        return partTimeEntityMapper.addSettleDate(vo);
-    }
+
 }

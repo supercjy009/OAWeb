@@ -2,11 +2,13 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import demo.model.dto.AuditVo;
 import demo.model.dto.PartOrderReqVo;
 import demo.mapper.PartTimeEntityMapper;
 import demo.model.PartTimeEntity;
 import demo.model.UserinfoEntity;
 import demo.model.dto.PartTimeDto;
+import demo.model.dto.SettleDateVo;
 import demo.service.PartTimeService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
@@ -39,5 +41,15 @@ public class PartTimeServiceImp implements PartTimeService {
     public int updateOrder(PartTimeEntity order) {
         order.setPartAuditFinance("0");
         return partTimeMapper.updateByPrimaryKeySelective(order);
+    }
+
+    @Override
+    public int auditOrder(AuditVo vo) {
+        return partTimeMapper.auditOrder(vo);
+    }
+
+    @Override
+    public int addSettleDate(SettleDateVo vo) {
+        return partTimeMapper.addSettleDate(vo);
     }
 }
