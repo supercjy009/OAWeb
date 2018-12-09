@@ -2,12 +2,14 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import demo.model.UserinfoEntity;
 import demo.model.dto.PartUserReqVo;
 import demo.model.dto.SettleDateVo;
 import demo.mapper.PartTimeEntityMapper;
 import demo.mapper.PartTimeUserMapper;
 import demo.model.PartTimeUser;
 import demo.service.PartUserService;
+import demo.service.UserinfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,7 +24,7 @@ public class PartUserServiceImp implements PartUserService {
     @Resource
     PartTimeUserMapper partTimeUserMapper;
     @Resource
-    PartTimeEntityMapper partTimeEntityMapper;
+    private UserinfoService userService;
 
     @Override
     public PageInfo<PartTimeUser> queryAllOrder(PartUserReqVo vo) {
@@ -45,6 +47,13 @@ public class PartUserServiceImp implements PartUserService {
 
     @Override
     public int deleteEntity(Long id) {
+        PartTimeUser partTimeUser = partTimeUserMapper.selectByPrimaryKey(id);
+        String partQq = partTimeUser.getPartQq();
+        UserinfoEntity user = userService.queryUserInfoByusername(partQq);
+        if (user != null) {
+            //删除用户
+            userService.deleteEntity(user.getUid());
+        }
         return partTimeUserMapper.deleteByPrimaryKey(id);
     }
 

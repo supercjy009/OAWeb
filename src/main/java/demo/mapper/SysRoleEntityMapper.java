@@ -2,6 +2,9 @@ package demo.mapper;
 
 
 import demo.model.SysRoleEntity;
+import demo.model.UserinfoEntity;
+
+import java.util.List;
 
 public interface SysRoleEntityMapper {
     /**
@@ -51,5 +54,7 @@ public interface SysRoleEntityMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(SysRoleEntity record);
+
+    List<SysRoleEntity> selectAllRole();
 
 }

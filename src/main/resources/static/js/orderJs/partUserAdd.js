@@ -50,7 +50,7 @@ function init() {
                         parent.reloadTable();
                         parent.layer.close(index);
                     } else {
-                        parent.layer.alert('添加失败，服务器异常.');
+                        parent.layer.alert(str.message);
                     }
                 }
             });

@@ -111,4 +111,12 @@
       role = #{role,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!-- 这个方法是我自己加的 -->
+  <select id="selectAllRole" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from sys_role
+    order by available desc
+  </select>
 </mapper>

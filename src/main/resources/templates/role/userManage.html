@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="../assets/layui/css/layui.css" media="all">
+<body>
+<div class="tab-bar-container">
+    <div>
+        <div class="loyo-nav-tabs">
+
+            <ul class="loyo-nav-tab pull-left nav nav-pills tab-list">
+                <li class="loyo-tab-item active">
+                    <a>
+                        <h4>用户及分组</h4>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="tab-regions-container clearfix">
+
+    <div class="loyo-search-section" style="margin-top:10px;">
+        <button class="btn btn-primary marginr" id="addEntity"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="editEntity"><span>修改</span>
+        </button>
+
+        <button class="btn btn-primary marginr" id="deleteEntity" style="margin-right: 20px"><span>删除</span>
+        </button>
+
+    </div>
+
+    <table id="userTable" lay-filter="test"></table>
+</div>
+
+<script src="/js/orderJs/userManage.js"></script>
+</body>

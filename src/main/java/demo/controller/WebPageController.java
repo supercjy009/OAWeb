@@ -72,11 +72,20 @@ public class WebPageController {
         return "partTime/partOrderEdit";
     }
 
+    @RequestMapping(value = {"/role/userAdd"}, method = RequestMethod.GET)
+    public String userAdd() {
+        return "role/userAdd";
+    }
+
+    @RequestMapping(value = {"/role/userManage"}, method = RequestMethod.GET)
+    public String userManage() {
+        return "role/userManage";
+    }
+
     @RequestMapping(value = {"/partTime/partOrderMoneyEdit"}, method = RequestMethod.GET)
     public String partOrderMoneyEdit() {
         return "partTime/partOrderMoneyEdit";
     }
-
 
     @RequestMapping(value = {"/widget/settleDate"}, method = RequestMethod.GET)
     public String settleDate() {

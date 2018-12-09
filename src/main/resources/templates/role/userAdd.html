@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新建支出</title>
+    <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
+</head>
+<body>
+<form class="layui-form" style="margin-top: 20px" lay-filter="payEdit"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>用户名 </label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" placeholder="请输入" lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
+
+        <label class="layui-form-label"><span style="color: red">*</span>密码 </label>
+        <div class="layui-input-inline">
+            <input type="text" name="password" id="password" placeholder="请输入" lay-verify="required" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span style="color: red">*</span>分组 </label>
+        <div class="layui-input-inline">
+            <select id="role" name="roleId" lay-filter="role" lay-verify="required">
+            </select>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button id="close" class="layui-btn layui-btn-primary">取消</button>
+        </div>
+    </div>
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</form>
+<script src="../assets/js/commonJs.js"></script>
+
+<script src="/assets/layui/layui.js"></script>
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script>
+    var payUri = "addEntity";
+    var form, editData;
+
+    $("#close").click(function () {
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    });
+
+    function init() {
+        layui.use(['form', 'laydate'], function () {
+            form = layui.form, laydate = layui.laydate;
+            //设置下拉框
+            $.ajax({
+                type: 'get',
+                url: ajaxUri + '/webAjax/userManage/queryRole',
+                dataType: 'json',
+                success: function (dataDictList) {
+                    var obj = eval(dataDictList.data);
+                    var objLength = obj.length;
+                    if (objLength > 0) {
+                        $(obj).each(function (i) {
+                            if (editData && editData[0].roleDescription == obj[i].description) {
+                                $("#role").append('<option selected="" value="' + obj[i].id + '">' + obj[i].description + '</option>');
+                            } else {
+                                $("#role").append('<option value="' + obj[i].id + '">' + obj[i].description + '</option>');
+                            }
+
+                        });
+                        form.render('select');
+                    } else {
+                        $('#role').find('option').remove();
+                        form.render('select');
+                    }
+                }
+
+            });
+            //日期
+            laydate.render({
+                elem: '#date',
+                type: 'date', //只选年月日
+            });
+
+            //各种基于事件的操作，下面会有进一步介绍
+
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                if (editData) {
+                    data.field.uid = editData[0].uid;
+                    data.field.salt = editData[0].salt;
+                    data.field.name = data.field.username;
+                }
+                var jasondata = JSON.stringify(data.field);
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // })
+
+                $.ajax({
+                    type: 'POST',
+                    url: ajaxUri + '/webAjax/userManage/' + payUri,
+                    data: jasondata,
+                    dataType: "json",
+                    contentType: "application/json",
+                    complete: function (status) {
+                        var str = status.responseJSON;
+                        console.log(str.code);
+                        if (str.code === 1) {
+                            parent.layer.msg(payUri == 'addEntity' ? '添加成功' : "修改成功");
+                            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                            parent.reloadTable();
+                            parent.layer.close(index);
+                        } else {
+                            parent.layer.alert(str.message);
+                        }
+                    }
+                });
+
+                return false;
+            });
+
+
+            if (editData) {
+                $("#passWord").attr("lay-verify", "")
+                // alert("aaa"+editData[0].id);
+                form.val('payEdit', {
+                    "username": editData[0].username // "name": "value"
+                    , "password": editData[0].passwordStr
+                })
+            }
+        });
+    }
+
+    function initEdit(data) {
+        if (data && data != "") {
+            editData = data;
+            payUri = "editEntity";
+        }
+        //表单初始赋值
+        init();
+    }
+</script>

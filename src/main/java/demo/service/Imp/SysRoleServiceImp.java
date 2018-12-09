@@ -6,6 +6,7 @@ import demo.service.SysRoleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by PC on 2017/12/2.
@@ -17,5 +18,10 @@ public class SysRoleServiceImp implements SysRoleService {
     @Override
     public SysRoleEntity queryRoleByUserid(Long userid) {
         return sysRoleEntityMapper.selectByPrimaryKey(userid);
+    }
+
+    @Override
+    public List<SysRoleEntity> queryRoleList() {
+        return sysRoleEntityMapper.selectAllRole();
     }
 }

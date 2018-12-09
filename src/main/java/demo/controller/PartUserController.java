@@ -70,8 +70,13 @@ public class PartUserController {
             mapOut.put("message", "qq和密码不能为空");
         } else {
             String passWord = user.getPassWord();
-            userinfoService.registUser(user.getPartQq(), passWord, SALT_STRING, SystemConstant.PART_ROLE_ID);
-            mapOut.put("code", partUserService.addEntity(user));
+            int flag = userinfoService.registUser(user.getPartQq(), passWord, SALT_STRING, SystemConstant.PART_ROLE_ID);
+            if (flag == -100) {
+                mapOut.put("code", -1);
+                mapOut.put("message", "该用户qq已存在");
+            } else {
+                mapOut.put("code", partUserService.addEntity(user));
+            }
         }
         return mapOut;
     }
