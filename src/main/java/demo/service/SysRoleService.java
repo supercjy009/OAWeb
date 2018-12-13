@@ -11,4 +11,10 @@ public interface SysRoleService {
     SysRoleEntity queryRoleByUserid(Long userid);
 
     List<SysRoleEntity> queryRoleList();
+
+    int addRole(String description);
+
+    int editRole(Long id, String description);
+
+    int deleteRole(Long id);
 }

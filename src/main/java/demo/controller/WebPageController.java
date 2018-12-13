@@ -77,6 +77,11 @@ public class WebPageController {
         return "role/userAdd";
     }
 
+    @RequestMapping(value = {"/role/roleManage"}, method = RequestMethod.GET)
+    public String roleManage() {
+        return "role/roleManage";
+    }
+
     @RequestMapping(value = {"/role/userManage"}, method = RequestMethod.GET)
     public String userManage() {
         return "role/userManage";

@@ -57,4 +57,5 @@ public interface SysRoleEntityMapper {
 
     List<SysRoleEntity> selectAllRole();
 
+    SysRoleEntity selectByDescription(String description);
 }

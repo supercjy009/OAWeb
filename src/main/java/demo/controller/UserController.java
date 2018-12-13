@@ -21,8 +21,7 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserinfoService userService;
-    @Resource
-    private SysRoleService sysRoleService;
+
 
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)
     public Map<String, Object> queryAllEntity(UserReqVo vo) {
@@ -70,13 +69,13 @@ public class UserController {
         return mapOut;
     }
 
-    @RequestMapping(value = "/queryRole", method = RequestMethod.GET)
-    public Map<String, Object> queryRole() {
-        Map<String, Object> mapOut = new HashMap<>();
-        mapOut.put("code", 1);
-        mapOut.put("data", sysRoleService.queryRoleList());
-        return mapOut;
-    }
+//    @RequestMapping(value = "/queryRole", method = RequestMethod.GET)
+//    public Map<String, Object> queryRole() {
+//        Map<String, Object> mapOut = new HashMap<>();
+//        mapOut.put("code", 1);
+//        mapOut.put("data", sysRoleService.queryRoleList());
+//        return mapOut;
+//    }
 
     @RequestMapping(value = "/deleteEntity", method = RequestMethod.POST)
     public Map<String, Object> deleteEntity(@RequestParam Long uid) {

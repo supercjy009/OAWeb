@@ -2,6 +2,8 @@ package demo.mapper;
 
 
 import demo.model.SysPermissionEntity;
+import demo.model.dto.AuthJson;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -55,4 +57,7 @@ public interface SysPermissionEntityMapper {
     int updateByPrimaryKey(SysPermissionEntity record);
 
     List<SysPermissionEntity> selectAllPermission();
+
+    List<AuthJson> queryPermission(@Param("parentId") Long parentId, @Param("roleId") Long roleId);
+
 }

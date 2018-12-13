@@ -57,7 +57,7 @@
             //设置下拉框
             $.ajax({
                 type: 'get',
-                url: ajaxUri + '/webAjax/userManage/queryRole',
+                url: ajaxUri + '/webAjax/roleManage/queryRole',
                 dataType: 'json',
                 success: function (dataDictList) {
                     var obj = eval(dataDictList.data);

@@ -1,6 +1,7 @@
 package demo.mapper;
 
 import demo.model.SysRolepermissionEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,4 +23,8 @@ public interface SysRolepermissionEntityMapper {
     int insertSelective(SysRolepermissionEntity record);
 
     List<SysRolepermissionEntity> queryListSysRolepermissionEntityByroleid(Long roleid);
+
+    int deleteRolePermissionById(@Param("roleId") Long roleId, @Param("permissionId") Long permissionId);
+
+    void deleteByRoleId(@Param("roleId") Long roleId);
 }
