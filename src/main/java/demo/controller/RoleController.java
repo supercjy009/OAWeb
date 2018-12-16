@@ -1,20 +1,17 @@
 package demo.controller;
 
-import com.github.pagehelper.PageInfo;
 import demo.model.SysRoleEntity;
 import demo.model.SysUserroleEntity;
 import demo.model.UserinfoEntity;
-import demo.model.dto.UserAddVo;
-import demo.model.dto.UserReqVo;
 import demo.service.Imp.SysPermissionSerivceImp;
-import demo.service.SysPermissionService;
+import demo.service.Imp.SysUserroleServiceImp;
 import demo.service.SysRoleService;
-import demo.service.UserinfoService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +24,24 @@ public class RoleController {
     SysPermissionSerivceImp sysPermissionSerivceImp;
     @Resource
     private SysRoleService sysRoleService;
+    @Resource
+    SysUserroleServiceImp sysUserroleServiceImp;
+
+    @RequestMapping(value = "/queryPermissionAll", method = RequestMethod.GET)
+    public Map<String, Object> queryPermissionAll() {
+        Map<String, Object> mapOut = new HashMap<>();
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        List<SysUserroleEntity> sysUserroleEntities = sysUserroleServiceImp.queryUserroleByuserid(userinfoEntity.getUid());
+        if (sysUserroleEntities == null) {
+            mapOut.put("code", -1005);
+        } else {
+            Long roleId = sysUserroleEntities.get(0).getRoleId();
+            mapOut.put("code", 1);
+            mapOut.put("username", userinfoEntity.getUsername());
+            mapOut.put("permission", sysPermissionSerivceImp.selectPermissionListByRoleId(roleId));
+        }
+        return mapOut;
+    }
 
     @RequestMapping(value = "/queryPermission", method = RequestMethod.GET)
     public Map<String, Object> queryPermission(@RequestParam Long roleId) {

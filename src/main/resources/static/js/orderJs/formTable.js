@@ -2,6 +2,7 @@
  * Created by p51 on 2018/5/30.
  */
 var table;
+
 var h1 = [
     {align: 'center', title: '客户交易登记表', colspan: 22},
     {align: 'center', title: '派单登记表', colspan: 14}];
@@ -59,7 +60,7 @@ layui.use(['table', 'form'], function () {
         // skin: 'row',
         url: ajaxUri + '/webAjax/order/queryAllOrder?partName=' + partNow, //数据接口
         toolbar: '#toolbarDemo',
-        defaultToolbar: ['filter', 'exports'],
+        defaultToolbar: ['filter'],
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
@@ -68,6 +69,7 @@ layui.use(['table', 'form'], function () {
         },
         cols: [h1, header, h2],
         done: function (res, curr, count) {
+            setBttonPermission();
             // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
             var $title = $(".layui-table-view thead th");
             for (var n = 0; n < $title.length; n++) {

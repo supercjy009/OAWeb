@@ -26,7 +26,8 @@
         a {
             cursor: pointer !important;
         }
-        body{
+
+        body {
             overflow: hidden;
         }
     </style>
@@ -60,7 +61,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span>David</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                            <span id="username">David</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <!--<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>-->
                             <!--<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>-->
@@ -81,128 +82,128 @@
         <div class="sidebar-scroll">
             <nav>
                 <ul class="nav">
-                    <li>
+                    <li style="display:none" name="menu" value="part1">
                         <a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i>
                             <span>文案一部</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages1" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/wenanPart/formManage',1,this)">
+                                <li style="display:none" name="menu" value="formManage" onclick="loadUI('/wenanPart/formManage',1,this)">
                                     <a class="">订单管理</a>
                                 </li>
                                 <!--<li onclick="loadUI('/wenanPart/orderTable')">-->
                                 <!--<a id="order1" class="">临时任务</a>-->
                                 <!--</li>-->
-                                <li onclick="loadUI('/wenanPart/workPay',1, this)">
+                                <li style="display:none" name="menu" value="workPay" onclick="loadUI('/wenanPart/workPay',1, this)">
                                     <a class="">办公支出</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="part2">
                         <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i>
                             <span>文案二部</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages2" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/wenanPart/formManage',2,this)">
+                                <li style="display:none" name="menu" value="formManage" onclick="loadUI('/wenanPart/formManage',2,this)">
                                     <a class="">订单管理</a>
                                 </li>
-                                <li onclick="loadUI('/wenanPart/workPay',2,this)">
+                                <li style="display:none" name="menu" value="workPay" onclick="loadUI('/wenanPart/workPay',2,this)">
                                     <a class="">办公支出</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="part3">
                         <a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i>
                             <span>文案三部</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages3" class="collapse">
                             <ul class="nav">
-                                <li onclick="loadUI('/wenanPart/formManage',3,this)">
+                                <li style="display:none" name="menu" value="formManage"  onclick="loadUI('/wenanPart/formManage',3,this)">
                                     <a class="">订单管理</a>
                                 </li>
-                                <li onclick="loadUI('/wenanPart/workPay',3,this)">
+                                <li style="display:none" name="menu" value="workPay" onclick="loadUI('/wenanPart/workPay',3,this)">
                                     <a class="">办公支出</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="apply">
                         <a href="#apply" data-toggle="collapse" class="collapsed"><i class="lnr lnr-location"></i>
                             <span>申请部</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="apply" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/wenanPart/workPay','apply',this)">
+                                <li style="display:none" name="menu" value="apply:workPay" onclick="loadUI('/wenanPart/workPay','apply',this)">
                                     <a class="">办公支出</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="marketing">
                         <a href="#marketing" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cart"></i>
                             <span>营销部</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="marketing" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/wenanPart/keyWord','marketing',this)">
+                                <li style="display:none" name="menu" value="marketing:keyWord" onclick="loadUI('/wenanPart/keyWord','marketing',this)">
                                     <a class="">主关键词</a>
                                 </li>
-                                <li onclick="loadUI('/wenanPart/workPay','marketing',this)">
+                                <li style="display:none" name="menu" value="marketing:workPay" onclick="loadUI('/wenanPart/workPay','marketing',this)">
                                     <a class="">办公支出</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="internal">
                         <a href="#interWork" data-toggle="collapse" class="collapsed"><i class="lnr lnr-inbox"></i>
                             <span>内勤部</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="interWork" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/wenanPart/fileManage','internal',this)">
+                                <li style="display:none" name="menu" value="internal:file" onclick="loadUI('/wenanPart/fileManage','internal',this)">
                                     <a class="">文件柜</a>
                                 </li>
-                                <li onclick="loadUI('/wenanPart/workPay','internal',this)">
+                                <li style="display:none" name="menu" value="internal:workPay" onclick="loadUI('/wenanPart/workPay','internal',this)">
                                     <a class="">办公支出</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="finance">
                         <a href="#finance" data-toggle="collapse" class="collapsed"><i class="lnr lnr-chart-bars"></i>
                             <span>财务部</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="finance" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/wenanPart/fileManage','finance',this)">
+                                <li style="display:none" name="menu" value="finance:file" onclick="loadUI('/wenanPart/fileManage','finance',this)">
                                     <a class="">文件柜</a>
                                 </li>
-                                <li onclick="loadUI('/wenanPart/workPay','finance',this)">
+                                <li style="display:none" name="menu" value="finance:workPay" onclick="loadUI('/wenanPart/workPay','finance',this)">
                                     <a class="">办公支出</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="partTime">
                         <a href="#partTime" data-toggle="collapse" class="collapsed"><i
                                 class="lnr lnr-graduation-hat"></i> <span>兼职团</span> <i
                                 class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="partTime" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/partTime/partUserTable','',this)">
+                                <li style="display:none" name="menu" value="partTime:user" onclick="loadUI('/partTime/partUserTable','',this)">
                                     <a class="">兼职信息</a>
                                 </li>
-                                <li onclick="loadUI('/partTime/partOrderTable','',this)">
+                                <li style="display:none" name="menu" value="partTime:order" onclick="loadUI('/partTime/partOrderTable','',this)">
                                     <a class="">兼职接单登记表</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    <li style="display:none" name="menu" value="system">
                         <a href="#system" data-toggle="collapse" class="collapsed"><i class="lnr lnr-cog"></i> <span>系统设置</span>
                             <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="system" class="collapse ">
                             <ul class="nav">
-                                <li onclick="loadUI('/role/userManage','',this)">
+                                <li style="display:none" name="menu" value="system:role" onclick="loadUI('/role/userManage','',this)">
                                     <a class="">用户及分组</a>
                                 </li>
-                                <li onclick="loadUI('/role/roleManage','',this)">
+                                <li style="display:none" name="menu" value="system:permission" onclick="loadUI('/role/roleManage','',this)">
                                     <a class="">权限设置</a>
                                 </li>
                             </ul>
@@ -245,7 +246,9 @@
         var mainH = $(document.body).height();
         $("#sidebar-nav").height(mainH - navH);
         //左边所有的超链接，拦截点击事件，发送ajax，结果写入右边的容器里面http://localhost:63343/webTemple/tid_5_klorofil/wenanPart/orderTable.html?_ijt=7grt9dqvqpeu59b8h71hqfrk47
-
+        //设置权限
+        permissionInit();
+        permissionSet();
     });
     var el;
 
@@ -262,6 +265,28 @@
         } else {
             layer.msg('敬请期待^^');
         }
+    }
+
+    function permissionSet() {
+        console.log(permissionList)
+        if (permissionList.indexOf("all") != -1) {//超级权限
+            return;
+        }
+        //左侧菜单权限设置
+        setMenuPermission();
+    }
+
+    //左侧菜单权限设置
+    function setMenuPermission() {
+        $("li[name='menu']").each(function () {
+            //console.log('val == ' + $(this).attr("value"))
+            var liValue = $(this).attr("value");
+            if (permissionList.indexOf(liValue) == -1) {
+                $(this).remove();
+            }else {
+                $(this).show();
+            }
+        });
     }
 </script>
 </body>

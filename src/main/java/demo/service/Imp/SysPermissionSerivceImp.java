@@ -76,4 +76,14 @@ public class SysPermissionSerivceImp implements SysPermissionService {
             return -1;
         }
     }
+
+    @Override
+    public List<SysPermissionEntity> queryPermissionByRoleId(Long roleId) {
+        return sysPermissionEntityMapper.selectPermissionByRoleId(roleId);
+    }
+
+    @Override
+    public List<String> selectPermissionListByRoleId(Long roleId) {
+        return sysPermissionEntityMapper.selectPermissionListByRoleId(roleId);
+    }
 }

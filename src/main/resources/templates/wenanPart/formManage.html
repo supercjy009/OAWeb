@@ -134,37 +134,54 @@
 <script src="/js/orderJs/formTable.js"></script>
 
 <!--<script xmlns:th="http://www.w3.org/1999/xhtml" th:inline="javascript">-->
-    <!--var part = [[${part}]];-->
-    <!--console.log(part);-->
+<!--var part = [[${part}]];-->
+<!--console.log(part);-->
 <!--</script>-->
 
 <script type="text/html" id="toolbarDemo">
     <div class="loyo-search-section" style="margin-bottom:0;">
-        <button class="layui-btn layui-btn-normal" lay-event="addOrder"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+        <button name="btn:pms" value="order:set" style="display:none" class="layui-btn layui-btn-normal"
+                lay-event="addOrder"><i class="lnr lnr-plus-circle"></i><span>新建</span>
         </button>
 
-        <button class="layui-btn layui-btn-normal" lay-event="zhipai"><i class="lnr lnr-plus-circle"></i><span>指派</span>
+        <button name="btn:pms" value="order:partset" style="display:none" class="layui-btn layui-btn-normal"
+                lay-event="zhipai"><i class="lnr lnr-plus-circle"></i><span>指派</span>
         </button>
 
-        <button class="layui-btn layui-btn-normal" lay-event="editOrder"><span>修改订单</span>
+        <button name="btn:pms" value="order:set" style="display:none" class="layui-btn layui-btn-normal"
+                lay-event="editOrder"><span>修改订单</span>
         </button>
 
-        <button class="layui-btn layui-btn-normal" lay-event="auditPay" style="margin-right: 20px"><span>订单审核</span>
+        <button name="btn:pms" value="order:set" style="display:none" class="layui-btn layui-btn-normal"
+                lay-event="deleteOrder"><span>删除订单</span>
         </button>
 
-        <button class="layui-btn layui-btn-warm" lay-event="jiaogaoState"><span>交稿状态</span>
-        </button>
-        <button class="layui-btn layui-btn-warm" lay-event="editPartTime"><span>修改兼职</span>
-        </button>
-        <button class="layui-btn layui-btn-warm" lay-event="addjiesuan"><span>添加结算日</span>
-        </button>
-        <button class="layui-btn layui-btn-warm" lay-event="deleteCurrentPart"><span>删除当前兼职</span>
-        </button>
-        <button class="layui-btn layui-btn-warm" lay-event="partTimeAudit"><span>兼职审核</span>
-        </button>
-        <button class="layui-btn layui-btn-warm" lay-event="settlePay"><span>结算状态</span>
+        <button name="btn:pms" value="order:audit" style="display:none; margin-right: 20px"
+                class="layui-btn layui-btn-normal"
+                lay-event="auditPay"><span>订单审核</span>
         </button>
 
+        <button name="btn:pms" value="order:jiaogao" style="display:none" class="layui-btn layui-btn-warm"
+                lay-event="jiaogaoState"><span>交稿状态</span>
+        </button>
+        <button name="btn:pms" value="order:partset" style="display:none" class="layui-btn layui-btn-warm"
+                lay-event="editPartTime"><span>修改兼职</span>
+        </button>
+        <button name="btn:pms" value="order:settle:date" style="display:none" class="layui-btn layui-btn-warm"
+                lay-event="addjiesuan"><span>添加结算日</span>
+        </button>
+        <button name="btn:pms" value="order:partset" style="display:none" class="layui-btn layui-btn-warm"
+                lay-event="deleteCurrentPart"><span>删除当前兼职</span>
+        </button>
+        <button name="btn:pms" value="order:partTimeAudit" style="display:none" class="layui-btn layui-btn-warm"
+                lay-event="partTimeAudit"><span>兼职审核</span>
+        </button>
+        <button name="btn:pms" value="order:settle:state" style="display:none" class="layui-btn layui-btn-warm"
+                lay-event="settlePay"><span>结算状态</span>
+        </button>
+        <button name="btn:pms" value="order:export" style="display:none" class="layui-btn layui-btn-warm"
+                lay-event="settlePay"><span>导出</span>
+        </button>
         <!--<button class="layui-btn layui-btn-normal marginr"><span>导出</span>-->
         <!--</button>-->
     </div>

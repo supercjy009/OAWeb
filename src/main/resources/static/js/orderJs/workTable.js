@@ -44,6 +44,7 @@ layui.use(['table', 'form'], function () {
             // console.log(curr);
             // debugger
             // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+            setBttonPermission();
             var data = res.data;
             for (var i = 0; i < data.length; i++) {
                 var audit = data[i].audit;

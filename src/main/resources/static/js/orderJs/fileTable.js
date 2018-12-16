@@ -80,6 +80,7 @@ layui.use(['table', 'form'], function () {
             //得到当前页码
             // console.log(curr);
             // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
+            setBttonPermission();
             var data = res.data;
             //得到数据总量
             console.log(count);

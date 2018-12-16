@@ -95,7 +95,7 @@
     <select id="selectAllRole" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from sys_role
+        from sys_role where available = 1
         order by create_date desc
     </select>
 

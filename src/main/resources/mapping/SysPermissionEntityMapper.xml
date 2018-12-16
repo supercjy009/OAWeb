@@ -180,6 +180,20 @@
     <select id="queryPermission" resultMap="QueryResultMap">
         select p.id,p.name,p.available,p.parent_id,rp.permission_id as checked
         from sys_permission p left join sys_role_permission rp on p.id = rp.permission_id and rp.role_id =  #{roleId,jdbcType=BIGINT}
-        where p.parent_id = #{parentId,jdbcType=BIGINT}
+        where p.parent_id = #{parentId,jdbcType=BIGINT} and p.available
+    </select>
+
+    <select id="selectPermissionByRoleId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_permission p join sys_role_permission rp on p.id = rp.permission_id
+        where rp.role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectPermissionListByRoleId" resultType="java.lang.String">
+        select
+        permission
+        from sys_permission p join sys_role_permission rp on p.id = rp.permission_id
+        where rp.role_id =  #{roleId,jdbcType=BIGINT}
     </select>
 </mapper>

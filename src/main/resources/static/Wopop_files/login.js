@@ -30,6 +30,8 @@ function login() {
                 var resJson = status.responseJSON;
                 console.log(resJson.status);
                 if (resJson.status == 200) {
+                    userRoleId = resJson.roleId;
+                    permissionList = resJson.permission;
                     location.href = "/index";
                 } else {
                     tishi.text(resJson.message);

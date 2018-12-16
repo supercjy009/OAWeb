@@ -46,6 +46,7 @@ layui.use(['table', 'form'], function () {
         },
         cols: [header],
         done: function (res, curr, count) {
+            setBttonPermission();
             //如果是异步请求数据方式，res即为你接口返回的信息。
             var data = res.data;
             // for (var i = 0; i < data.length; i++) {

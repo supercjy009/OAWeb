@@ -3,7 +3,10 @@ package demo.controller;
 import demo.Process.Indexprocess;
 import demo.VerificationCode.GifCaptcha;
 import demo.model.SysPermissionEntity;
+import demo.model.SysUserroleEntity;
+import demo.model.UserinfoEntity;
 import demo.service.Imp.SysPermissionSerivceImp;
+import demo.service.Imp.SysUserroleServiceImp;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -36,6 +39,8 @@ public class HomeController {
     Indexprocess indexprocess;
     @Resource
     SysPermissionSerivceImp sysPermissionSerivceImp;
+    @Resource
+    SysUserroleServiceImp sysUserroleServiceImp;
 
     /**
      * 用户添加;
@@ -262,7 +267,17 @@ public class HomeController {
             token.clear();
             return resultMap;
         }
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        List<SysUserroleEntity> sysUserroleEntities = sysUserroleServiceImp.queryUserroleByuserid(userinfoEntity.getUid());
+        if (sysUserroleEntities == null) {
+            resultMap.put("status", -1001);
+            resultMap.put("message", "登录失败，查询用户组异常");
+            return resultMap;
+        }
+        Long roleId = sysUserroleEntities.get(0).getRoleId();
         resultMap.put("status", 200);
+        resultMap.put("roleId", roleId);
+        resultMap.put("permission", sysPermissionSerivceImp.selectPermissionListByRoleId(roleId));
         resultMap.put("message", "登录成功");
         msg = "sucess";
         // 此方法不处理登录成功,由shiro进行处理.

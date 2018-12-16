@@ -60,4 +60,7 @@ public interface SysPermissionEntityMapper {
 
     List<AuthJson> queryPermission(@Param("parentId") Long parentId, @Param("roleId") Long roleId);
 
+    List<SysPermissionEntity> selectPermissionByRoleId(@Param("roleId") Long roleId);
+
+    List<String> selectPermissionListByRoleId(@Param("roleId") Long roleId);
 }

@@ -21,4 +21,8 @@ public interface SysPermissionService {
     List<AuthJson> queryPermission(Long roleId);
 
     int setPermission(Integer flag, Long roleId, Long permissionId);
+
+    List<SysPermissionEntity> queryPermissionByRoleId(Long roleId);
+
+    List<String> selectPermissionListByRoleId(Long roleId);
 }

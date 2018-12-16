@@ -60,16 +60,19 @@
         <button class="btn btn-primary marginr" id="addWorkPay"><i class="lnr lnr-plus-circle"></i><span>新建</span>
         </button>
 
-        <button class="btn btn-primary marginr" id="editWorkPay"><span>修改</span>
+        <button style="display:none" class="btn btn-primary marginr" id="editWorkPay"><span>修改</span>
         </button>
 
-        <button class="btn btn-primary marginr" id="auditPay"><span>审核</span>
+        <button name="btn:pms" value="workpay:delete" style="display:none" class="btn btn-primary marginr" id="deleteWorkPay"><span>删除</span>
         </button>
 
-        <button class="btn btn-primary marginr" id="settlePay"><span>结算</span>
+        <button name="btn:pms" value="workpay:audit" style="display:none" class="btn btn-primary marginr" id="auditPay"><span>审核</span>
         </button>
 
-        <button class="btn btn-primary marginr"><span>导出</span>
+        <button name="btn:pms" value="workpay:settle" style="display:none" class="btn btn-primary marginr" id="settlePay"><span>结算</span>
+        </button>
+
+        <button name="btn:pms" value="workpay:export" style="display:none" class="btn btn-primary marginr"><span>导出</span>
         </button>
     </div>
 
