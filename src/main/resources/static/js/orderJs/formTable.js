@@ -210,7 +210,7 @@ layui.use(['table', 'form'], function () {
                     submitState: $('#submitState').val(),
                     partInfo: $('#partInfo').val(),
                     serviceId: $('#serviceName').val(),
-                    sendServiceName: $('#sendServiceName').val(),
+                    sendServiceId: $('#sendServiceName').val(),
                     audit: $('#audit').val(),
                     partAudit: $('#partAudit').val(),
                     partSettleState: $('#partSettleState').val(),

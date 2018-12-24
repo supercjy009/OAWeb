@@ -16,7 +16,7 @@ public class OrderReqVo {
     private String submitState;
     private String partInfo;
     private String serviceId;
-    private String sendServiceName;
+    private Long sendServiceId;
     private String audit;
     private String partAudit;
     private String partSettleState;
@@ -64,14 +64,6 @@ public class OrderReqVo {
 
     public void setPartInfo(String partInfo) {
         this.partInfo = partInfo;
-    }
-
-    public String getSendServiceName() {
-        return sendServiceName;
-    }
-
-    public void setSendServiceName(String sendServiceName) {
-        this.sendServiceName = sendServiceName;
     }
 
     public String getAudit() {
@@ -177,5 +169,13 @@ public class OrderReqVo {
 
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public Long getSendServiceId() {
+        return sendServiceId;
+    }
+
+    public void setSendServiceId(Long sendServiceId) {
+        this.sendServiceId = sendServiceId;
     }
 }

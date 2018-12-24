@@ -110,7 +110,10 @@ public class OrderServiceImp implements OrderService {
         if (partTimeTmp != null) { //已经指派过了
             return -2;
         }
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
         PartTimeEntity partTime = new PartTimeEntity();
+        partTime.setSendServiceName(userinfoEntity.getName());
+        partTime.setSendServiceId(userinfoEntity.getUid());
         partTime.setOrderNumber(order.getOrderNumber());
         partTime.setPartQq(vo.getPartQq());
         partTime.setPartMoney(vo.getPartMoney());
@@ -121,6 +124,7 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartAlipay(partTimeUser.getPartAlipay());
         partTime.setPartMoneyReal("0");//实发稿酬
         partTime.setCreateTime(new Date());//派单日期
+
         partTimeMapper.insert(partTime);
         //更新最近接单日和接单数量
         partTimeUser.setRecentOrderDate(new Date());

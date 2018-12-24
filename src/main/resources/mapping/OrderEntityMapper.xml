@@ -473,6 +473,9 @@
             <if test="serviceId != null and serviceId !=''">
                 AND service_id = #{serviceId,jdbcType=VARCHAR}
             </if>
+            <if test="sendServiceId != null">
+                AND p.send_service_id = #{sendServiceId,jdbcType=BIGINT}
+            </if>
             <if test="partName != null and partName !=''">
                 AND part_name = #{partName,jdbcType=VARCHAR}
             </if>
@@ -581,9 +584,9 @@
 
     <select id="selectAllSendService" resultType="demo.model.dto.ServiceVo">
         select
-        o.service_id as serviceId,o.service_name as serviceName,r1.username as userName
-        from oa_order o
-        LEFT JOIN user_info r1 ON o.service_id = r1.uid
+        o.id,p.send_service_id as serviceId,p.send_service_name as serviceName,r1.username as userName
+        from oa_order o RIGHT  join oa_part_time p on o.order_number = p.order_number
+        LEFT JOIN user_info r1 ON p.send_service_id = r1.uid
         <where>
             <if test="serviceName != null and serviceName !=''">
                 service_name LIKE '%${serviceName}%'
@@ -591,8 +594,8 @@
             <if test="partName != null and partName !=''">
                 AND part_name = #{partName,jdbcType=VARCHAR}
             </if>
-            and service_id != ''
+            and p.send_service_id != ''
         </where>
-        GROUP BY service_id
+        GROUP BY p.send_service_id
     </select>
 </mapper>
