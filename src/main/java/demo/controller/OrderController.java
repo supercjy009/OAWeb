@@ -1,6 +1,7 @@
 package demo.controller;
 
 import com.github.pagehelper.PageInfo;
+import demo.model.SysRoleEntity;
 import demo.model.dto.*;
 import demo.mapper.PayProgressMapper;
 import demo.model.PayProgress;
@@ -115,4 +116,29 @@ public class OrderController {
         mapOut.put("code", orderService.deletePart(vo));
         return mapOut;
     }
+
+    @RequestMapping(value = "/deleteEntity", method = RequestMethod.POST)
+    public Map<String, Object> deleteOrder(@RequestParam Long[] ids) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", orderService.deleteOrder(ids));
+        return mapOut;
+    }
+
+    @RequestMapping(value = "/editFinaRemark", method = RequestMethod.POST)
+    public Map<String, Object> editRole(@RequestBody RemarkVo vo) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", orderService.editFinaRemark(vo));
+        return mapOut;
+    }
+
+    @RequestMapping(value = "/selectAllService", method = RequestMethod.GET)
+    public Map<String, Object> selectAllService(@RequestParam(defaultValue = "") String serviceName,
+                                                @RequestParam(defaultValue = "") String partName, @RequestParam String flag) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", 1);
+        mapOut.put("data", orderService.selectAllService(serviceName, flag, partName));
+        return mapOut;
+    }
+
+
 }

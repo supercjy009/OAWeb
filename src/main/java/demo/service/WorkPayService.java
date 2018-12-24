@@ -16,4 +16,6 @@ public interface WorkPayService {
     int updateOrder(WorkPayEntity order);
 
     int auditOrder(AuditVo vo);
+
+    int deleteEntity(Long[] ids);
 }

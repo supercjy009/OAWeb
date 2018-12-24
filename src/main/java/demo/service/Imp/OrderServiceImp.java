@@ -160,4 +160,27 @@ public class OrderServiceImp implements OrderService {
         partTime.setDeduct(vo.getDeduct());
         return partTimeMapper.updateByPrimaryKeySelective(partTime);
     }
+
+    @Override
+    public int deleteOrder(Long[] ids) {
+        return orderEntityMapper.deleteByPrimaryKeys(ids);
+    }
+
+    @Override
+    public int editFinaRemark(RemarkVo vo) {
+        return partTimeMapper.editFinaRemark(vo.getId(), vo.getRemark());
+    }
+
+    @Override
+    public List<ServiceVo> selectAllService(String serviceName, String flag, String partName) {
+        if ("1".equals(flag)) {//接单客服
+            return orderEntityMapper.selectAllService(serviceName, partName);
+        }
+
+        if ("2".equals(flag)) {//派单客服
+            return orderEntityMapper.selectAllSendService(serviceName, partName);
+        }
+
+        return null;
+    }
 }

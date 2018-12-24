@@ -11,7 +11,7 @@ var header = [ //表头
     , {field: 'recentOrderDate', title: '最近接单日', width: 110}
     , {field: 'getOrderNumber', title: '接单数量', width: 100}
     , {field: 'problemRate', title: '问题率'}
-    , {field: 'outSettleCount', title: '接待数'}
+    , {field: 'outSettleCount', title: '待结数'}
     , {field: 'outDeliveryCount', title: '待交数'}
     , {field: 'totalReward', title: '总稿酬'}
     , {field: 'major', title: '专业'}
@@ -133,7 +133,7 @@ $("#addEntity").click(function () {
     //iframe窗
     layer.open({
         type: 2,
-        title: '新建任务',
+        title: '新建',
         shadeClose: true,
         shade: 0.8,
         area: ['50%', '60%'],

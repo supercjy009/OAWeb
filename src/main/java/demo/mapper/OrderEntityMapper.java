@@ -61,4 +61,10 @@ public interface OrderEntityMapper {
     int auditOrder(AuditVo vo);
 
     OrderEntity selectByOrderNumber(@Param("orderNumber") String orderNumber);
+
+    int deleteByPrimaryKeys(@Param("ids") Long[] ids);
+
+    List<ServiceVo> selectAllService(@Param("serviceName") String serviceName, @Param("partName") String partName);
+
+    List<ServiceVo> selectAllSendService(@Param("serviceName") String serviceName, @Param("partName") String partName);
 }

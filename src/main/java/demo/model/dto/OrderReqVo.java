@@ -15,7 +15,7 @@ public class OrderReqVo {
     private String payState;
     private String submitState;
     private String partInfo;
-    private String serviceName;
+    private String serviceId;
     private String sendServiceName;
     private String audit;
     private String partAudit;
@@ -64,14 +64,6 @@ public class OrderReqVo {
 
     public void setPartInfo(String partInfo) {
         this.partInfo = partInfo;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
     }
 
     public String getSendServiceName() {
@@ -177,5 +169,13 @@ public class OrderReqVo {
 
     public void setSettleDate(Date settleDate) {
         this.settleDate = settleDate;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
     }
 }

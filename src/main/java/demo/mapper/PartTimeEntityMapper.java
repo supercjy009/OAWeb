@@ -31,4 +31,6 @@ public interface PartTimeEntityMapper {
     List<PartTimeDto> selectAllOrder(PartOrderReqVo vo);
 
     int auditOrder(AuditVo vo);
+
+    int editFinaRemark(@Param("id") Long id, @Param("financeRemark") String financeRemark);
 }

@@ -17,6 +17,8 @@ function init() {
         laydate.render({
             elem: '#date',
             type: 'date', //只选年月日
+            value: new Date(),
+            isInitValue: true
         });
 
         //各种基于事件的操作，下面会有进一步介绍
@@ -24,7 +26,7 @@ function init() {
         //监听提交
         form.on('submit(formDemo)', function (data) {
             if (data.field.payDate === null || data.field.payDate.length == 0) {
-                layer.alert("请选择完成日期");
+                layer.alert("必填项不能为空");
             } else {
                 data.field.partName = partSet;
                 if (editData) {

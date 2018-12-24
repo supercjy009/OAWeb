@@ -57,4 +57,9 @@ public class WorkPayServiceImp implements WorkPayService {
     public int auditOrder(AuditVo vo) {
         return workPayEntityMapper.auditOrder(vo);
     }
+
+    @Override
+    public int deleteEntity(Long[] ids) {
+        return workPayEntityMapper.deleteByPrimaryKeys(ids);
+    }
 }

@@ -92,7 +92,7 @@ $("#addEntity").click(function () {
     //iframe窗
     layer.open({
         type: 2,
-        title: '新建任务',
+        title: '新建',
         shadeClose: true,
         shade: 0.8,
         area: ['50%', '60%'],

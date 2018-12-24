@@ -66,7 +66,7 @@
                             <!--<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>-->
                             <!--<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>-->
                             <!--<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>-->
-                            <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                            <li onclick="logout()"><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
                         </ul>
                     </li>
                     <!-- <li>
@@ -248,9 +248,19 @@
         //左边所有的超链接，拦截点击事件，发送ajax，结果写入右边的容器里面http://localhost:63343/webTemple/tid_5_klorofil/wenanPart/orderTable.html?_ijt=7grt9dqvqpeu59b8h71hqfrk47
         //设置权限
         permissionInit();
-        permissionSet();
+        setMenuPermission();
     });
     var el;
+
+    function logout() {
+        $.ajax({
+            type: 'GET',
+            url: ajaxUri + '/logout',
+            complete: function (status) {
+                window.location.href = ajaxUri + '/login'
+            }
+        });
+    }
 
     function loadUI(url, part, e) {
         if (el) {
@@ -267,21 +277,13 @@
         }
     }
 
-    function permissionSet() {
-        console.log(permissionList)
-        if (permissionList.indexOf("all") != -1) {//超级权限
-            return;
-        }
-        //左侧菜单权限设置
-        setMenuPermission();
-    }
 
     //左侧菜单权限设置
     function setMenuPermission() {
         $("li[name='menu']").each(function () {
             //console.log('val == ' + $(this).attr("value"))
             var liValue = $(this).attr("value");
-            if (permissionList.indexOf(liValue) == -1) {
+            if (permissionList.indexOf(liValue) == -1 && permissionList.indexOf("all") == -1) {
                 $(this).remove();
             }else {
                 $(this).show();

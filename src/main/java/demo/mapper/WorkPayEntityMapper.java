@@ -3,6 +3,7 @@ package demo.mapper;
 import demo.model.dto.AuditVo;
 import demo.model.dto.WorkPayReqVo;
 import demo.model.WorkPayEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -58,4 +59,6 @@ public interface WorkPayEntityMapper {
     List<WorkPayEntity> selectAllOrder(WorkPayReqVo vo);
 
     int auditOrder(AuditVo vo);
+
+    int deleteByPrimaryKeys(@Param("ids") Long[] ids);
 }

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import demo.model.dto.*;
 
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * Created by p51 on 2018/5/16.
@@ -22,4 +23,10 @@ public interface OrderService {
     int deletePart(AppointPartVo vo);
 
     int editPart(AppointPartVo vo);
+
+    int deleteOrder(Long[] ids);
+
+    int editFinaRemark(RemarkVo vo);
+
+    List<ServiceVo> selectAllService(String serviceName, String flag, String partName);
 }

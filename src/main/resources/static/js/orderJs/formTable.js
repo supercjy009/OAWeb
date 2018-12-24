@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table;
+var table, form;
 
 var h1 = [
     {align: 'center', title: '客户交易登记表', colspan: 22},
@@ -49,7 +49,7 @@ var h2 = [{field: 'recommendIm', title: '推荐人IM', width: 100}
 
 
 layui.use(['table', 'form'], function () {
-    var form = layui.form;
+    form = layui.form;
 
     table = layui.table;
     //第一个实例
@@ -141,6 +141,7 @@ layui.use(['table', 'form'], function () {
         }
     });
 
+    InitParentMenu();
     table.on('tool(fromManage)', function (obj) {
         var data = obj.data;
         if (obj.event === 'viewProgress') {
@@ -182,6 +183,15 @@ layui.use(['table', 'form'], function () {
             case 'settlePay':
                 settlePay();
                 break;
+            case 'deleteCurOrder':
+                deleteOrder(0);
+                break;
+            case 'deleteMultiOrder':
+                deleteOrder(1);
+                break;
+            case 'financeRemark':
+                financeRemark();
+                break;
         }
     });
 
@@ -199,7 +209,7 @@ layui.use(['table', 'form'], function () {
                     payState: $('#payState').val(),
                     submitState: $('#submitState').val(),
                     partInfo: $('#partInfo').val(),
-                    serviceName: $('#serviceName').val(),
+                    serviceId: $('#serviceName').val(),
                     sendServiceName: $('#sendServiceName').val(),
                     audit: $('#audit').val(),
                     partAudit: $('#partAudit').val(),
@@ -218,6 +228,131 @@ layui.use(['table', 'form'], function () {
     });
 
 });
+
+function InitParentMenu() {
+    //接单客服
+    $.ajax({
+        url: ajaxUri + '/webAjax/order/selectAllService?flag=1&partName=' + partNow,
+        success: function (result, status, xhr) {
+            console.log(result.data);
+            var list = result.data;
+            layui.each(list, function (index) {
+                // var name = list[index].userName ? list[index].userName : list[index].serviceName;
+                var name = list[index].userName;
+                if (name) {
+                    $("#serviceName").append("<option value='" + list[index].serviceId + "'>" + name + "</option>");
+                }
+            });
+            form.render('select');
+        }
+    });
+
+    //派单客服
+    $.ajax({
+        url: ajaxUri + '/webAjax/order/selectAllService?flag=2',
+        success: function (result, status, xhr) {
+            console.log(result.data);
+            var list = result.data;
+            layui.each(list, function (index) {
+                $("#sendServiceName").append("<option value='" + list[index].serviceId + "'>" + list[index].serviceName + "</option>");
+            });
+            form.render('select');
+        }
+    });
+}
+
+function financeRemark() {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length === 1) {
+        if (data[0].partQq == null) {
+            layer.alert("此订单尚未指派兼职，请确认");
+            return;
+        }
+
+        layer.open({
+            type: 1 //Page层类型
+            ,
+            btn: ["确定", "取消"]
+            ,
+            title: '设置财务备注'
+            ,
+            skin: 'layui-layer-prompt'
+            ,
+            content: "<div class=''><input type='text' class='layui-layer-input' value='" + data[0].financeRemark + "'></div>"
+            ,
+            yes: function (index, layero) {
+                //按钮【按钮一】的回调
+                console.log($(layero).find("input[type='text']").val());
+                var req = {
+                    id: data[0].partId,
+                    remark: $(layero).find("input[type='text']").val()
+                };
+                var jasondata = JSON.stringify(req);
+                $.ajax({
+                    type: 'POST',
+                    contentType: "application/json",
+                    data: jasondata,
+                    url: ajaxUri + '/webAjax/order/editFinaRemark',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.code === 1) {
+                            layer.msg('修改成功');
+                            reloadTable();
+                            layer.closeAll();
+                        } else {
+                            layer.msg('数据id异常');
+                        }
+                    },
+                    error: function (xml, errstr, err) {
+                        layer.alert('服务器异常');
+                    }
+                });
+            }
+        });
+    } else if (data.length > 1) {
+        layer.alert("添加财务备注不能勾选多条数据");
+    } else {
+        layer.alert("请先勾选一条兼职数据");
+    }
+}
+
+function deleteOrder(flag) {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length >= 1) {
+        if (flag == 0 && data.length > 1) {
+            layer.alert("删除当前订单不能勾选多条数据");
+            return;
+        }
+        layer.confirm('确认删除勾选的订单吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            var ids = [];
+            for (var i = 0; i < data.length; i++) {
+                ids.push(data[i].id)
+            }
+            $.ajax({
+                type: 'POST',
+                url: ajaxUri + '/webAjax/order/deleteEntity',
+                traditional: true,
+                data: {ids: ids},
+                complete: function (status) {
+                    var str = status.responseJSON;
+                    console.log(str.code);
+                    if (str.code >= 1) {
+                        parent.layer.alert('删除成功');
+                        reloadTable();
+                    } else {
+                        parent.layer.alert('删除失败，服务器异常.');
+                    }
+                }
+            });
+        });
+    } else {
+        layer.alert("请先勾选一条订单");
+    }
+}
 
 function deleteCurrentPart() {
     var checkStatus = table.checkStatus('id')
@@ -255,7 +390,7 @@ function deleteCurrentPart() {
             });
         });
     } else if (data.length > 1) {
-        layer.alert("删除时不能勾选多条数据");
+        layer.alert("删除当前兼职不能勾选多条数据");
     } else {
         layer.alert("请先勾选一条兼职数据");
     }
@@ -333,7 +468,7 @@ function addOrder() {
     //iframe窗
     var index = layer.open({
         type: 2,
-        title: '新建任务',
+        title: '新建',
         shadeClose: true,
         shade: 0.8,
         area: ['70%', '90%'],
@@ -356,7 +491,7 @@ function editOrder() {
         //iframe窗
         layer.open({
             type: 2,
-            title: '编辑任务',
+            title: '编辑',
             shadeClose: true,
             shade: 0.8,
             area: ['70%', '90%'],

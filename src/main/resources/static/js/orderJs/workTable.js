@@ -48,7 +48,8 @@ layui.use(['table', 'form'], function () {
             var data = res.data;
             for (var i = 0; i < data.length; i++) {
                 var audit = data[i].audit;
-                if (audit === '0') {
+                var settle = data[i].settle;
+                if (audit === '0' && settle === '0') {
                     var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
                     $checktr.addClass("changeGray");
                 }
@@ -101,7 +102,7 @@ $("#addWorkPay").click(function () {
     //iframe窗
     layer.open({
         type: 2,
-        title: '新建任务',
+        title: '新建',
         shadeClose: true,
         shade: 0.8,
         area: ['580px', '60%'],
@@ -153,6 +154,40 @@ $("#settlePay").click(function () {
     submitAudit("settle");
 });
 
+$("#deleteWorkPay").click(function () {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length >= 1) {
+        layer.confirm('确认删除吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            var ids = [];
+            for (var i = 0; i < data.length; i++) {
+                ids.push(data[i].id)
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: ajaxUri + '/webAjax/workpay/deleteEntity',
+                traditional: true,
+                data: {ids: ids},
+                complete: function (status) {
+                    var str = status.responseJSON;
+                    console.log(str.code);
+                    if (str.code >= 1) {
+                        parent.layer.alert('删除成功');
+                        reloadTable();
+                    } else {
+                        parent.layer.alert('删除失败，服务器异常.');
+                    }
+                }
+            });
+        });
+    } else {
+        layer.alert("请先勾选数据");
+    }
+});
+
 $("#editWorkPay").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
@@ -160,7 +195,7 @@ $("#editWorkPay").click(function () {
         //iframe窗
         layer.open({
             type: 2,
-            title: '编辑任务',
+            title: '编辑',
             shadeClose: true,
             shade: 0.8,
             area: ['580px', '60%'],

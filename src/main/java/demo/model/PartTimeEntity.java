@@ -31,6 +31,8 @@ public class PartTimeEntity {
 
     private String serviceName;
 
+    private Long sendServiceId;
+
     private String sendServiceName;
 
     private String partMoneyReal;
@@ -157,6 +159,14 @@ public class PartTimeEntity {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName == null ? null : serviceName.trim();
+    }
+
+    public Long getSendServiceId() {
+        return sendServiceId;
+    }
+
+    public void setSendServiceId(Long sendServiceId) {
+        this.sendServiceId = sendServiceId;
     }
 
     public String getSendServiceName() {

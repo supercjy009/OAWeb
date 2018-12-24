@@ -119,7 +119,7 @@ $("#addPayProgress").click(function () {
     if ($("#progressDate").val() != '') {
         data.payDate = $("#progressDate").val();
     } else {
-        layer.alert("请选择付款进度日期");
+        layer.alert("必填项不能为空");
         return;
     }
     data.payWay = $("#progressWay").val();

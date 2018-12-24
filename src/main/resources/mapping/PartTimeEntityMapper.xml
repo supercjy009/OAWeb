@@ -16,6 +16,7 @@
         <result column="finance_remark" jdbcType="VARCHAR" property="financeRemark"/>
         <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
         <result column="service_name" jdbcType="VARCHAR" property="serviceName"/>
+        <result column="send_service_id" jdbcType="BIGINT" property="sendServiceId"/>
         <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName"/>
         <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -25,7 +26,6 @@
         <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark"/>
         <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark"/>
     </resultMap>
-
 
     <resultMap id="QueryResultMap" type="demo.model.dto.PartTimeDto">
         <id column="id" jdbcType="INTEGER" property="id"/>
@@ -42,6 +42,7 @@
         <result column="finance_remark" jdbcType="VARCHAR" property="financeRemark"/>
         <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
         <result column="service_name" jdbcType="VARCHAR" property="serviceName"/>
+        <result column="send_service_id" jdbcType="BIGINT" property="sendServiceId"/>
         <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName"/>
         <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -56,15 +57,15 @@
     <sql id="Query_Column_List">
     p.id, p.part_qq, p.submit_state, p.part_phone, p.part_alipay, p.part_money, p.deduct, p.settle_date,
     p.part_remark, p.part_audit, p.part_settle_state, p.finance_remark, p.order_number, p.service_name,
-    p.send_service_name, p.part_money_real, p.create_time, p.part_money_finance, p.part_audit_finance,
+    p.send_service_id,p.send_service_name, p.part_money_real, p.create_time, p.part_money_finance, p.part_audit_finance,
     p.part_settle_state_finance, p.part_finance_remark,p.part_user_remark
   </sql>
 
     <sql id="Base_Column_List">
     id, part_qq, submit_state, part_phone, part_alipay, part_money, deduct, settle_date, 
     part_remark, part_audit, part_settle_state, finance_remark, order_number, service_name, 
-    send_service_name, part_money_real, create_time, part_money_finance, part_audit_finance, 
-    part_settle_state_finance, part_finance_remark, part_user_remark
+    send_service_id, send_service_name, part_money_real, create_time, part_money_finance, 
+    part_audit_finance, part_settle_state_finance, part_finance_remark, part_user_remark
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -81,17 +82,17 @@
       part_phone, part_alipay, part_money, 
       deduct, settle_date, part_remark, 
       part_audit, part_settle_state, finance_remark, 
-      order_number, service_name, send_service_name, 
-      part_money_real, create_time, part_money_finance, 
-      part_audit_finance, part_settle_state_finance, 
+      order_number, service_name, send_service_id, 
+      send_service_name, part_money_real, create_time, 
+      part_money_finance, part_audit_finance, part_settle_state_finance, 
       part_finance_remark, part_user_remark)
     values (#{id,jdbcType=INTEGER}, #{partQq,jdbcType=VARCHAR}, #{submitState,jdbcType=VARCHAR}, 
       #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{partMoney,jdbcType=VARCHAR}, 
       #{deduct,jdbcType=VARCHAR}, #{settleDate,jdbcType=TIMESTAMP}, #{partRemark,jdbcType=VARCHAR}, 
       #{partAudit,jdbcType=VARCHAR}, #{partSettleState,jdbcType=VARCHAR}, #{financeRemark,jdbcType=VARCHAR}, 
-      #{orderNumber,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, #{sendServiceName,jdbcType=VARCHAR}, 
-      #{partMoneyReal,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{partMoneyFinance,jdbcType=VARCHAR}, 
-      #{partAuditFinance,jdbcType=VARCHAR}, #{partSettleStateFinance,jdbcType=VARCHAR}, 
+      #{orderNumber,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, #{sendServiceId,jdbcType=BIGINT}, 
+      #{sendServiceName,jdbcType=VARCHAR}, #{partMoneyReal,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{partMoneyFinance,jdbcType=VARCHAR}, #{partAuditFinance,jdbcType=VARCHAR}, #{partSettleStateFinance,jdbcType=VARCHAR}, 
       #{partFinanceRemark,jdbcType=VARCHAR}, #{partUserRemark,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="demo.model.PartTimeEntity">
@@ -138,6 +139,9 @@
             </if>
             <if test="serviceName != null">
                 service_name,
+            </if>
+            <if test="sendServiceId != null">
+                send_service_id,
             </if>
             <if test="sendServiceName != null">
                 send_service_name,
@@ -207,6 +211,9 @@
             <if test="serviceName != null">
                 #{serviceName,jdbcType=VARCHAR},
             </if>
+            <if test="sendServiceId != null">
+                #{sendServiceId,jdbcType=BIGINT},
+            </if>
             <if test="sendServiceName != null">
                 #{sendServiceName,jdbcType=VARCHAR},
             </if>
@@ -275,6 +282,9 @@
             <if test="serviceName != null">
                 service_name = #{serviceName,jdbcType=VARCHAR},
             </if>
+            <if test="sendServiceId != null">
+                send_service_id = #{sendServiceId,jdbcType=BIGINT},
+            </if>
             <if test="sendServiceName != null">
                 send_service_name = #{sendServiceName,jdbcType=VARCHAR},
             </if>
@@ -317,6 +327,7 @@
       finance_remark = #{financeRemark,jdbcType=VARCHAR},
       order_number = #{orderNumber,jdbcType=VARCHAR},
       service_name = #{serviceName,jdbcType=VARCHAR},
+      send_service_id = #{sendServiceId,jdbcType=BIGINT},
       send_service_name = #{sendServiceName,jdbcType=VARCHAR},
       part_money_real = #{partMoneyReal,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -340,25 +351,6 @@
     where order_number = #{orderNumber,jdbcType=VARCHAR}
     and part_qq = #{partQq,jdbcType=VARCHAR}
   </delete>
-
-    <update id="addSettleDate" parameterType="demo.model.dto.SettleDateVo">
-        <!--
-          WARNING - @mbg.generated
-          This element is automatically generated by MyBatis Generator, do not modify.
-        -->
-        update oa_part_time
-        <set>
-            <if test="settleDate != null">
-                settle_date = #{settleDate,jdbcType=TIMESTAMP}
-            </if>
-
-        </set>
-        where id in
-        <foreach item="item" index="index" collection="ids"
-                 open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
 
     <!-- 这个方法是我自己加的 -->
     <select id="selectAllOrder" parameterType="demo.model.dto.PartOrderReqVo" resultMap="QueryResultMap">
@@ -410,5 +402,19 @@
                  open="(" separator="," close=")">
             #{item}
         </foreach>
+    </update>
+
+    <update id="editFinaRemark">
+        <!--
+          WARNING - @mbg.generated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        update oa_part_time
+        <set>
+            <if test="financeRemark != null">
+                finance_remark = #{financeRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
     </update>
 </mapper>

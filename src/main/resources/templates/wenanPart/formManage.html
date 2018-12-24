@@ -36,7 +36,7 @@
 </div>
 
 <div class="tab-regions-container clearfix">
-    <div class="layui-form" style="padding: 10px 20px 0 20px">
+    <div class="layui-form" lay-filter="searchForm" style="padding: 10px 20px 0 20px">
         <div class="layui-form-item" style="display: inline-block;margin-bottom: 0;">
             <div class="layui-input-inline">
                 <input type="text" id="getOrderDate" placeholder="接单时间"
@@ -79,12 +79,12 @@
         </div>
         <div class="layui-form-item" style="display: inline-block;margin-bottom: 0;">
             <div class="layui-input-inline">
-                <select id="serviceName" lay-filter="" lay-verify="required">
+                <select id="serviceName" lay-filter="serviceName" lay-verify="required">
                     <option value="" selected="">接单客服</option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select id="sendServiceName" lay-filter="" lay-verify="required">
+                <select id="sendServiceName" lay-filter="sendServiceName" lay-verify="required">
                     <option value="" selected="">派单客服</option>
                     <!--<option value="1">公司</option>-->
                     <!--<option value="2">个人</option>-->
@@ -140,47 +140,63 @@
 
 <script type="text/html" id="toolbarDemo">
     <div class="loyo-search-section" style="margin-bottom:0;">
-        <button name="btn:pms" value="order:set" style="display:none" class="layui-btn layui-btn-normal"
+        <button name="btn:pms" value="order:set" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
                 lay-event="addOrder"><i class="lnr lnr-plus-circle"></i><span>新建</span>
         </button>
 
-        <button name="btn:pms" value="order:partset" style="display:none" class="layui-btn layui-btn-normal"
+        <button name="btn:pms" value="order:partset" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
                 lay-event="zhipai"><i class="lnr lnr-plus-circle"></i><span>指派</span>
         </button>
 
-        <button name="btn:pms" value="order:set" style="display:none" class="layui-btn layui-btn-normal"
+        <button name="btn:pms" value="order:jiaogao" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
+                lay-event="jiaogaoState"><span>交稿状态</span>
+        </button>
+
+        <button name="btn:pms" value="order:set" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
                 lay-event="editOrder"><span>修改订单</span>
         </button>
 
-        <button name="btn:pms" value="order:set" style="display:none" class="layui-btn layui-btn-normal"
-                lay-event="deleteOrder"><span>删除订单</span>
+        <button name="btn:pms" value="order:partset" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
+                lay-event="editPartTime"><span>修改兼职</span>
         </button>
 
-        <button name="btn:pms" value="order:audit" style="display:none; margin-right: 20px"
+        <button name="btn:pms" value="order:settle:date" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
+                lay-event="addjiesuan"><span>添加结算日</span>
+        </button>
+        <button name="btn:pms" value="order:partset" style="display:none;margin: 0" class="layui-btn layui-btn-danger"
+                lay-event="deleteCurrentPart"><span>删除当前兼职</span>
+        </button>
+
+        <button name="btn:pms" value="order:set" style="display:none;margin: 0" class="layui-btn layui-btn-danger"
+                lay-event="deleteCurOrder"><span>删除当前订单</span>
+        </button>
+
+        <button name="btn:pms" value="order:audit" style="display:none; margin-left: 20px"
                 class="layui-btn layui-btn-normal"
                 lay-event="auditPay"><span>订单审核</span>
         </button>
 
-        <button name="btn:pms" value="order:jiaogao" style="display:none" class="layui-btn layui-btn-warm"
-                lay-event="jiaogaoState"><span>交稿状态</span>
-        </button>
-        <button name="btn:pms" value="order:partset" style="display:none" class="layui-btn layui-btn-warm"
-                lay-event="editPartTime"><span>修改兼职</span>
-        </button>
-        <button name="btn:pms" value="order:settle:date" style="display:none" class="layui-btn layui-btn-warm"
-                lay-event="addjiesuan"><span>添加结算日</span>
-        </button>
-        <button name="btn:pms" value="order:partset" style="display:none" class="layui-btn layui-btn-warm"
-                lay-event="deleteCurrentPart"><span>删除当前兼职</span>
-        </button>
-        <button name="btn:pms" value="order:partTimeAudit" style="display:none" class="layui-btn layui-btn-warm"
+        <button name="btn:pms" value="order:partTimeAudit" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
                 lay-event="partTimeAudit"><span>兼职审核</span>
         </button>
-        <button name="btn:pms" value="order:settle:state" style="display:none" class="layui-btn layui-btn-warm"
+        <button name="btn:pms" value="order:settle:state" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
                 lay-event="settlePay"><span>结算状态</span>
         </button>
-        <button name="btn:pms" value="order:export" style="display:none" class="layui-btn layui-btn-warm"
+
+        <button name="btn:pms" value="order:settle:state" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
+                lay-event="financeRemark"><span>财务备注</span>
+        </button>
+
+        <button name="btn:pms" value="order:export" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
                 lay-event="settlePay"><span>导出</span>
+        </button>
+
+        <button name="btn:pms" value="order:export" style="display:none;margin: 0" class="layui-btn layui-btn-normal"
+                lay-event="settlePay"><span>统计</span>
+        </button>
+
+        <button name="btn:pms" value="order:set" style="display:none;margin: 0" class="layui-btn layui-btn-danger"
+                lay-event="deleteMultiOrder"><span>批量删除</span>
         </button>
         <!--<button class="layui-btn layui-btn-normal marginr"><span>导出</span>-->
         <!--</button>-->

@@ -50,80 +50,84 @@
                 </select>
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
-        <!--</div>-->
+            <!--</div>-->
+        </div>
+
+        <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
+
+
+        <div class="loyo-search-section" style="margin-bottom:0;">
+            <button class="btn btn-primary marginr" id="addWorkPay"><i class="lnr lnr-plus-circle"></i><span>新建</span>
+            </button>
+
+            <button class="btn btn-primary marginr" id="editWorkPay"><span>修改</span>
+            </button>
+
+            <button name="btn:pms" value="workpay:audit" style="display:none" class="btn btn-primary marginr"
+                    id="auditPay"><span>审核</span>
+            </button>
+
+            <button name="btn:pms" value="workpay:settle" style="display:none" class="btn btn-primary marginr"
+                    id="settlePay"><span>结算</span>
+            </button>
+
+            <button name="btn:pms" value="workpay:export" style="display:none" class="btn btn-primary marginr">
+                <span>导出</span>
+            </button>
+
+            <button name="btn:pms" value="workpay:delete" style="display:none" class="btn btn-danger marginr"
+                    id="deleteWorkPay"><span>删除</span>
+            </button>
+        </div>
+
+        <table id="workPayTable" lay-filter="test"></table>
     </div>
 
-    <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
 
+    <script src="/js/orderJs/workTable.js"></script>
 
-    <div class="loyo-search-section" style="margin-bottom:0;">
-        <button class="btn btn-primary marginr" id="addWorkPay"><i class="lnr lnr-plus-circle"></i><span>新建</span>
-        </button>
+    <script>
+        layui.use(['laydate'], function () {
 
-        <button style="display:none" class="btn btn-primary marginr" id="editWorkPay"><span>修改</span>
-        </button>
-
-        <button name="btn:pms" value="workpay:delete" style="display:none" class="btn btn-primary marginr" id="deleteWorkPay"><span>删除</span>
-        </button>
-
-        <button name="btn:pms" value="workpay:audit" style="display:none" class="btn btn-primary marginr" id="auditPay"><span>审核</span>
-        </button>
-
-        <button name="btn:pms" value="workpay:settle" style="display:none" class="btn btn-primary marginr" id="settlePay"><span>结算</span>
-        </button>
-
-        <button name="btn:pms" value="workpay:export" style="display:none" class="btn btn-primary marginr"><span>导出</span>
-        </button>
-    </div>
-
-    <table id="workPayTable" lay-filter="test"></table>
-</div>
-
-
-<script src="/js/orderJs/workTable.js"></script>
-
-<script>
-    layui.use(['laydate'], function () {
-
-        $("#payDate").attr("lay-key", getRandomString);
-        console.log("ddddddaaate")
-        var laydate = layui.laydate;
-        //日期
-        laydate.render({
-            elem: '#payDate',
-            type: 'month', //只选年月
-            btns: ['clear', 'confirm']
+            $("#payDate").attr("lay-key", getRandomString);
+            console.log("ddddddaaate")
+            var laydate = layui.laydate;
+            //日期
+            laydate.render({
+                elem: '#payDate',
+                type: 'month', //只选年月
+                btns: ['clear', 'confirm']
+            });
         });
-    });
 
-</script>
-<script type="text/html" id="auditTpl">
-    {{#  if(d.audit === '0'){ }}
-    <span style="color: #f52727;">{{ '待审' }}</span>
-    {{#  } else { }}
-    {{ '已审' }}
-    {{#  } }}
-</script>
-<script type="text/html" id="settleTpl">
-    {{#  if(d.settle === '0'){ }}
-    <span style="color: #f52727;">{{ '待结' }}</span>
-    {{#  } else { }}
-    {{ '已结' }}
-    {{#  } }}
-</script>
-<script type="text/html" id="userTpl">
-    {{#  if(d.getUser === '1'){ }}
-    {{ '公司' }}
-    {{#  } else { }}
-    {{ '个人' }}
-    {{#  } }}
-</script>
+    </script>
+    <script type="text/html" id="auditTpl">
+        {{#  if(d.audit === '0'){ }}
+        <span style="color: #f52727;">{{ '待审' }}</span>
+        {{#  } else { }}
+        {{ '已审' }}
+        {{#  } }}
+    </script>
+    <script type="text/html" id="settleTpl">
+        {{#  if(d.settle === '0'){ }}
+        <span style="color: #f52727;">{{ '待结' }}</span>
+        {{#  } else { }}
+        {{ '已结' }}
+        {{#  } }}
+    </script>
+    <script type="text/html" id="userTpl">
+        {{#  if(d.getUser === '1'){ }}
+        {{ '公司' }}
+        {{#  } else { }}
+        {{ '个人' }}
+        {{#  } }}
+    </script>
 
-<!--<script type="text/html" id="sexTpl">-->
-<!--{{#  if(d.sex === '女'){ }}-->
-<!--<span style="color: #F581B1;">{{ d.sex }}</span>-->
-<!--{{#  } else { }}-->
-<!--{{ d.sex }}-->
-<!--{{#  } }}-->
-<!--</script>-->
+    <!--<script type="text/html" id="sexTpl">-->
+    <!--{{#  if(d.sex === '女'){ }}-->
+    <!--<span style="color: #F581B1;">{{ d.sex }}</span>-->
+    <!--{{#  } else { }}-->
+    <!--{{ d.sex }}-->
+    <!--{{#  } }}-->
+    <!--</script>-->
 </body>

@@ -110,7 +110,7 @@ $("#editKeyWord").click(function () {
         //iframe窗
         layer.open({
             type: 2,
-            title: '编辑任务',
+            title: '编辑',
             shadeClose: true,
             shade: 0.8,
             area: ['580px', '60%'],
