@@ -1,5 +1,6 @@
 package demo.mapper;
 
+import demo.model.dto.FileEntityDto;
 import demo.model.dto.FileReqVo;
 import demo.model.FileEntity;
 
@@ -18,5 +19,5 @@ public interface FileEntityMapper {
 
     int updateByPrimaryKey(FileEntity record);
 
-    List<FileEntity> selectAllOrder(FileReqVo vo);
+    List<FileEntityDto> selectAllOrder(FileReqVo vo);
 }

@@ -10,6 +10,16 @@
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="part_name" jdbcType="VARCHAR" property="partName" />
   </resultMap>
+  <resultMap id="QueryResultMap" type="demo.model.dto.FileEntityDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_uri" jdbcType="VARCHAR" property="fileUri" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="part_name" jdbcType="VARCHAR" property="partName" />
+    <result column="username" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
   <sql id="Base_Column_List">
     id, create_date, create_user, file_name, file_uri, type, part_name
   </sql>
@@ -116,10 +126,10 @@
   </update>
 
   <!-- 这个方法是我自己加的 -->
-  <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.model.dto.FileReqVo">
+  <select id="selectAllOrder" resultMap="QueryResultMap" parameterType="demo.model.dto.FileReqVo">
     select
-    <include refid="Base_Column_List"/>
-    from oa_file_manage
+    <include refid="Base_Column_List"/>,r1.username
+    from oa_file_manage f LEFT JOIN user_info r1 ON f.create_user = r1.uid
     <where>
       <if test="createDate != null">
         <![CDATA[`create_date` <= DATE_ADD(#{createDate, jdbcType=TIMESTAMP},INTERVAL 1 MONTH ) AND `create_date` >= #{createDate, jdbcType=TIMESTAMP}]]>

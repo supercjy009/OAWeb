@@ -1,6 +1,7 @@
 package demo.controller;
 
 import com.github.pagehelper.PageInfo;
+import demo.model.dto.FileEntityDto;
 import demo.model.dto.FileReqVo;
 import demo.model.FileEntity;
 import demo.service.FileService;
@@ -54,13 +55,13 @@ public class FileController {
     }
 
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)
-    public Map<String, Object> queryAllOrder(FileReqVo vo) {
-        Map<String, Object> mapOut = new HashMap<>();
-        PageInfo<FileEntity> workPayPageInfo = entityService.queryAllOrder(vo);
-        mapOut.put("code", 0);
-        mapOut.put("count", workPayPageInfo.getTotal());
-        mapOut.put("data", workPayPageInfo.getList());
-        return mapOut;
+        public Map<String, Object> queryAllOrder(FileReqVo vo) {
+            Map<String, Object> mapOut = new HashMap<>();
+            PageInfo<FileEntityDto> workPayPageInfo = entityService.queryAllOrder(vo);
+            mapOut.put("code", 0);
+            mapOut.put("count", workPayPageInfo.getTotal());
+            mapOut.put("data", workPayPageInfo.getList());
+            return mapOut;
     }
 
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)

@@ -2,6 +2,7 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import demo.model.dto.FileEntityDto;
 import demo.model.dto.FileReqVo;
 import demo.mapper.FileEntityMapper;
 import demo.model.FileEntity;
@@ -28,11 +29,11 @@ public class FileServiceImp implements FileService {
     private FileUtil fileUtil;
 
     @Override
-    public PageInfo<FileEntity> queryAllOrder(FileReqVo vo) {
+    public PageInfo<FileEntityDto> queryAllOrder(FileReqVo vo) {
 //        if (vo.getPageNum() != null && vo.getPageSize() != null) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
 //        }
-        List<FileEntity> entityList = entityMapper.selectAllOrder(vo);
+        List<FileEntityDto> entityList = entityMapper.selectAllOrder(vo);
 
         return new PageInfo<>(entityList);
     }
