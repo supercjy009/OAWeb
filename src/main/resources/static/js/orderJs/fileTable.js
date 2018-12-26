@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table;
+var table, form;
 
 var header = [ //表头
     {checkbox: true, fixed: true},
@@ -55,7 +55,7 @@ layui.use('upload', function () {
 });
 
 layui.use(['table', 'form'], function () {
-    var form = layui.form;
+    form = layui.form;
 
     table = layui.table;
     //第一个实例
@@ -87,6 +87,8 @@ layui.use(['table', 'form'], function () {
         }
     });
 
+    InitParentMenu();
+
     var $ = layui.$, active = {
         reload: function () {
             // console.log("idddd===" + payDate.val());
@@ -111,6 +113,10 @@ layui.use(['table', 'form'], function () {
     });
 
     form.on('select(typeSele1)', function (data) { //监听下拉框
+        reloadTable();
+    })
+
+    form.on('select(userSelect)', function (data) { //监听下拉框
         reloadTable();
     })
 
@@ -140,7 +146,6 @@ layui.use(['table', 'form'], function () {
             }
         });
     });
-
 });
 
 
@@ -171,18 +176,23 @@ $("#downFile").click(function () {
 $("#deleteEntity").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
-    if (data.length === 1) {
-        layer.confirm('确认删除此文件吗？', {
+    if (data.length >= 1) {
+        layer.confirm('确认删除文件吗？', {
             btn: ['确定', '取消'] //按钮
         }, function () {
+            var ids = [];
+            for (var i = 0; i < data.length; i++) {
+                ids.push(data[i].id)
+            }
             $.ajax({
                 type: 'POST',
                 url: ajaxUri + '/webAjax/file/deleteEntity',
-                data: {id: data[0].id},
+                traditional: true,
+                data: {ids: ids},
                 complete: function (status) {
                     var str = status.responseJSON;
                     console.log(str.code);
-                    if (str.code === 1) {
+                    if (str.code >= 1) {
                         parent.layer.alert('删除成功');
                         reloadTable();
                     } else {
@@ -191,12 +201,29 @@ $("#deleteEntity").click(function () {
                 }
             });
         });
-    } else if (data.length > 1) {
-        layer.alert("删除时不能勾选多条数据");
     } else {
         layer.alert("请先勾选一条数据");
     }
 });
+
+function InitParentMenu() {
+    //接单客服
+    $.ajax({
+        url: ajaxUri + '/webAjax/file/selectAllService?partName=' + partNow,
+        success: function (result, status, xhr) {
+            console.log(result.data);
+            var list = result.data;
+            layui.each(list, function (index) {
+                // var name = list[index].userName ? list[index].userName : list[index].serviceName;
+                var name = list[index].userName;
+                if (name) {
+                    $("#user").append("<option value='" + list[index].serviceId + "'>" + name + "</option>");
+                }
+            });
+            form.render('select');
+        }
+    });
+}
 
 function reloadTable(date) {
     // var workPayReload = $('#workPayReload');

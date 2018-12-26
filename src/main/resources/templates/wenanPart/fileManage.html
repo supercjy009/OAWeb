@@ -30,7 +30,7 @@
                        lay-key="1" class="layui-input">
             </div>
             <div class="layui-input-inline">
-                <select id="user" lay-filter="" lay-verify="required">
+                <select id="user" lay-filter="userSelect" lay-verify="required">
                     <option value="" selected="">上传人</option>
                     <!--<option value="1">公司</option>-->
                     <!--<option value="2">个人</option>-->
@@ -62,7 +62,7 @@
                 <button name="btn:pms" value="file:export" style="display:none" class="btn btn-primary marginr" id="downFile"><span>导出</span>
                 </button>
 
-                <button class="btn btn-primary marginr" id="deleteEntity"><span>删除</span>
+                <button class="btn btn-danger marginr" id="deleteEntity"><span>删除</span>
                 </button>
 
             </div>

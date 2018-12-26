@@ -80,4 +80,13 @@ public class WorkPayController {
         mapOut.put("code", workService.deleteEntity(ids));
         return mapOut;
     }
+
+    @RequestMapping(value = "/selectAllService", method = RequestMethod.GET)
+    public Map<String, Object> selectAllService(@RequestParam(defaultValue = "") String serviceName,
+                                                @RequestParam(defaultValue = "") String partName) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", 1);
+        mapOut.put("data", workService.selectAllService(serviceName, partName));
+        return mapOut;
+    }
 }

@@ -25,6 +25,11 @@
                        lay-key="1" class="layui-input">
             </div>
             <div class="layui-input-inline">
+                <select id="payUser" lay-filter="userSelect" lay-verify="required">
+                    <option value="" selected="">支出人</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
                 <select id="getUser" lay-filter="" lay-verify="required">
                     <option value="" selected="">支付人</option>
                     <option value="1">公司</option>

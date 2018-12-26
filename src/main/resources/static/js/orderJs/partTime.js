@@ -98,7 +98,6 @@ layui.use(['table', 'form'], function () {
 //         btns: ['clear', 'confirm']
 //     });
 // });
-
 $("#deleteEntity").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;

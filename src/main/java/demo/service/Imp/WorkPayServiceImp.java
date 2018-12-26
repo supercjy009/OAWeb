@@ -3,6 +3,7 @@ package demo.service.Imp;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import demo.model.dto.AuditVo;
+import demo.model.dto.ServiceVo;
 import demo.model.dto.WorkPayReqVo;
 import demo.mapper.WorkPayEntityMapper;
 import demo.model.UserinfoEntity;
@@ -35,7 +36,7 @@ public class WorkPayServiceImp implements WorkPayService {
     @Override
     public int addOrder(WorkPayEntity work) {
         UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
-        work.setPayUser(userinfoEntity.getUsername());
+        work.setPayUser(userinfoEntity.getUid().toString());
         work.setAudit("0");//待审
         work.setSettle("0");//待结
         return workPayEntityMapper.insert(work);
@@ -61,5 +62,10 @@ public class WorkPayServiceImp implements WorkPayService {
     @Override
     public int deleteEntity(Long[] ids) {
         return workPayEntityMapper.deleteByPrimaryKeys(ids);
+    }
+
+    @Override
+    public List<ServiceVo> selectAllService(String serviceName, String partName) {
+        return workPayEntityMapper.selectAllService(serviceName, partName);
     }
 }

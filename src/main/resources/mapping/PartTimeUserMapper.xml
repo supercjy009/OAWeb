@@ -26,6 +26,16 @@
     out_delivery_count, total_reward, major, english_level, acceptable_subject, education, 
     school, age, part_phone, part_alipay, referrer
   </sql>
+
+    <sql id="Query_Column_List">
+    o.id, o.start_job_date, o.part_qq, recent_order_date, get_order_number, problem_rate,
+    SUM(CASE WHEN t1.part_settle_state = '0' THEN 1 ELSE 0 END) as out_settle_count,
+    SUM(CASE WHEN t1.submit_state = '0' THEN 1 ELSE 0 END) as out_delivery_count,
+    SUM(part_money - deduct) as total_reward,
+    major, english_level, acceptable_subject, education,
+    school, age, o.part_phone, o.part_alipay, referrer
+  </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -249,14 +259,15 @@
     <!-- 这个方法是我自己加的 -->
     <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.model.dto.PartUserReqVo">
         select
-        <include refid="Base_Column_List"/>
-        from oa_part_user
+        <include refid="Query_Column_List"/>
+        from oa_part_user o LEFT JOIN oa_part_time t1 ON o.part_qq = t1.part_qq
         <where>
 
             <if test="flag != null and flag !=''">
                 part_qq = #{flag,jdbcType=VARCHAR}
             </if>
         </where>
+        GROUP BY o.part_qq
         order by recent_order_date desc
     </select>
 

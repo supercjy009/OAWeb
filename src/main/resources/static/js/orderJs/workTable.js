@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table;
+var table, form;
 
 var header = [ //表头
     {checkbox: true, fixed: true},
@@ -19,7 +19,7 @@ var header = [ //表头
 
 
 layui.use(['table', 'form'], function () {
-    var form = layui.form;
+    form = layui.form;
 
     table = layui.table;
     //第一个实例
@@ -58,6 +58,8 @@ layui.use(['table', 'form'], function () {
             console.log(count);
         }
     });
+
+    InitParentMenu();
 
     var $ = layui.$, active = {
         reload: function () {
@@ -116,6 +118,25 @@ $("#addWorkPay").click(function () {
         }
     });
 });
+
+function InitParentMenu() {
+    //接单客服
+    $.ajax({
+        url: ajaxUri + '/webAjax/workpay/selectAllService?partName=' + partNow,
+        success: function (result, status, xhr) {
+            console.log(result.data);
+            var list = result.data;
+            layui.each(list, function (index) {
+                // var name = list[index].userName ? list[index].userName : list[index].serviceName;
+                var name = list[index].userName;
+                if (name) {
+                    $("#payUser").append("<option value='" + list[index].serviceId + "'>" + name + "</option>");
+                }
+            });
+            form.render('select');
+        }
+    });
+}
 
 function submitAudit(flag) {
     var title

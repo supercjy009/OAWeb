@@ -118,8 +118,8 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartQq(vo.getPartQq());
         partTime.setPartMoney(vo.getPartMoney());
         partTime.setPartRemark(vo.getPartRemark());
-        partTime.setPartSettleState("0");//待结
-        partTime.setSubmitState("0");//待交稿
+        partTime.setPartSettleState("0");//状态待结
+        partTime.setSubmitState("0");//状态待交稿
         partTime.setPartPhone(partTimeUser.getPartPhone());
         partTime.setPartAlipay(partTimeUser.getPartAlipay());
         partTime.setPartMoneyReal("0");//实发稿酬

@@ -7,6 +7,7 @@ import demo.model.dto.FileReqVo;
 import demo.mapper.FileEntityMapper;
 import demo.model.FileEntity;
 import demo.model.UserinfoEntity;
+import demo.model.dto.ServiceVo;
 import demo.service.FileService;
 import demo.util.FileUtil;
 import org.apache.shiro.SecurityUtils;
@@ -60,8 +61,8 @@ public class FileServiceImp implements FileService {
     }
 
     @Override
-    public int deleteEntity(Long id) {
-        return entityMapper.deleteByPrimaryKey(id);
+    public int deleteEntity(Long[] ids) {
+        return entityMapper.deleteByPrimaryKeys(ids);
     }
 
     @Override
@@ -69,5 +70,10 @@ public class FileServiceImp implements FileService {
         FileEntity entity = entityMapper.selectByPrimaryKey(id);
         entity.setType(type);
         return entityMapper.updateByPrimaryKey(entity);
+    }
+
+    @Override
+    public List<ServiceVo> selectAllService(String serviceName, String partName) {
+        return entityMapper.selectAllService(serviceName, partName);
     }
 }

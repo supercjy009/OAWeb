@@ -4,9 +4,11 @@ import com.github.pagehelper.PageInfo;
 import demo.model.dto.FileEntityDto;
 import demo.model.dto.FileReqVo;
 import demo.model.FileEntity;
+import demo.model.dto.ServiceVo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by p51 on 2018/5/16.
@@ -18,7 +20,9 @@ public interface FileService {
 
     int updateOrder(FileEntity order);
 
-    int deleteEntity(Long id);
+    int deleteEntity(Long[] id);
 
     int setType(Long id, String type);
+
+    List<ServiceVo> selectAllService(String serviceName, String partName);
 }

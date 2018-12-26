@@ -92,9 +92,9 @@ public class FileController {
 
 
     @RequestMapping(value = "/deleteEntity", method = RequestMethod.POST)
-    public Map<String, Object> deleteEntity(@RequestParam Long id) {
+    public Map<String, Object> deleteEntity(@RequestParam Long[] ids) {
         Map<String, Object> mapOut = new HashMap<>();
-        mapOut.put("code", entityService.deleteEntity(id));
+        mapOut.put("code", entityService.deleteEntity(ids));
         return mapOut;
     }
 
@@ -145,5 +145,14 @@ public class FileController {
             }
         }
         return null;
+    }
+
+    @RequestMapping(value = "/selectAllService", method = RequestMethod.GET)
+    public Map<String, Object> selectAllService(@RequestParam(defaultValue = "") String serviceName,
+                                                @RequestParam(defaultValue = "") String partName) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", 1);
+        mapOut.put("data", entityService.selectAllService(serviceName, partName));
+        return mapOut;
     }
 }
