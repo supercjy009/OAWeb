@@ -39,12 +39,21 @@
     <div class="layui-form" lay-filter="searchForm" style="padding: 10px 20px 0 20px">
         <div class="layui-form-item" style="display: inline-block;margin-bottom: 0;">
             <div class="layui-input-inline">
+                <!--<input type="text" id="getOrderDate" placeholder="接单时间"-->
+                       <!--lay-key="1" class="layui-input">-->
+                <!--<div class="controls">-->
+                    <!--<div id="reportrange" class="pull-left dateRange" style="width:180px">-->
+                        <!--<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>-->
+                        <!--<span id="searchDateRange"></span>-->
+                        <!--<b class="caret"></b>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <input type="text" id="getOrderDate" placeholder="接单时间"
-                       lay-key="1" class="layui-input">
+                        class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <input type="text" id="deliveryDate" placeholder="交稿时间"
-                       lay-key="1" class="layui-input">
+                       class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <select id="payState" lay-filter="" lay-verify="required">
@@ -204,27 +213,29 @@
 </script>
 
 <script>
+    setDateRangePicker('getOrderDate');
+    setDeliveryDateRangePicker('deliveryDate');
     layui.use(['laydate'], function () {
 
-        $("#getOrderDate").attr("lay-key", getRandomString);
-        $("#deliveryDate").attr("lay-key", getRandomString);
+        // $("#getOrderDate").attr("lay-key", getRandomString);
+        // $("#deliveryDate").attr("lay-key", getRandomString);
         $("#settleDate").attr("lay-key", getRandomString);
         console.log("ddddddaaate")
         var laydate = layui.laydate;
         //日期
-        laydate.render({
-            elem: '#getOrderDate',
-            type: 'date', //只选年月
-            range: '~',
-            btns: ['clear', 'confirm']
-        });
+        // laydate.render({
+        //     elem: '#getOrderDate',
+        //     type: 'date', //只选年月
+        //     range: '~',
+        //     btns: ['clear', 'confirm']
+        // });
 
-        laydate.render({
-            elem: '#deliveryDate',
-            type: 'date', //只选年月
-            range: '~',
-            btns: ['clear', 'confirm']
-        });
+        // laydate.render({
+        //     elem: '#deliveryDate',
+        //     type: 'date', //只选年月
+        //     range: '~',
+        //     btns: ['clear', 'confirm']
+        // });
 
         laydate.render({
             elem: '#settleDate',

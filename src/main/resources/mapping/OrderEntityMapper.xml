@@ -457,12 +457,10 @@
         ) AS pp ON pp.order_id = o.id
         <where>
             <if test="orderDateReq!=null and orderDateReq!= ''">
-                AND `get_order_date` &gt;= #{orderDateStart, jdbcType=TIMESTAMP} AND `get_order_date` &lt;=
-                #{orderDateEnd, jdbcType=TIMESTAMP}
+                AND `get_order_date` &gt;= #{orderDateStart, jdbcType=TIMESTAMP} AND `get_order_date` &lt;= DATE_FORMAT(#{orderDateEnd},'%Y-%m-%d 23:59:59')
             </if>
             <if test="deliveryDateReq!=null and deliveryDateReq!=''">
-                AND `delivery_date` &gt;= #{deliveryDateStart, jdbcType=TIMESTAMP} AND `delivery_date` &lt;=
-                #{deliveryDateEnd, jdbcType=TIMESTAMP}
+                AND `delivery_date` &gt;= #{deliveryDateStart, jdbcType=TIMESTAMP} AND `delivery_date` &lt;= DATE_FORMAT(#{deliveryDateEnd},'%Y-%m-%d 23:59:59')
             </if>
             <if test="payState != null and payState !=''">
                 AND pay_state = #{payState,jdbcType=VARCHAR}

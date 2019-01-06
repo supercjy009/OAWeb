@@ -6,7 +6,9 @@ import java.util.Date;
  * Created by p51 on 2018/6/5.
  */
 public class FileReqVo {
-    private Date createDate;
+    private String createDate;
+    private Date createDateStart;
+    private Date createDateEnd;
     private Long userId;
     private String type;
     private String partName;//这是哪个部门
@@ -29,11 +31,11 @@ public class FileReqVo {
         this.limit = limit;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -59,5 +61,21 @@ public class FileReqVo {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Date getCreateDateStart() {
+        return createDateStart;
+    }
+
+    public void setCreateDateStart(Date createDateStart) {
+        this.createDateStart = createDateStart;
+    }
+
+    public Date getCreateDateEnd() {
+        return createDateEnd;
+    }
+
+    public void setCreateDateEnd(Date createDateEnd) {
+        this.createDateEnd = createDateEnd;
     }
 }

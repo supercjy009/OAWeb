@@ -131,8 +131,9 @@
     <include refid="Base_Column_List"/>,r1.username
     from oa_file_manage f LEFT JOIN user_info r1 ON f.create_user = r1.uid
     <where>
-      <if test="createDate != null">
-        <![CDATA[`create_date` <= DATE_ADD(#{createDate, jdbcType=TIMESTAMP},INTERVAL 1 MONTH ) AND `create_date` >= #{createDate, jdbcType=TIMESTAMP}]]>
+      <if test="createDate != null and createDate != ''">
+        <!--<![CDATA[`create_date` <= DATE_ADD(#{createDate, jdbcType=TIMESTAMP},INTERVAL 1 MONTH ) AND `create_date` >= #{createDate, jdbcType=TIMESTAMP}]]>-->
+        AND `create_date` &gt;= #{createDateStart, jdbcType=TIMESTAMP} AND `create_date` &lt;= DATE_FORMAT(#{createDateEnd},'%Y-%m-%d 23:59:59')
       </if>
       <if test="userId != null">
         and create_user = #{userId,jdbcType=BIGINT}

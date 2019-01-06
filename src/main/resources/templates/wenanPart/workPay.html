@@ -21,8 +21,8 @@
     <div class="layui-form" style="padding: 20px 20px 0 20px">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="payDate" placeholder="支出月份"
-                       lay-key="1" class="layui-input">
+                <input type="text" id="payDate" placeholder="支出时间"
+                       class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <select id="payUser" lay-filter="userSelect" lay-verify="required">
@@ -92,18 +92,19 @@
     <script src="/js/orderJs/workTable.js"></script>
 
     <script>
-        layui.use(['laydate'], function () {
-
-            $("#payDate").attr("lay-key", getRandomString);
-            console.log("ddddddaaate")
-            var laydate = layui.laydate;
-            //日期
-            laydate.render({
-                elem: '#payDate',
-                type: 'month', //只选年月
-                btns: ['clear', 'confirm']
-            });
-        });
+        setDateRangePicker('payDate');
+        // layui.use(['laydate'], function () {
+        //
+        //     $("#payDate").attr("lay-key", getRandomString);
+        //     console.log("ddddddaaate")
+        //     var laydate = layui.laydate;
+        //     //日期
+        //     laydate.render({
+        //         elem: '#payDate',
+        //         type: 'month', //只选年月
+        //         btns: ['clear', 'confirm']
+        //     });
+        // });
 
     </script>
     <script type="text/html" id="auditTpl">

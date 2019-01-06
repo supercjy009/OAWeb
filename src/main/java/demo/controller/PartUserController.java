@@ -55,7 +55,12 @@ public class PartUserController {
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)
     public Map<String, Object> queryAllEntity(PartUserReqVo vo) {
         Map<String, Object> mapOut = new HashMap<>();
-        PageInfo<PartTimeUser> workPayPageInfo = partUserService.queryAllOrder(vo);
+        PageInfo<PartTimeUser> workPayPageInfo = null;
+        try {
+            workPayPageInfo = partUserService.queryAllOrder(vo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         mapOut.put("code", 0);
         mapOut.put("count", workPayPageInfo.getTotal());
         mapOut.put("data", workPayPageInfo.getList());

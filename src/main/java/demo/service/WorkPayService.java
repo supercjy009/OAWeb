@@ -6,13 +6,14 @@ import demo.model.dto.ServiceVo;
 import demo.model.dto.WorkPayReqVo;
 import demo.model.WorkPayEntity;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
  * Created by p51 on 2018/5/16.
  */
 public interface WorkPayService {
-    PageInfo<WorkPayEntity> queryAllOrder(WorkPayReqVo vo);
+    PageInfo<WorkPayEntity> queryAllOrder(WorkPayReqVo vo) throws ParseException;
 
     int addOrder(WorkPayEntity order);
 

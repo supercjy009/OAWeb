@@ -262,9 +262,11 @@
         <include refid="Query_Column_List"/>
         from oa_part_user o LEFT JOIN oa_part_time t1 ON o.part_qq = t1.part_qq
         <where>
-
+            <if test="recentDate != null and recentDate !=''">
+                AND `recent_order_date` &gt;= #{recentDateStart, jdbcType=TIMESTAMP} AND `recent_order_date` &lt;= DATE_FORMAT(#{recentDateEnd},'%Y-%m-%d 23:59:59')
+            </if>
             <if test="flag != null and flag !=''">
-                part_qq = #{flag,jdbcType=VARCHAR}
+                AND o.part_qq = #{flag,jdbcType=VARCHAR}
             </if>
         </where>
         GROUP BY o.part_qq

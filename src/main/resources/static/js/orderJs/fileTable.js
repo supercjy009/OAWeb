@@ -12,20 +12,20 @@ var header = [ //表头
     , {field: 'fileName', title: '文件名'}
     , {field: 'type', align: 'center', title: '分类', templet: '#switchTpl'}
 ];
-
-layui.use(['laydate'], function () {
-    $("#createDate").attr("lay-key", getRandomString);
-    var laydate = layui.laydate;
-    //日期
-    laydate.render({
-        elem: '#createDate',
-        type: 'month', //只选年月
-        btns: ['clear', 'confirm'],
-        done: function (value, date) {
-            reloadTable(value);
-        }
-    });
-});
+setDateRangePicker('createDate');
+// layui.use(['laydate'], function () {
+//     $("#createDate").attr("lay-key", getRandomString);
+//     var laydate = layui.laydate;
+//     //日期
+//     laydate.render({
+//         elem: '#createDate',
+//         type: 'month', //只选年月
+//         btns: ['clear', 'confirm'],
+//         done: function (value, date) {
+//             reloadTable(value);
+//         }
+//     });
+// });
 
 layui.use('upload', function () {
     var upload = layui.upload;

@@ -57,8 +57,13 @@ public class FileController {
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)
         public Map<String, Object> queryAllOrder(FileReqVo vo) {
             Map<String, Object> mapOut = new HashMap<>();
-            PageInfo<FileEntityDto> workPayPageInfo = entityService.queryAllOrder(vo);
-            mapOut.put("code", 0);
+        PageInfo<FileEntityDto> workPayPageInfo = null;
+        try {
+            workPayPageInfo = entityService.queryAllOrder(vo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mapOut.put("code", 0);
             mapOut.put("count", workPayPageInfo.getTotal());
             mapOut.put("data", workPayPageInfo.getList());
             return mapOut;

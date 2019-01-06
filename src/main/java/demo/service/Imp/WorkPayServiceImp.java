@@ -11,8 +11,12 @@ import demo.model.WorkPayEntity;
 import demo.service.WorkPayService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -24,10 +28,16 @@ public class WorkPayServiceImp implements WorkPayService {
     WorkPayEntityMapper workPayEntityMapper;
 
     @Override
-    public PageInfo<WorkPayEntity> queryAllOrder(WorkPayReqVo vo) {
+    public PageInfo<WorkPayEntity> queryAllOrder(WorkPayReqVo vo) throws ParseException {
 //        if (vo.getPageNum() != null && vo.getPageSize() != null) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
 //        }
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        if (!StringUtils.isEmpty(vo.getPayDate())) {
+            String[] dateSplit = vo.getPayDate().split("~");
+            vo.setPayDateStart(format.parse(dateSplit[0].trim()));
+            vo.setPayDateEnd(format.parse(dateSplit[1]));
+        }
         List<WorkPayEntity> workPayList = workPayEntityMapper.selectAllOrder(vo);
 
         return new PageInfo<>(workPayList);

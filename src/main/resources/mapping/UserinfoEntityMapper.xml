@@ -54,7 +54,7 @@
     select
     <include refid="Base_Column_List" />
     from user_info
-    where username = #{username,jdbcType=VARCHAR}
+    where binary username = #{username,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     <!--

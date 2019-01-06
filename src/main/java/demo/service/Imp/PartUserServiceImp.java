@@ -11,9 +11,13 @@ import demo.model.PartTimeUser;
 import demo.service.PartUserService;
 import demo.service.UserinfoService;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +32,14 @@ public class PartUserServiceImp implements PartUserService {
     private UserinfoService userService;
 
     @Override
-    public PageInfo<PartTimeUser> queryAllOrder(PartUserReqVo vo) {
+    public PageInfo<PartTimeUser> queryAllOrder(PartUserReqVo vo) throws ParseException {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        if (!StringUtils.isEmpty(vo.getRecentDate())) {
+            String[] dateSplit = vo.getRecentDate().split("~");
+            vo.setRecentDateStart(format.parse(dateSplit[0].trim()));
+            vo.setRecentDateEnd(format.parse(dateSplit[1]));
+        }
         List<PartTimeUser> partUserList = partTimeUserMapper.selectAllOrder(vo);
 
         return new PageInfo<>(partUserList);

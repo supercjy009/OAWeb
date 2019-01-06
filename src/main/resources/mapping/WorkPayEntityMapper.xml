@@ -192,8 +192,9 @@
         <include refid="Query_Column_List"/>
         from oa_work o LEFT JOIN user_info r1 ON o.pay_user = r1.uid
         <where>
-            <if test="payDate != null">
-                <![CDATA[`pay_date` <= DATE_ADD(#{payDate, jdbcType=TIMESTAMP},INTERVAL 1 MONTH ) AND `pay_date` >= #{payDate, jdbcType=TIMESTAMP}]]>
+            <if test="payDate != null and payDate !=''">
+                <!--<![CDATA[`pay_date` <= DATE_ADD(#{payDate, jdbcType=TIMESTAMP},INTERVAL 1 MONTH ) AND `pay_date` >= #{payDate, jdbcType=TIMESTAMP}]]>-->
+                AND `pay_date` &gt;= #{payDateStart, jdbcType=TIMESTAMP} AND `pay_date` &lt;= DATE_FORMAT(#{payDateEnd},'%Y-%m-%d 23:59:59')
             </if>
             <if test="partName != null and partName !=''">
                 and part_name = #{partName,jdbcType=VARCHAR}

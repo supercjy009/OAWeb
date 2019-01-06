@@ -9,7 +9,9 @@ public class WorkPayReqVo {
     private String partName;
     private Integer page;
     private Integer limit;
-    private Date payDate;//支出月份
+    private String payDate;//支出时间
+    private Date payDateStart;
+    private Date payDateEnd;
     private String getUser;
     private String audit;
     private String settle;
@@ -30,11 +32,11 @@ public class WorkPayReqVo {
         this.limit = limit;
     }
 
-    public Date getPayDate() {
+    public String getPayDate() {
         return payDate;
     }
 
-    public void setPayDate(Date payDate) {
+    public void setPayDate(String payDate) {
         this.payDate = payDate;
     }
 
@@ -68,5 +70,21 @@ public class WorkPayReqVo {
 
     public void setPartName(String partName) {
         this.partName = partName;
+    }
+
+    public Date getPayDateStart() {
+        return payDateStart;
+    }
+
+    public void setPayDateStart(Date payDateStart) {
+        this.payDateStart = payDateStart;
+    }
+
+    public Date getPayDateEnd() {
+        return payDateEnd;
+    }
+
+    public void setPayDateEnd(Date payDateEnd) {
+        this.payDateEnd = payDateEnd;
     }
 }

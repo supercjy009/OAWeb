@@ -26,8 +26,8 @@
     <div class="layui-form" style="padding: 20px 20px 0 20px">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" id="createDate" placeholder="上传月份" lay-filter="createDate"
-                       lay-key="1" class="layui-input">
+                <input type="text" id="createDate" placeholder="上传时间" lay-filter="createDate"
+                       class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <select id="user" lay-filter="userSelect" lay-verify="required">
@@ -46,7 +46,7 @@
                     <option value="1000">其他</option>
                 </select>
             </div>
-            <!--<button class="layui-btn" data-type="reload">搜索</button>-->
+            <button class="layui-btn" data-type="reload">搜索</button>
             <!--</div>-->
         </div>
 
@@ -54,12 +54,14 @@
             <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
 
 
-            <div class="loyo-search-section" style="margin-top:15px;">
-                <button type="button" class="layui-btn layui-btn-normal" id="addFile">
+            <div class="loyo-search-section">
+                <button type="button" class="layui-btn layui-btn-normal" id="addFile"
+                        style="height: 34px;line-height: 34px;">
                     <i class="layui-icon">&#xe67c;</i>上传
                 </button>
 
-                <button name="btn:pms" value="file:export" style="display:none" class="btn btn-primary marginr" id="downFile"><span>导出</span>
+                <button name="btn:pms" value="file:export" style="display:none" class="btn btn-primary marginr"
+                        id="downFile"><span>导出</span>
                 </button>
 
                 <button class="btn btn-danger marginr" id="deleteEntity"><span>删除</span>

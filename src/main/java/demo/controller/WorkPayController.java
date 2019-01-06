@@ -46,7 +46,12 @@ public class WorkPayController {
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)
     public Map<String, Object> queryAllOrder(WorkPayReqVo vo) {
         Map<String, Object> mapOut = new HashMap<>();
-        PageInfo<WorkPayEntity> workPayPageInfo = workService.queryAllOrder(vo);
+        PageInfo<WorkPayEntity> workPayPageInfo = null;
+        try {
+            workPayPageInfo = workService.queryAllOrder(vo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         mapOut.put("code", 0);
         mapOut.put("count", workPayPageInfo.getTotal());
         mapOut.put("data", workPayPageInfo.getList());

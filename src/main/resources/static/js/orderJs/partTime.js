@@ -26,7 +26,7 @@ var header = [ //表头
     , {field: 'referrer', title: '推荐人'}
 ];
 
-
+setDateRangePicker('recentDate');
 layui.use(['table', 'form'], function () {
     var form = layui.form;
 
@@ -70,10 +70,8 @@ layui.use(['table', 'form'], function () {
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    payDate: $('#payDate').val(),
-                    getUser: $('#getUser').val(),
-                    audit: $('#audit').val(),
-                    settle: $('#settle').val()
+                    flag: $('#keyWord').val(),
+                    recentDate: $('#recentDate').val()
                 }
             });
         }
@@ -112,7 +110,7 @@ $("#deleteEntity").click(function () {
                 complete: function (status) {
                     var str = status.responseJSON;
                     console.log(str.code);
-                    if (str.code === 1) {
+                    if (str.code >= 1) {
                         parent.layer.alert('删除成功');
                         reloadTable();
                     } else {

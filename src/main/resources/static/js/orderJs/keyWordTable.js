@@ -20,7 +20,7 @@ layui.use(['table', 'form'], function () {
         id: 'id',
         elem: '#workPayTable',
         skin: 'line',
-        height: 'full-500',
+        height: full,
         // height: 'full-280',
         url: ajaxUri + '/webAjax/keyWord/queryAllOrder', //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档

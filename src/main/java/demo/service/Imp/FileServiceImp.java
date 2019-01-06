@@ -13,9 +13,13 @@ import demo.util.FileUtil;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,10 +34,16 @@ public class FileServiceImp implements FileService {
     private FileUtil fileUtil;
 
     @Override
-    public PageInfo<FileEntityDto> queryAllOrder(FileReqVo vo) {
+    public PageInfo<FileEntityDto> queryAllOrder(FileReqVo vo) throws ParseException {
 //        if (vo.getPageNum() != null && vo.getPageSize() != null) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
 //        }
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        if (!StringUtils.isEmpty(vo.getCreateDate())) {
+            String[] dateSplit = vo.getCreateDate().split("~");
+            vo.setCreateDateStart(format.parse(dateSplit[0].trim()));
+            vo.setCreateDateEnd(format.parse(dateSplit[1]));
+        }
         List<FileEntityDto> entityList = entityMapper.selectAllOrder(vo);
 
         return new PageInfo<>(entityList);
