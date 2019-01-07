@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table,ins;
+var table, ins;
 
 var header = [ //表头
     {type: 'checkbox'}
@@ -9,21 +9,22 @@ var header = [ //表头
     , {field: 'startJobDate', title: '入职日期', width: 110}
     , {field: 'partQq', title: 'QQ', width: 110}
     , {field: 'recentOrderDate', title: '最近接单日', width: 110}
-    , {field: 'getOrderNumber', title: '接单数量', width: 100}
-    , {field: 'problemRate', title: '问题率'}
-    , {field: 'outSettleCount', title: '待结数'}
-    , {field: 'outDeliveryCount', title: '待交数'}
-    , {field: 'totalReward', title: '总稿酬'}
-    , {field: 'major', title: '专业'}
+    , {field: 'getOrderNumber', title: '接单数量', width: 90}
+    , {field: 'problemRate', title: '问题率', width: 80}
+    , {field: 'outSettleCount', title: '待结数', width: 80}
+    , {field: 'outDeliveryCount', title: '待交数', width: 80}
+    , {field: 'totalReward', title: '总稿酬', width: 80}
+    , {field: 'major', title: '专业', width: 100}
     , {field: 'englishLevel', title: '英语水平', width: 110}
     , {field: 'acceptableSubject', title: '可承接科目', width: 110}
     , {field: 'education', title: '学历'}
-    , {field: 'school', title: '学校'}
+    , {field: 'school', title: '学校', width: 100}
     , {field: 'age', title: '年龄'}
-    , {field: 'partPhone', title: '联系电话', width: 100}
-    , {field: 'partAlipay', title: '支付宝'}
+    , {field: 'partPhone', title: '联系电话', width: 110}
+    , {field: 'partAlipay', title: '支付宝', width: 110}
+    , {field: 'masterHandStr', title: '在熟手群', width: 90}
     // , {field: 'referrer', title: '有无推荐人', templet: '#auditTpl',width: 110}
-    , {field: 'referrer', title: '推荐人'}
+    , {field: 'referrer', title: '推荐人', width: 90}
 ];
 
 setDateRangePicker('recentDate');
@@ -35,7 +36,7 @@ layui.use(['table', 'form'], function () {
     ins = table.render({
         id: 'id',
         elem: '#partUserTable',
-        title:'兼职信息',
+        title: '兼职信息',
         // skin: 'row',
         height: full,
         url: ajaxUri + '/webAjax/partUser/queryAllOrder', //数据接口
@@ -66,15 +67,7 @@ layui.use(['table', 'form'], function () {
         reload: function () {
             // console.log("idddd===" + payDate.val());
             //执行重载
-            table.reload('id', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                , where: {
-                    flag: $('#keyWord').val(),
-                    recentDate: $('#recentDate').val()
-                }
-            });
+            reloadTable();
         }
     };
 
@@ -176,11 +169,12 @@ function reloadTable() {
         page: {
             curr: 1 //重新从第 1 页开始
         }
-        // , where: {
-        //     key: {
-        //         id: workPayReload.val()
-        //     }
-        // }
+        , where: {
+            flag: $('#keyWord').val(),
+            recentDate: $('#recentDate').val()
+            , masterHand: $('#masterHand').val()
+            , referrer: $('#referrer').val()
+        }
     });
 }
 

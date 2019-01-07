@@ -81,8 +81,20 @@
                 </select>
             </div>
             <div class="layui-input-inline">
-                <input type="text" id="keyWord" autocomplete="off" class="layui-input"
-                       placeholder="输入客户IM、订单编号...">
+                <select id="masterHand" lay-filter="" lay-verify="required">
+                    <option value="" selected="">是否在熟手群</option>
+                    <!--<option value="">全部</option>-->
+                    <option value=true>是</option>
+                    <option value=false>否</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select id="referrer" lay-filter="" lay-verify="required">
+                    <option value="" selected="">兼职推荐人</option>
+                    <!--<option value="">全部</option>-->
+                    <option value="1">有</option>
+                    <option value="0">无</option>
+                </select>
             </div>
 
         </div>
@@ -130,7 +142,10 @@
                 <input type="text" id="settleDate" placeholder="结算日期"
                        lay-key="1" class="layui-input">
             </div>
-
+            <div class="layui-input-inline">
+                <input type="text" id="keyWord" autocomplete="off" class="layui-input"
+                       placeholder="输入客户IM、订单编号...">
+            </div>
             <button class="layui-btn layui-btn-normal" data-type="reload">搜索</button>
         </div>
     </div>

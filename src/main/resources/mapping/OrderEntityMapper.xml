@@ -110,6 +110,7 @@
         <result column="submit_state" jdbcType="VARCHAR" property="submitState"/>
         <result column="part_phone" jdbcType="VARCHAR" property="partPhone"/>
         <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay"/>
+        <result column="master_hand" jdbcType="BIT" property="masterHand"/>
         <result column="part_money" jdbcType="VARCHAR" property="partMoney"/>
         <result column="deduct" jdbcType="VARCHAR" property="deduct"/>
         <result column="settle_date" jdbcType="TIMESTAMP" property="settleDate"/>
@@ -141,8 +142,7 @@
         o.customer_mail, o.order_content, o.order_price, o.pay_state, o.pay_progress, o.due_date, o.due_money,
         o.remark, o.recommend_im, o.customer_account, o.refund_way, o.refund_money, o.refund_date, o.refund_remark,
         o.audit, o.part_name,pp.pay_date,p.id as part_id, p.part_qq, p.submit_state, p.part_phone, p.part_alipay,
-        p.part_money,
-        p.deduct,
+        pu.master_hand,p.part_money,p.deduct,
         p.settle_date,p.part_remark, p.part_audit, p.part_settle_state,
         p.finance_remark,p.send_service_name
     </sql>
@@ -447,6 +447,7 @@
         select
         <include refid="All_Column_List"/>
         from oa_order o left join oa_part_time p on o.order_number = p.order_number
+        LEFT JOIN oa_part_user pu ON p.part_qq = pu.part_qq
         LEFT JOIN user_info r1 ON o.service_id = r1.uid
         LEFT JOIN (
         SELECT
@@ -457,16 +458,27 @@
         ) AS pp ON pp.order_id = o.id
         <where>
             <if test="orderDateReq!=null and orderDateReq!= ''">
-                AND `get_order_date` &gt;= #{orderDateStart, jdbcType=TIMESTAMP} AND `get_order_date` &lt;= DATE_FORMAT(#{orderDateEnd},'%Y-%m-%d 23:59:59')
+                AND `get_order_date` &gt;= #{orderDateStart, jdbcType=TIMESTAMP} AND `get_order_date` &lt;=
+                DATE_FORMAT(#{orderDateEnd},'%Y-%m-%d 23:59:59')
             </if>
             <if test="deliveryDateReq!=null and deliveryDateReq!=''">
-                AND `delivery_date` &gt;= #{deliveryDateStart, jdbcType=TIMESTAMP} AND `delivery_date` &lt;= DATE_FORMAT(#{deliveryDateEnd},'%Y-%m-%d 23:59:59')
+                AND `delivery_date` &gt;= #{deliveryDateStart, jdbcType=TIMESTAMP} AND `delivery_date` &lt;=
+                DATE_FORMAT(#{deliveryDateEnd},'%Y-%m-%d 23:59:59')
             </if>
             <if test="payState != null and payState !=''">
                 AND pay_state = #{payState,jdbcType=VARCHAR}
             </if>
             <if test="submitState != null and submitState !=''">
                 AND submit_state = #{submitState,jdbcType=VARCHAR}
+            </if>
+            <if test="masterHand != null">
+                AND pu.master_hand = #{masterHand,jdbcType=BIT}
+            </if>
+            <if test="referrer == true">
+                AND pu.referrer !='' and pu.referrer is not null
+            </if>
+            <if test="referrer == false">
+                AND pu.referrer is null OR pu.referrer ='' OR pu.referrer = '无'
             </if>
             <if test="serviceId != null and serviceId !=''">
                 AND service_id = #{serviceId,jdbcType=VARCHAR}
@@ -583,7 +595,7 @@
     <select id="selectAllSendService" resultType="demo.model.dto.ServiceVo">
         select
         o.id,p.send_service_id as serviceId,p.send_service_name as serviceName,r1.username as userName
-        from oa_order o RIGHT  join oa_part_time p on o.order_number = p.order_number
+        from oa_order o RIGHT join oa_part_time p on o.order_number = p.order_number
         LEFT JOIN user_info r1 ON p.send_service_id = r1.uid
         <where>
             <if test="serviceName != null and serviceName !=''">

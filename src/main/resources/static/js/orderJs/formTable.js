@@ -5,7 +5,7 @@ var table, form;
 
 var h1 = [
     {align: 'center', title: '客户交易登记表', colspan: 22},
-    {align: 'center', title: '派单登记表', colspan: 14}];
+    {align: 'center', title: '派单登记表', colspan: 15}];
 
 var header = [ //表头
     {checkbox: true, rowspan: 2},
@@ -30,6 +30,7 @@ var header = [ //表头
     , {field: 'submitState', title: '交稿状态', width: 100, rowspan: 2, templet: '#submitStateTpl'}
     , {field: 'partPhone', title: '兼职电话', width: 100, rowspan: 2}
     , {field: 'partAlipay', title: '兼职支付宝', width: 100, rowspan: 2}
+    , {field: 'masterHandStr', title: '在熟手群', width: 90, rowspan: 2}
     , {field: 'partMoney', title: '稿酬', width: 100, rowspan: 2}
     , {field: 'deduct', title: '应扣', width: 100, rowspan: 2}
     , {field: 'settleDate', title: '结算日', width: 110, rowspan: 2}
@@ -75,7 +76,7 @@ layui.use(['table', 'form'], function () {
             var $title = $(".layui-table-view thead th");
             for (var n = 0; n < $title.length; n++) {
                 var $th = $(".layui-table-view thead th:eq(" + n + ")");
-                var calssType = (n > 18 && n < 32 || n == 1) ? 'back2' : 'back1';
+                var calssType = (n > 18 && n < 33 || n == 1) ? 'back2' : 'back1';
                 $th.addClass(calssType);
             }
 
@@ -203,25 +204,7 @@ layui.use(['table', 'form'], function () {
         reload: function () {
             // console.log("idddd===" + payDate.val());
             //执行重载
-            table.reload('id', {
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                }
-                , where: {
-                    orderDateReq: $('#getOrderDate').val(),
-                    deliveryDateReq: $('#deliveryDate').val(),
-                    payState: $('#payState').val(),
-                    submitState: $('#submitState').val(),
-                    partInfo: $('#partInfo').val(),
-                    serviceId: $('#serviceName').val(),
-                    sendServiceId: $('#sendServiceName').val(),
-                    audit: $('#audit').val(),
-                    partAudit: $('#partAudit').val(),
-                    partSettleState: $('#partSettleState').val(),
-                    settleDate: $('#settleDate').val(),
-                    keyWord: $('#keyWord').val()
-                }
-            });
+            reloadTable();
         }
     };
 
@@ -542,17 +525,21 @@ function addjiesuan() {
 
 function submitAudit(flag) {
     var title
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
     if (flag == 'audit') {
         title = "订单审核";
     } else if (flag == 'partAudit') {
         title = "兼职审核";
     } else if (flag == 'submit') {
         title = "交稿状态";
+        if (data.length > 1) {
+            layer.alert("不能勾选多条数据");
+            return;
+        }
     } else if (flag == 'settle') {
         title = "结算"
     }
-    var checkStatus = table.checkStatus('id')
-        , data = checkStatus.data;
     if (data.length >= 1) {
         //iframe窗
         layer.open({
@@ -569,7 +556,7 @@ function submitAudit(flag) {
             }
         });
     } else {
-        layer.alert("请至少勾选一条数据");
+        layer.alert("请先勾选一条数据");
     }
 }
 
@@ -596,11 +583,22 @@ function reloadTable() {
         page: {
             curr: 1 //重新从第 1 页开始
         }
-        // , where: {
-        //     key: {
-        //         id: workPayReload.val()
-        //     }
-        // }
+        , where: {
+            orderDateReq: $('#getOrderDate').val(),
+            deliveryDateReq: $('#deliveryDate').val(),
+            payState: $('#payState').val(),
+            submitState: $('#submitState').val(),
+            partInfo: $('#partInfo').val(),
+            masterHand: $('#masterHand').val(),
+            referrer: $('#referrer').val(),
+            serviceId: $('#serviceName').val(),
+            sendServiceId: $('#sendServiceName').val(),
+            audit: $('#audit').val(),
+            partAudit: $('#partAudit').val(),
+            partSettleState: $('#partSettleState').val(),
+            settleDate: $('#settleDate').val(),
+            keyWord: $('#keyWord').val()
+        }
     });
 }
 

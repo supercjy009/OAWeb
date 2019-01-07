@@ -26,10 +26,10 @@ function init() {
 
         //监听提交
         form.on('submit(formDemo)', function (data) {
-            debugger
             if (editData) {
                 data.field.id = editData[0].id;
             }
+            data.field.masterHand = data.field.masterHand == 'on';
             var jasondata = JSON.stringify(data.field);
             // layer.alert(JSON.stringify(data.field), {
             //     title: '最终的提交信息'
@@ -72,6 +72,7 @@ function init() {
                 , "age": editData[0].age
                 , "partPhone": editData[0].partPhone
                 , "partAlipay": editData[0].partAlipay
+                , "masterHand": editData[0].masterHand
                 , "referrer": editData[0].referrer
             })
         }

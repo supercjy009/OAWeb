@@ -9,6 +9,8 @@ public class PartUserReqVo {
     private String recentDate;
     private Date recentDateStart;
     private Date recentDateEnd;
+    private Boolean masterHand;
+    private Boolean referrer;
 
     public String getFlag() {
         return flag;
@@ -56,5 +58,21 @@ public class PartUserReqVo {
 
     public void setRecentDateEnd(Date recentDateEnd) {
         this.recentDateEnd = recentDateEnd;
+    }
+
+    public Boolean getMasterHand() {
+        return masterHand;
+    }
+
+    public void setMasterHand(Boolean masterHand) {
+        this.masterHand = masterHand;
+    }
+
+    public Boolean getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(Boolean referrer) {
+        this.referrer = referrer;
     }
 }

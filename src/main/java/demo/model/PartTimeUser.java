@@ -1,18 +1,14 @@
 package demo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class PartTimeUser {
     private Long id;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date startJobDate;
 
     private String partQq;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date recentOrderDate;
 
     private Integer getOrderNumber;
@@ -42,6 +38,10 @@ public class PartTimeUser {
     private String partAlipay;
 
     private String referrer;
+
+    private Boolean masterHand;
+
+    private String masterHandStr;
 
     public Long getId() {
         return id;
@@ -185,5 +185,22 @@ public class PartTimeUser {
 
     public void setReferrer(String referrer) {
         this.referrer = referrer == null ? null : referrer.trim();
+    }
+
+    public Boolean getMasterHand() {
+        return masterHand;
+    }
+
+    public void setMasterHand(Boolean masterHand) {
+        this.masterHand = masterHand;
+        this.masterHandStr = masterHand ? "是" : "否";
+    }
+
+    public String getMasterHandStr() {
+        return masterHandStr;
+    }
+
+    public void setMasterHandStr(String masterHandStr) {
+        this.masterHandStr = masterHandStr;
     }
 }

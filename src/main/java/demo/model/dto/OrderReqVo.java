@@ -15,6 +15,8 @@ public class OrderReqVo {
     private String payState;
     private String submitState;
     private String partInfo;
+    private Boolean masterHand;
+    private Boolean referrer;
     private String serviceId;
     private Long sendServiceId;
     private String audit;
@@ -177,5 +179,21 @@ public class OrderReqVo {
 
     public void setSendServiceId(Long sendServiceId) {
         this.sendServiceId = sendServiceId;
+    }
+
+    public Boolean getMasterHand() {
+        return masterHand;
+    }
+
+    public void setMasterHand(Boolean masterHand) {
+        this.masterHand = masterHand;
+    }
+
+    public Boolean getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(Boolean referrer) {
+        this.referrer = referrer;
     }
 }

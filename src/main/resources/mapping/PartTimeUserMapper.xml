@@ -20,22 +20,21 @@
         <result column="part_phone" jdbcType="VARCHAR" property="partPhone"/>
         <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay"/>
         <result column="referrer" jdbcType="VARCHAR" property="referrer"/>
+        <result column="master_hand" jdbcType="BIT" property="masterHand"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, start_job_date, part_qq, recent_order_date, get_order_number, problem_rate, out_settle_count, 
     out_delivery_count, total_reward, major, english_level, acceptable_subject, education, 
-    school, age, part_phone, part_alipay, referrer
+    school, age, part_phone, part_alipay, referrer, master_hand
   </sql>
-
     <sql id="Query_Column_List">
     o.id, o.start_job_date, o.part_qq, recent_order_date, get_order_number, problem_rate,
     SUM(CASE WHEN t1.part_settle_state = '0' THEN 1 ELSE 0 END) as out_settle_count,
     SUM(CASE WHEN t1.submit_state = '0' THEN 1 ELSE 0 END) as out_delivery_count,
-    SUM(part_money - deduct) as total_reward,
+    SUM(t1.part_money - t1.deduct) as total_reward,
     major, english_level, acceptable_subject, education,
-    school, age, o.part_phone, o.part_alipay, referrer
+    school, age, o.part_phone, o.part_alipay, referrer,master_hand
   </sql>
-
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -52,15 +51,15 @@
       out_settle_count, out_delivery_count, total_reward, 
       major, english_level, acceptable_subject, 
       education, school, age, 
-      part_phone, part_alipay, referrer
-      )
+      part_phone, part_alipay, referrer, 
+      master_hand)
     values (#{id,jdbcType=BIGINT}, #{startJobDate,jdbcType=TIMESTAMP}, #{partQq,jdbcType=VARCHAR}, 
       #{recentOrderDate,jdbcType=TIMESTAMP}, #{getOrderNumber,jdbcType=INTEGER}, #{problemRate,jdbcType=VARCHAR}, 
       #{outSettleCount,jdbcType=INTEGER}, #{outDeliveryCount,jdbcType=INTEGER}, #{totalReward,jdbcType=VARCHAR}, 
       #{major,jdbcType=VARCHAR}, #{englishLevel,jdbcType=VARCHAR}, #{acceptableSubject,jdbcType=VARCHAR}, 
       #{education,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
-      #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{referrer,jdbcType=VARCHAR}
-      )
+      #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{referrer,jdbcType=VARCHAR}, 
+      #{masterHand,jdbcType=BIT})
   </insert>
     <insert id="insertSelective" parameterType="demo.model.PartTimeUser">
         insert into oa_part_user
@@ -119,6 +118,9 @@
             <if test="referrer != null">
                 referrer,
             </if>
+            <if test="masterHand != null">
+                master_hand,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -174,6 +176,9 @@
             </if>
             <if test="referrer != null">
                 #{referrer,jdbcType=VARCHAR},
+            </if>
+            <if test="masterHand != null">
+                #{masterHand,jdbcType=BIT},
             </if>
         </trim>
     </insert>
@@ -231,6 +236,9 @@
             <if test="referrer != null">
                 referrer = #{referrer,jdbcType=VARCHAR},
             </if>
+            <if test="masterHand != null">
+                master_hand = #{masterHand,jdbcType=BIT},
+            </if>
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
@@ -252,21 +260,32 @@
       age = #{age,jdbcType=INTEGER},
       part_phone = #{partPhone,jdbcType=VARCHAR},
       part_alipay = #{partAlipay,jdbcType=VARCHAR},
-      referrer = #{referrer,jdbcType=VARCHAR}
+      referrer = #{referrer,jdbcType=VARCHAR},
+      master_hand = #{masterHand,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
     <!-- 这个方法是我自己加的 -->
-    <select id="selectAllOrder" resultMap="BaseResultMap" parameterType="demo.model.dto.PartUserReqVo">
+    <select id="selectAllOrder" parameterType="demo.model.dto.PartUserReqVo" resultMap="BaseResultMap">
         select
         <include refid="Query_Column_List"/>
         from oa_part_user o LEFT JOIN oa_part_time t1 ON o.part_qq = t1.part_qq
         <where>
             <if test="recentDate != null and recentDate !=''">
-                AND `recent_order_date` &gt;= #{recentDateStart, jdbcType=TIMESTAMP} AND `recent_order_date` &lt;= DATE_FORMAT(#{recentDateEnd},'%Y-%m-%d 23:59:59')
+                AND `recent_order_date` &gt;= #{recentDateStart, jdbcType=TIMESTAMP} AND `recent_order_date` &lt;=
+                DATE_FORMAT(#{recentDateEnd},'%Y-%m-%d 23:59:59')
             </if>
             <if test="flag != null and flag !=''">
                 AND o.part_qq = #{flag,jdbcType=VARCHAR}
+            </if>
+            <if test="masterHand != null">
+                AND o.master_hand = #{masterHand,jdbcType=BIT}
+            </if>
+            <if test="referrer == true">
+                AND o.referrer !='' and o.referrer is not null
+            </if>
+            <if test="referrer == false">
+                AND o.referrer is null OR o.referrer ='' OR o.referrer = '无'
             </if>
         </where>
         GROUP BY o.part_qq

@@ -37,6 +37,10 @@ public class PartTimeOrderRes extends OrderEntity {
 
     private String sendServiceName;
 
+    private Boolean masterHand;
+
+    private String masterHandStr;
+
     public String getPartQq() {
         return partQq;
     }
@@ -148,5 +152,22 @@ public class PartTimeOrderRes extends OrderEntity {
 
     public void setPartId(Long partId) {
         this.partId = partId;
+    }
+
+    public Boolean getMasterHand() {
+        return masterHand;
+    }
+
+    public void setMasterHand(Boolean masterHand) {
+        this.masterHand = masterHand;
+        this.masterHandStr = masterHand ? "是" : "否";
+    }
+
+    public String getMasterHandStr() {
+        return masterHandStr;
+    }
+
+    public void setMasterHandStr(String masterHandStr) {
+        this.masterHandStr = masterHandStr;
     }
 }
