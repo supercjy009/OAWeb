@@ -141,3 +141,40 @@ function setDeliveryDateRangePicker(el) {
         $('#' + el + ' span').html('');
     });
 }
+
+function exportExcel(table, ins) {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    if (data.length == 0) {
+        data = null;
+    }
+    table.exportFile(ins.config.id, data, 'xls');
+}
+
+function getTitlePart() {
+    var name = '';
+    switch (partNow) {
+        case 1:
+            name = '文案一部';
+            break;
+        case 2:
+            name = '文案二部';
+            break;
+        case 3:
+            name = '文案三部';
+            break;
+        case 'apply':
+            name = '申请部';
+            break;
+        case 'marketing':
+            name = '营销部';
+            break;
+        case 'internal':
+            name = '内勤部';
+            break;
+        case 'finance':
+            name = '财务部';
+            break;
+    }
+    return name;
+}

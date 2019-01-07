@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table, form;
+var table, form, ins;
 
 var header = [ //表头
     {checkbox: true, fixed: true},
@@ -23,9 +23,10 @@ layui.use(['table', 'form'], function () {
 
     table = layui.table;
     //第一个实例
-    table.render({
+    ins = table.render({
         id: 'id',
         elem: '#workPayTable',
+        title: getTitlePart() + '办公支出',
         skin: 'line',
         height: full,
         url: ajaxUri + '/webAjax/workpay/queryAllOrder?partName=' + partNow, //数据接口
@@ -173,6 +174,10 @@ $("#auditPay").click(function () {
 
 $("#settlePay").click(function () {
     submitAudit("settle");
+});
+
+$("#exportExcel").click(function () {
+    exportExcel(table, ins);
 });
 
 $("#deleteWorkPay").click(function () {

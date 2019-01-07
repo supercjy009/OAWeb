@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table;
+var table,ins;
 
 var h1 = [
     {checkbox: true, fixed: 'left', rowspan: 2, fixed: 'left'}
@@ -35,9 +35,10 @@ layui.use(['table', 'form'], function () {
 
     table = layui.table;
     //第一个实例
-    table.render({
+    ins = table.render({
         id: 'id',
         elem: '#partOrderTable',
+        title:'兼职接单登记表',
         // skin: 'row',
         height: full,
         url: ajaxUri + '/webAjax/partOrder/queryAllOrder', //数据接口
@@ -188,6 +189,10 @@ $("#setSettleDate").click(function () {
 //实发稿酬
 $("#setRealMoney").click(function () {
     setRealMoney();
+});
+
+$("#exportExcel").click(function () {
+    exportExcel(table, ins);
 });
 
 function submitAudit(flag) {

@@ -53,9 +53,10 @@ layui.use(['table', 'form'], function () {
 
     table = layui.table;
     //第一个实例
-    table.render({
+    var ins = table.render({
         id: 'id',
         elem: '#fromManageTable',
+        title: getTitlePart() + '订单',
         height: full,
         // skin: 'row',
         url: ajaxUri + '/webAjax/order/queryAllOrder?partName=' + partNow, //数据接口
@@ -192,6 +193,9 @@ layui.use(['table', 'form'], function () {
             case 'financeRemark':
                 financeRemark();
                 break;
+            case 'export':
+                exportExcel(table, ins);
+                break;
         }
     });
 
@@ -316,6 +320,7 @@ function financeRemark() {
         layer.alert("请先勾选一条兼职数据");
     }
 }
+
 
 function deleteOrder(flag) {
     var checkStatus = table.checkStatus('id')

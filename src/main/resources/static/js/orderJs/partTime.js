@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table;
+var table,ins;
 
 var header = [ //表头
     {type: 'checkbox'}
@@ -32,9 +32,10 @@ layui.use(['table', 'form'], function () {
 
     table = layui.table;
     //第一个实例
-    table.render({
+    ins = table.render({
         id: 'id',
         elem: '#partUserTable',
+        title:'兼职信息',
         // skin: 'row',
         height: full,
         url: ajaxUri + '/webAjax/partUser/queryAllOrder', //数据接口
@@ -163,6 +164,10 @@ $("#editEntity").click(function () {
     } else {
         layer.alert("请先勾选一条数据");
     }
+});
+
+$("#exportExcel").click(function () {
+    exportExcel(table, ins);
 });
 
 function reloadTable() {
