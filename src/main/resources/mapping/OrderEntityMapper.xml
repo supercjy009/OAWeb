@@ -465,8 +465,11 @@
                 AND `delivery_date` &gt;= #{deliveryDateStart, jdbcType=TIMESTAMP} AND `delivery_date` &lt;=
                 DATE_FORMAT(#{deliveryDateEnd},'%Y-%m-%d 23:59:59')
             </if>
-            <if test="payState != null and payState !=''">
+            <if test="payState != null and payState !='' and payState != '-100'">
                 AND pay_state = #{payState,jdbcType=VARCHAR}
+            </if>
+            <if test="payState == '-100'">
+                AND pay_state != '1'
             </if>
             <if test="submitState != null and submitState !=''">
                 AND submit_state = #{submitState,jdbcType=VARCHAR}

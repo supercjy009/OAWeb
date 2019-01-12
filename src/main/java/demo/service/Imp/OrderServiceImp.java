@@ -118,6 +118,7 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartQq(vo.getPartQq());
         partTime.setPartMoney(StringUtils.isEmpty(vo.getPartMoney()) ? "0" : vo.getPartMoney());
         partTime.setPartRemark(vo.getPartRemark());
+        partTime.setPartAudit("0");//审核待审
         partTime.setPartSettleState("0");//状态待结
         partTime.setSubmitState("0");//状态待交稿
         partTime.setDeduct("0");//应扣初始化为0

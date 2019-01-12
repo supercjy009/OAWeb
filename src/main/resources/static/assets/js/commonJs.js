@@ -178,3 +178,14 @@ function getTitlePart() {
     }
     return name;
 }
+
+function checkOn(tableName) {
+    // table.on('row(' + tableName + ')', function (obj) {
+    //     var checkCell = obj.tr.find(".layui-form-checkbox")[0];
+    //     if (obj.tr.hasClass('layui-bg-orange')) {
+    //         obj.tr.removeClass('layui-bg-orange');
+    //     } else {
+    //         obj.tr.addClass('layui-bg-orange');
+    //     }
+    // });
+}

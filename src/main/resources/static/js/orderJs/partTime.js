@@ -43,8 +43,8 @@ layui.use(['table', 'form'], function () {
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
-            limit: 500,
-            limits: [500, 100, 50, 20, 10]
+            limit: 1000,
+            limits: [1000,500, 100, 50, 20, 10]
         },
         cols: [header],
         done: function (res, curr, count) {
@@ -139,7 +139,7 @@ $("#editEntity").click(function () {
         //iframe窗
         layer.open({
             type: 2,
-            title: '编辑',
+            title: '修改',
             shadeClose: true,
             shade: 0.8,
             area: ['50%', '60%'],

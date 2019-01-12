@@ -4,8 +4,8 @@
 var table,ins;
 
 var h1 = [
-    {checkbox: true, fixed: 'left', rowspan: 2, fixed: 'left'}
-    , {title: '序号', type: 'numbers', rowspan: 2, fixed: 'left'}
+    {checkbox: true, fixed: 'left', rowspan: 2}
+    , {title: '序号', type: 'numbers', rowspan: 2}
     , {field: 'partQq', title: '兼职QQ', rowspan: 2, width: 100}
     , {align: 'center', title: '兼职接单登记表', colspan: 9}
     , {align: 'center', title: '财务结算登记表', colspan: 6}];
@@ -45,8 +45,8 @@ layui.use(['table', 'form'], function () {
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
-            limit: 500,
-            limits: [500, 100, 50, 20, 10]
+            limit: 1000,
+            limits: [1000,500, 100, 50, 20, 10]
         },
         cols: [h1, header],
         done: function (res, curr, count) {
@@ -149,7 +149,7 @@ function editEntity(flag) {
         //iframe窗
         layer.open({
             type: 2,
-            title: flag == 1 ? '编辑' : '添加',
+            title: flag == 1 ? '修改' : '添加',
             shadeClose: true,
             shade: 0.8,
             area: ['50%', '60%'],

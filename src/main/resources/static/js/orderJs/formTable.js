@@ -11,7 +11,7 @@ var header = [ //表头
     {checkbox: true, rowspan: 2},
     {title: '序号', type: 'numbers', rowspan: 2},
     {field: 'serviceName', title: '接单客服', width: 100, rowspan: 2}
-    , {field: 'getOrderDate', title: '接单时间', width: 145, rowspan: 2}
+    , {field: 'getOrderDate', title: '接单时间', width: 110, rowspan: 2}
     , {field: 'customerIm', title: '客户IM', width: 100, rowspan: 2}
     , {field: 'orderNumber', title: '订单编号', width: 100, rowspan: 2}
     , {field: 'deliveryDate', title: '交稿时间', width: 145, rowspan: 2}
@@ -66,8 +66,8 @@ layui.use(['table', 'form'], function () {
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
-            limit: 500,
-            limits: [500, 100, 50, 20, 10]
+            limit: 1000,
+            limits: [1000, 500, 100, 50, 20, 10]
         },
         cols: [h1, header, h2],
         done: function (res, curr, count) {
@@ -150,6 +150,9 @@ layui.use(['table', 'form'], function () {
             viewProgress(data);
         }
     });
+
+    //选中行
+    checkOn('fromManage');
 
     //头工具栏事件
     table.on('toolbar(fromManage)', function (obj) {
@@ -256,7 +259,7 @@ function financeRemark() {
             layer.alert("此订单尚未指派兼职，请确认");
             return;
         }
-
+        var r = data[0].financeRemark ? data[0].financeRemark : '';
         layer.open({
             type: 1 //Page层类型
             ,
@@ -266,14 +269,14 @@ function financeRemark() {
             ,
             skin: 'layui-layer-prompt'
             ,
-            content: "<div class=''><input type='text' class='layui-layer-input' value='" + data[0].financeRemark + "'></div>"
+            content: "<div class=''><input type='text' class='layui-layer-input' value='" + r + "'></div>"
             ,
             yes: function (index, layero) {
                 //按钮【按钮一】的回调
-                console.log($(layero).find("input[type='text']").val());
+                var finRemark = $(layero).find("input[type='text']").val();
                 var req = {
                     id: data[0].partId,
-                    remark: $(layero).find("input[type='text']").val()
+                    remark: finRemark
                 };
                 var jasondata = JSON.stringify(req);
                 $.ajax({
@@ -436,7 +439,7 @@ function zhipai() {
             title: "指派兼职",
             shadeClose: false,
             shade: 0.8,
-            area: ['50%', '60%'],
+            area: ['60%', '60%'],
             content: '/widget/addPartTime',
             success: function (layero, index) {
                 // 获取子页面的iframe
@@ -479,7 +482,7 @@ function editOrder() {
         //iframe窗
         layer.open({
             type: 2,
-            title: '编辑',
+            title: '修改',
             shadeClose: true,
             shade: 0.8,
             area: ['70%', '90%'],
