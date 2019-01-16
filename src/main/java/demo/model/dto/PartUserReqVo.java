@@ -7,6 +7,7 @@ public class PartUserReqVo {
     private Integer limit;
     private String flag;
     private String recentDate;
+    private Integer getOrderNumber;
     private Date recentDateStart;
     private Date recentDateEnd;
     private Boolean masterHand;
@@ -74,5 +75,13 @@ public class PartUserReqVo {
 
     public void setReferrer(Boolean referrer) {
         this.referrer = referrer;
+    }
+
+    public Integer getGetOrderNumber() {
+        return getOrderNumber;
+    }
+
+    public void setGetOrderNumber(Integer getOrderNumber) {
+        this.getOrderNumber = getOrderNumber;
     }
 }

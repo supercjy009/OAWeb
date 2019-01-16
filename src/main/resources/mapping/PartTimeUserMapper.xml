@@ -279,6 +279,9 @@
             <if test="flag != null and flag !=''">
                 AND o.part_qq = #{flag,jdbcType=VARCHAR}
             </if>
+            <if test="getOrderNumber != null">
+                AND o.get_order_number = #{getOrderNumber,jdbcType=INTEGER}
+            </if>
             <if test="masterHand != null">
                 AND o.master_hand = #{masterHand,jdbcType=BIT}
             </if>

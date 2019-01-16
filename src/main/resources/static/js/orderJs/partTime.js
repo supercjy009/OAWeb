@@ -171,6 +171,7 @@ function reloadTable() {
         }
         , where: {
             flag: $('#keyWord').val(),
+            getOrderNumber:$('#getOrderNumber').val(),
             recentDate: $('#recentDate').val()
             , masterHand: $('#masterHand').val()
             , referrer: $('#referrer').val()
