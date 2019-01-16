@@ -29,10 +29,10 @@
   </sql>
     <sql id="Query_Column_List">
     o.id, o.start_job_date, o.part_qq, recent_order_date, get_order_number,
-    SUM(CASE WHEN t1.deduct is null or t1.deduct = '0' or t1.deduct = '' THEN 0 ELSE 1 END)/SUM(CASE WHEN t1.id is not null THEN 1 ELSE 0 END) as problem_rate,
+    SUM(CASE WHEN t1.deduct is null or t1.deduct = 0 THEN 0 ELSE 1 END)/SUM(CASE WHEN t1.id is not null THEN 1 ELSE 0 END) as problem_rate,
     SUM(CASE WHEN t1.part_settle_state = '0' THEN 1 ELSE 0 END) as out_settle_count,
     SUM(CASE WHEN t1.submit_state = '0' THEN 1 ELSE 0 END) as out_delivery_count,
-    SUM(t1.part_money - t1.deduct) as total_reward,
+    SUM(CASE WHEN t1.part_money is null or t1.part_money = 0 THEN 0 ELSE t1.part_money END) - SUM(CASE WHEN t1.deduct is null or t1.deduct = 0 THEN 0 ELSE t1.deduct END) as total_reward,
     major, english_level, acceptable_subject, education,
     school, age, o.part_phone, o.part_alipay, referrer,master_hand
   </sql>

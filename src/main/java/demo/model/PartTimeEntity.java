@@ -1,5 +1,6 @@
 package demo.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PartTimeEntity {
@@ -13,9 +14,9 @@ public class PartTimeEntity {
 
     private String partAlipay;
 
-    private String partMoney;
+    private BigDecimal partMoney;
 
-    private String deduct;
+    private BigDecimal deduct;
 
     private Date settleDate;
 
@@ -48,6 +49,8 @@ public class PartTimeEntity {
     private String partFinanceRemark;
 
     private String partUserRemark;
+
+    private Boolean isDelete;
 
     public Integer getId() {
         return id;
@@ -89,20 +92,20 @@ public class PartTimeEntity {
         this.partAlipay = partAlipay == null ? null : partAlipay.trim();
     }
 
-    public String getPartMoney() {
+    public BigDecimal getPartMoney() {
         return partMoney;
     }
 
-    public void setPartMoney(String partMoney) {
-        this.partMoney = partMoney == null ? null : partMoney.trim();
+    public void setPartMoney(BigDecimal partMoney) {
+        this.partMoney = partMoney.stripTrailingZeros();
     }
 
-    public String getDeduct() {
+    public BigDecimal getDeduct() {
         return deduct;
     }
 
-    public void setDeduct(String deduct) {
-        this.deduct = deduct == null ? null : deduct.trim();
+    public void setDeduct(BigDecimal deduct) {
+        this.deduct = deduct.stripTrailingZeros();
     }
 
     public Date getSettleDate() {
@@ -231,5 +234,13 @@ public class PartTimeEntity {
 
     public void setPartUserRemark(String partUserRemark) {
         this.partUserRemark = partUserRemark == null ? null : partUserRemark.trim();
+    }
+
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
     }
 }

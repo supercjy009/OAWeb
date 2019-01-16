@@ -1,5 +1,6 @@
 package demo.model;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Date;
 
@@ -20,7 +21,7 @@ public class PartTimeUser {
 
     private Integer outDeliveryCount;
 
-    private String totalReward;
+    private BigDecimal totalReward;
 
     private String major;
 
@@ -114,12 +115,12 @@ public class PartTimeUser {
         this.outDeliveryCount = outDeliveryCount;
     }
 
-    public String getTotalReward() {
+    public BigDecimal getTotalReward() {
         return totalReward;
     }
 
-    public void setTotalReward(String totalReward) {
-        this.totalReward = totalReward == null ? null : totalReward.trim();
+    public void setTotalReward(BigDecimal totalReward) {
+        this.totalReward = totalReward.stripTrailingZeros();
     }
 
     public String getMajor() {

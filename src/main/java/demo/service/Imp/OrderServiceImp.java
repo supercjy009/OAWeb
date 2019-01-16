@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -116,12 +117,12 @@ public class OrderServiceImp implements OrderService {
         partTime.setSendServiceId(userinfoEntity.getUid());
         partTime.setOrderNumber(order.getOrderNumber());
         partTime.setPartQq(vo.getPartQq());
-        partTime.setPartMoney(StringUtils.isEmpty(vo.getPartMoney()) ? "0" : vo.getPartMoney());
+        partTime.setPartMoney(vo.getPartMoney() == null ? BigDecimal.ZERO : vo.getPartMoney());
         partTime.setPartRemark(vo.getPartRemark());
         partTime.setPartAudit("0");//审核待审
         partTime.setPartSettleState("0");//状态待结
         partTime.setSubmitState("0");//状态待交稿
-        partTime.setDeduct("0");//应扣初始化为0
+        partTime.setDeduct(BigDecimal.ZERO);//应扣初始化为0
         partTime.setPartAuditFinance("0"); //兼职接单表审核状态
         partTime.setPartSettleStateFinance("0"); //兼职接单表结算状态
         partTime.setPartPhone(partTimeUser.getPartPhone());

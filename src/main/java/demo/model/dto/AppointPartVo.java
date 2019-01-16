@@ -1,5 +1,7 @@
 package demo.model.dto;
 
+import java.math.BigDecimal;
+
 public class AppointPartVo {
     private Long orderId;
 
@@ -9,11 +11,11 @@ public class AppointPartVo {
 
     private String partQq;
     //稿酬
-    private String partMoney;
+    private BigDecimal partMoney;
     //客服说明
     private String partRemark;
     //应扣
-    private String deduct;
+    private BigDecimal deduct;
 
     public Long getOrderId() {
         return orderId;
@@ -29,14 +31,6 @@ public class AppointPartVo {
 
     public void setPartQq(String partQq) {
         this.partQq = partQq;
-    }
-
-    public String getPartMoney() {
-        return partMoney;
-    }
-
-    public void setPartMoney(String partMoney) {
-        this.partMoney = partMoney;
     }
 
     public String getPartRemark() {
@@ -55,13 +49,6 @@ public class AppointPartVo {
         this.orderNumber = orderNumber;
     }
 
-    public String getDeduct() {
-        return deduct;
-    }
-
-    public void setDeduct(String deduct) {
-        this.deduct = deduct;
-    }
 
     public Integer getPartId() {
         return partId;
@@ -69,5 +56,21 @@ public class AppointPartVo {
 
     public void setPartId(Integer partId) {
         this.partId = partId;
+    }
+
+    public BigDecimal getPartMoney() {
+        return partMoney;
+    }
+
+    public void setPartMoney(BigDecimal partMoney) {
+        this.partMoney = partMoney;
+    }
+
+    public BigDecimal getDeduct() {
+        return deduct;
+    }
+
+    public void setDeduct(BigDecimal deduct) {
+        this.deduct = deduct;
     }
 }

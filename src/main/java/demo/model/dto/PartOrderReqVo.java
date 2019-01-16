@@ -11,6 +11,7 @@ public class PartOrderReqVo {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date settleDate;
     private String keyWord;
+    private Boolean isDelete;
     private Integer page;
     private Integer limit;
 
@@ -69,5 +70,13 @@ public class PartOrderReqVo {
 
     public void setPartSettleStateFinance(String partSettleStateFinance) {
         this.partSettleStateFinance = partSettleStateFinance;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }

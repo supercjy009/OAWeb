@@ -3,6 +3,7 @@ package demo.model.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import demo.model.OrderEntity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -21,9 +22,9 @@ public class PartTimeOrderRes extends OrderEntity {
 
     private String partAlipay;
 
-    private String partMoney;
+    private BigDecimal partMoney;
 
-    private String deduct;
+    private BigDecimal deduct;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date settleDate;
 
@@ -73,20 +74,20 @@ public class PartTimeOrderRes extends OrderEntity {
         this.partAlipay = partAlipay == null ? null : partAlipay.trim();
     }
 
-    public String getPartMoney() {
+    public BigDecimal getPartMoney() {
         return partMoney;
     }
 
-    public void setPartMoney(String partMoney) {
-        this.partMoney = partMoney == null ? null : partMoney.trim();
+    public void setPartMoney(BigDecimal partMoney) {
+        this.partMoney = partMoney.stripTrailingZeros();
     }
 
-    public String getDeduct() {
+    public BigDecimal getDeduct() {
         return deduct;
     }
 
-    public void setDeduct(String deduct) {
-        this.deduct = deduct == null ? null : deduct.trim();
+    public void setDeduct(BigDecimal deduct) {
+        this.deduct = deduct.stripTrailingZeros();
     }
 
     public Date getSettleDate() {

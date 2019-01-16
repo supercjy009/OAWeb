@@ -43,8 +43,10 @@ function init() {
         //各种基于事件的操作，下面会有进一步介绍
 
         //监听提交
+        form.verify({
+            decimal: [/(^$)|^\d+(\.\d)?$/, '只能填写数字']
+        });
         form.on('submit(formDemo)', function (data) {
-            debugger
             data.field.partName = partSet;
             var pdata = {};
             //把表单上的也加进去
@@ -119,7 +121,7 @@ $("#addPayProgress").click(function () {
     if ($("#progressDate").val() != '') {
         data.payDate = $("#progressDate").val();
     } else {
-        layer.alert("必填项不能为空");
+        layer.alert("请选择付款进度日期");
         return;
     }
     data.payWay = $("#progressWay").val();

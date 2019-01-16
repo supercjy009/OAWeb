@@ -7,8 +7,8 @@
         <result column="submit_state" jdbcType="VARCHAR" property="submitState"/>
         <result column="part_phone" jdbcType="VARCHAR" property="partPhone"/>
         <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay"/>
-        <result column="part_money" jdbcType="VARCHAR" property="partMoney"/>
-        <result column="deduct" jdbcType="VARCHAR" property="deduct"/>
+        <result column="part_money" jdbcType="DECIMAL" property="partMoney"/>
+        <result column="deduct" jdbcType="DECIMAL" property="deduct"/>
         <result column="settle_date" jdbcType="TIMESTAMP" property="settleDate"/>
         <result column="part_remark" jdbcType="VARCHAR" property="partRemark"/>
         <result column="part_audit" jdbcType="VARCHAR" property="partAudit"/>
@@ -25,16 +25,16 @@
         <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance"/>
         <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark"/>
         <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark"/>
+        <result column="is_delete" jdbcType="BIT" property="isDelete"/>
     </resultMap>
-
     <resultMap id="QueryResultMap" type="demo.model.dto.PartTimeDto">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="part_qq" jdbcType="VARCHAR" property="partQq"/>
         <result column="submit_state" jdbcType="VARCHAR" property="submitState"/>
         <result column="part_phone" jdbcType="VARCHAR" property="partPhone"/>
         <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay"/>
-        <result column="part_money" jdbcType="VARCHAR" property="partMoney"/>
-        <result column="deduct" jdbcType="VARCHAR" property="deduct"/>
+        <result column="part_money" jdbcType="DECIMAL" property="partMoney"/>
+        <result column="deduct" jdbcType="DECIMAL" property="deduct"/>
         <result column="settle_date" jdbcType="TIMESTAMP" property="settleDate"/>
         <result column="part_remark" jdbcType="VARCHAR" property="partRemark"/>
         <result column="part_audit" jdbcType="VARCHAR" property="partAudit"/>
@@ -51,6 +51,7 @@
         <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance"/>
         <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark"/>
         <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark"/>
+        <result column="is_delete" jdbcType="BIT" property="isDelete"/>
         <result column="delivery_date" jdbcType="TIMESTAMP" property="deliveryDate"/>
     </resultMap>
 
@@ -58,14 +59,15 @@
     p.id, p.part_qq, p.submit_state, p.part_phone, p.part_alipay, p.part_money, p.deduct, p.settle_date,
     p.part_remark, p.part_audit, p.part_settle_state, p.finance_remark, p.order_number, p.service_name,
     p.send_service_id,p.send_service_name, p.part_money_real, p.create_time, p.part_money_finance, p.part_audit_finance,
-    p.part_settle_state_finance, p.part_finance_remark,p.part_user_remark
+    p.part_settle_state_finance, p.part_finance_remark,p.part_user_remark,p.is_delete
   </sql>
 
     <sql id="Base_Column_List">
     id, part_qq, submit_state, part_phone, part_alipay, part_money, deduct, settle_date, 
     part_remark, part_audit, part_settle_state, finance_remark, order_number, service_name, 
     send_service_id, send_service_name, part_money_real, create_time, part_money_finance, 
-    part_audit_finance, part_settle_state_finance, part_finance_remark, part_user_remark
+    part_audit_finance, part_settle_state_finance, part_finance_remark, part_user_remark, 
+    is_delete
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -85,15 +87,17 @@
       order_number, service_name, send_service_id, 
       send_service_name, part_money_real, create_time, 
       part_money_finance, part_audit_finance, part_settle_state_finance, 
-      part_finance_remark, part_user_remark)
+      part_finance_remark, part_user_remark, is_delete
+      )
     values (#{id,jdbcType=INTEGER}, #{partQq,jdbcType=VARCHAR}, #{submitState,jdbcType=VARCHAR}, 
-      #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{partMoney,jdbcType=VARCHAR}, 
-      #{deduct,jdbcType=VARCHAR}, #{settleDate,jdbcType=TIMESTAMP}, #{partRemark,jdbcType=VARCHAR}, 
+      #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{partMoney,jdbcType=DECIMAL}, 
+      #{deduct,jdbcType=DECIMAL}, #{settleDate,jdbcType=TIMESTAMP}, #{partRemark,jdbcType=VARCHAR}, 
       #{partAudit,jdbcType=VARCHAR}, #{partSettleState,jdbcType=VARCHAR}, #{financeRemark,jdbcType=VARCHAR}, 
       #{orderNumber,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, #{sendServiceId,jdbcType=BIGINT}, 
       #{sendServiceName,jdbcType=VARCHAR}, #{partMoneyReal,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{partMoneyFinance,jdbcType=VARCHAR}, #{partAuditFinance,jdbcType=VARCHAR}, #{partSettleStateFinance,jdbcType=VARCHAR}, 
-      #{partFinanceRemark,jdbcType=VARCHAR}, #{partUserRemark,jdbcType=VARCHAR})
+      #{partFinanceRemark,jdbcType=VARCHAR}, #{partUserRemark,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
+      )
   </insert>
     <insert id="insertSelective" parameterType="demo.model.PartTimeEntity">
         insert into oa_part_time
@@ -167,6 +171,9 @@
             <if test="partUserRemark != null">
                 part_user_remark,
             </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -185,10 +192,10 @@
                 #{partAlipay,jdbcType=VARCHAR},
             </if>
             <if test="partMoney != null">
-                #{partMoney,jdbcType=VARCHAR},
+                #{partMoney,jdbcType=DECIMAL},
             </if>
             <if test="deduct != null">
-                #{deduct,jdbcType=VARCHAR},
+                #{deduct,jdbcType=DECIMAL},
             </if>
             <if test="settleDate != null">
                 #{settleDate,jdbcType=TIMESTAMP},
@@ -238,6 +245,9 @@
             <if test="partUserRemark != null">
                 #{partUserRemark,jdbcType=VARCHAR},
             </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=BIT},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="demo.model.PartTimeEntity">
@@ -256,10 +266,10 @@
                 part_alipay = #{partAlipay,jdbcType=VARCHAR},
             </if>
             <if test="partMoney != null">
-                part_money = #{partMoney,jdbcType=VARCHAR},
+                part_money = #{partMoney,jdbcType=DECIMAL},
             </if>
             <if test="deduct != null">
-                deduct = #{deduct,jdbcType=VARCHAR},
+                deduct = #{deduct,jdbcType=DECIMAL},
             </if>
             <if test="settleDate != null">
                 settle_date = #{settleDate,jdbcType=TIMESTAMP},
@@ -309,6 +319,9 @@
             <if test="partUserRemark != null">
                 part_user_remark = #{partUserRemark,jdbcType=VARCHAR},
             </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=BIT},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -318,8 +331,8 @@
       submit_state = #{submitState,jdbcType=VARCHAR},
       part_phone = #{partPhone,jdbcType=VARCHAR},
       part_alipay = #{partAlipay,jdbcType=VARCHAR},
-      part_money = #{partMoney,jdbcType=VARCHAR},
-      deduct = #{deduct,jdbcType=VARCHAR},
+      part_money = #{partMoney,jdbcType=DECIMAL},
+      deduct = #{deduct,jdbcType=DECIMAL},
       settle_date = #{settleDate,jdbcType=TIMESTAMP},
       part_remark = #{partRemark,jdbcType=VARCHAR},
       part_audit = #{partAudit,jdbcType=VARCHAR},
@@ -335,9 +348,11 @@
       part_audit_finance = #{partAuditFinance,jdbcType=VARCHAR},
       part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR},
       part_finance_remark = #{partFinanceRemark,jdbcType=VARCHAR},
-      part_user_remark = #{partUserRemark,jdbcType=VARCHAR}
+      part_user_remark = #{partUserRemark,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 
     <select id="getOrderPartByQq" resultMap="BaseResultMap">
         select
@@ -372,72 +387,18 @@
             <if test="partSettleStateFinance != null and partSettleStateFinance !=''">
                 and p.part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR}
             </if>
-            <if test='moneyState == "1"'>
+            <if test="moneyState == 1">
                 and p.part_money_finance is not null
             </if>
-            <if test='moneyState == "0"'>
+            <if test="moneyState == 0">
                 and p.part_money_finance is null or p.part_money_finance = ''
             </if>
             <if test="settleDate!=null">
                 AND `settle_date` &gt;= DATE_FORMAT(#{settleDate},'%Y-%m-%d 00:00:00')
                 AND `settle_date` &lt;= DATE_FORMAT(#{settleDate},'%Y-%m-%d 23:59:59')
             </if>
+            and p.is_delete = false or p.is_delete is null
         </where>
         order by create_time desc
     </select>
-
-    <update id="auditOrder" parameterType="demo.model.dto.AuditVo">
-        <!--
-          WARNING - @mbg.generated
-          This element is automatically generated by MyBatis Generator, do not modify.
-        -->
-        update oa_part_time
-        <set>
-            <if test="audit != null">
-                part_audit_finance = #{audit,jdbcType=VARCHAR},
-            </if>
-
-            <if test="settle != null">
-                part_settle_state_finance = #{settle,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id in
-        <foreach item="item" index="index" collection="ids"
-                 open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
-
-    <update id="editFinaRemark">
-        <!--
-          WARNING - @mbg.generated
-          This element is automatically generated by MyBatis Generator, do not modify.
-        -->
-        update oa_part_time
-        <set>
-            <if test="financeRemark != null">
-                finance_remark = #{financeRemark,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=BIGINT}
-    </update>
-
-    <update id="addSettleDate" parameterType="demo.model.dto.SettleDateVo">
-        <!--
-          WARNING - @mbg.generated
-          This element is automatically generated by MyBatis Generator, do not modify.
-        -->
-        update oa_part_time
-        <set>
-            <if test="settleDate != null">
-                settle_date = #{settleDate,jdbcType=TIMESTAMP}
-            </if>
-
-        </set>
-        where id in
-        <foreach item="item" index="index" collection="ids"
-                 open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
 </mapper>
