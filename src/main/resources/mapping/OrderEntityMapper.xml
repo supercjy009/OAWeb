@@ -478,10 +478,10 @@
                 AND pu.master_hand = #{masterHand,jdbcType=BIT}
             </if>
             <if test="referrer == true">
-                AND pu.referrer !='' and pu.referrer is not null
+                AND recommend_im !='' and recommend_im is not null
             </if>
             <if test="referrer == false">
-                AND pu.referrer is null OR pu.referrer ='' OR pu.referrer = '无'
+                AND recommend_im is null OR recommend_im =''
             </if>
             <if test="serviceId != null and serviceId !=''">
                 AND service_id = #{serviceId,jdbcType=VARCHAR}
@@ -541,15 +541,7 @@
                 submit_state = #{submitState,jdbcType=VARCHAR},
             </if>
         </set>
-        where
-        <choose>
-            <when test="audit !=null and audit != ''">
-                id
-            </when>
-            <otherwise>
-                part_qq
-            </otherwise>
-        </choose>
+        where id
         in
         <foreach item="item" index="index" collection="ids"
                  open="(" separator="," close=")">

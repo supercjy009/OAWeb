@@ -17,14 +17,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label"><span style="color: red">*</span>稿酬 </label>
         <div class="layui-input-inline">
-            <input type="text" name="partMoney" placeholder="请输入" required lay-verify="required" autocomplete="off"
+            <input type="text" name="partMoney" placeholder="请输入" required lay-verify="required|number" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item" style="display: none" id="deductDiv">
         <label class="layui-form-label">应扣 </label>
         <div class="layui-input-inline">
-            <input type="text" name="deduct" placeholder="请输入" lay-verify="" autocomplete="off"
+            <input type="text" name="deduct" placeholder="请输入" lay-verify="deduct" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -130,6 +130,10 @@
                 });
 
                 return false;
+            });
+
+            form.verify({
+                deduct: [/(^$)|^\d+$/, '只能填写数字']
             });
 
             if (postUri == "editPart") {

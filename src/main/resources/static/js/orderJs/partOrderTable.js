@@ -78,8 +78,8 @@ layui.use(['table', 'form'], function () {
                     curr: 1 //重新从第 1 页开始
                 }
                 , where: {
-                    partAudit: $('#partAudit').val(),
-                    partSettleState: $('#partSettleState').val(),
+                    partAuditFinance: $('#partAuditFinance').val(),
+                    partSettleStateFinance: $('#partSettleStateFinance').val(),
                     moneyState: $('#moneyState').val(),
                     settleDate: $('#settleDate').val(),
                     keyWord: $('#keyWord').val()
@@ -112,25 +112,26 @@ $("#deleteEntity").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length === 1) {
-        layer.confirm('确认删除这条兼职人员信息吗？', {
-            btn: ['确定', '取消'] //按钮
-        }, function () {
-            $.ajax({
-                type: 'POST',
-                url: ajaxUri + '/webAjax/partUser/deleteEntity',
-                data: {id: data[0].id},
-                complete: function (status) {
-                    var str = status.responseJSON;
-                    console.log(str.code);
-                    if (str.code === 1) {
-                        parent.layer.alert('删除成功');
-                        reloadTable();
-                    } else {
-                        parent.layer.alert('删除失败，服务器异常.');
-                    }
-                }
-            });
-        });
+        layer.alert("功能完善中.");
+        // layer.confirm('确认删除吗？', {
+        //     btn: ['确定', '取消'] //按钮
+        // }, function () {
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: ajaxUri + '/webAjax/order/deletePart',
+        //         data: {id: data[0].id},
+        //         complete: function (status) {
+        //             var str = status.responseJSON;
+        //             console.log(str.code);
+        //             if (str.code === 1) {
+        //                 parent.layer.alert('删除成功');
+        //                 reloadTable();
+        //             } else {
+        //                 parent.layer.alert('删除失败，服务器异常.');
+        //             }
+        //         }
+        //     });
+        // });
     } else if (data.length > 1) {
         layer.alert("删除时不能勾选多条数据");
     } else {

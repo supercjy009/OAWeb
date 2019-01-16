@@ -40,10 +40,9 @@
             <div class="layui-input-inline">
                 <select id="type" lay-filter="typeSele1" lay-verify="required">
                     <option value="" selected="">分类</option>
-                    <!--<option value="">全部</option>-->
-                    <option value="1">绩效考核</option>
-                    <option value="2">问卷</option>
-                    <option value="1000">其他</option>
+                    <!--<option value="1">绩效考核</option>-->
+                    <!--<option value="2">问卷</option>-->
+                    <!--<option value="1000">其他</option>-->
                 </select>
             </div>
             <button class="layui-btn" data-type="reload">搜索</button>
@@ -82,6 +81,74 @@
                 '1' ? 'selected' : '' }}>绩效考核</option>
                 <option value="2" {{ d.type==
                 '2' ? 'selected' : '' }}>问卷</option>
+                <option value="1000" {{ d.type==
+                '1000' ? 'selected' : '' }}>其他</option>
+            </select>
+        </script>
+
+        <script type="text/html" id="switchTplInternal">
+            <select name="type" lay-filter="typeSelect" value="{{d.id}}">
+                <option value=""></option>
+                <option value="3" {{ d.type==
+                '3' ? 'selected' : '' }}>工作汇报</option>
+                <option value="1" {{ d.type==
+                '1' ? 'selected' : '' }}>绩效考核</option>
+                <option value="2" {{ d.type==
+                '2' ? 'selected' : '' }}>问卷</option>
+                <option value="1000" {{ d.type==
+                '1000' ? 'selected' : '' }}>其他</option>
+            </select>
+        </script>
+
+        <script type="text/html" id="switchTplFinance">
+            <select name="type" lay-filter="typeSelect" value="{{d.id}}">
+                <option value=""></option>
+                <option value="3" {{ d.type==
+                '3' ? 'selected' : '' }}>工作汇报</option>
+                <option value="4" {{ d.type==
+                '4' ? 'selected' : '' }}>考勤</option>
+                <option value="5" {{ d.type==
+                '5' ? 'selected' : '' }}>社保</option>
+                <option value="6" {{ d.type==
+                '6' ? 'selected' : '' }}>对账单</option>
+                <option value="7" {{ d.type==
+                '7' ? 'selected' : '' }}>票据</option>
+                <option value="1000" {{ d.type==
+                '1000' ? 'selected' : '' }}>其他</option>
+            </select>
+        </script>
+
+        <script type="text/html" id="switchTplApply">
+            <select name="type" lay-filter="typeSelect" value="{{d.id}}">
+                <option value=""></option>
+                <option value="3" {{ d.type==
+                '3' ? 'selected' : '' }}>工作汇报</option>
+                <option value="8" {{ d.type==
+                '8' ? 'selected' : '' }}>申请资料</option>
+                <option value="1000" {{ d.type==
+                '1000' ? 'selected' : '' }}>其他</option>
+            </select>
+        </script>
+
+        <script type="text/html" id="switchTplMarketing">
+            <select name="type" lay-filter="typeSelect" value="{{d.id}}">
+                <option value=""></option>
+                <option value="3" {{ d.type==
+                '3' ? 'selected' : '' }}>工作汇报</option>
+                <option value="9" {{ d.type==
+                '9' ? 'selected' : '' }}>优化维护关键词</option>
+                <option value="1000" {{ d.type==
+                '1000' ? 'selected' : '' }}>其他</option>
+            </select>
+        </script>
+
+        <script type="text/html" id="switchTplWenAn">
+            <select name="type" lay-filter="typeSelect" value="{{d.id}}">
+                <option value=""></option>
+                <option value="3" {{ d.type==
+                '3' ? 'selected' : '' }}>工作汇报</option>
+                <option value="10" {{ d.type==
+                '10' ? 'selected' : '' }}>订单</option>
                 <option value="1000" {{ d.type==
                 '1000' ? 'selected' : '' }}>其他</option>
             </select>

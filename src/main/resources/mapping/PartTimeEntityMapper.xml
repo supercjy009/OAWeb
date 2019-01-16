@@ -347,10 +347,14 @@
     </select>
 
     <delete id="deletePart">
-    delete from oa_part_time
-    where order_number = #{orderNumber,jdbcType=VARCHAR}
-    and part_qq = #{partQq,jdbcType=VARCHAR}
-  </delete>
+        delete from oa_part_time
+        <where>
+            order_number = #{orderNumber,jdbcType=VARCHAR}
+            <if test="partQq != null">
+                and part_qq = #{partQq,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
 
     <!-- 这个方法是我自己加的 -->
     <select id="selectAllOrder" parameterType="demo.model.dto.PartOrderReqVo" resultMap="QueryResultMap">
@@ -368,11 +372,11 @@
             <if test="partSettleStateFinance != null and partSettleStateFinance !=''">
                 and p.part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR}
             </if>
-            <if test="moneyState != null and moneyState !='' and moneyState == 1">
-                and p.part_money != null
+            <if test='moneyState == "1"'>
+                and p.part_money_finance is not null
             </if>
-            <if test="moneyState != null and moneyState !='' and moneyState == 0">
-                and p.part_money == null
+            <if test='moneyState == "0"'>
+                and p.part_money_finance is null or p.part_money_finance = ''
             </if>
             <if test="settleDate!=null">
                 AND `settle_date` &gt;= DATE_FORMAT(#{settleDate},'%Y-%m-%d 00:00:00')

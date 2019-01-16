@@ -11,7 +11,7 @@ var header = [ //表头
     {checkbox: true, rowspan: 2},
     {title: '序号', type: 'numbers', rowspan: 2},
     {field: 'serviceName', title: '接单客服', width: 100, rowspan: 2}
-    , {field: 'getOrderDate', title: '接单时间', width: 110, rowspan: 2}
+    , {field: 'getOrderDate', title: '接单时间', width: 145, rowspan: 2}
     , {field: 'customerIm', title: '客户IM', width: 100, rowspan: 2}
     , {field: 'orderNumber', title: '订单编号', width: 100, rowspan: 2}
     , {field: 'deliveryDate', title: '交稿时间', width: 145, rowspan: 2}

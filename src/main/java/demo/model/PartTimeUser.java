@@ -1,5 +1,6 @@
 package demo.model;
 
+import java.text.NumberFormat;
 import java.util.Date;
 
 public class PartTimeUser {
@@ -88,7 +89,13 @@ public class PartTimeUser {
     }
 
     public void setProblemRate(String problemRate) {
-        this.problemRate = problemRate == null ? null : problemRate.trim();
+        if (problemRate != null) {
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            // 设置精确到小数点后2位
+            numberFormat.setMaximumFractionDigits(0);
+            String percent = (numberFormat.format(Float.valueOf(problemRate) * 100)) + "%";
+            this.problemRate = percent;
+        }
     }
 
     public Integer getOutSettleCount() {

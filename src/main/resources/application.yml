@@ -59,8 +59,8 @@ file:
   #静态资源对外暴露的访问路径
   staticAccessPath: /api/file/**
   #文件上传目录（注意Linux和Windows上的目录结构不同）
-#  uploadFolder: /root/uploadFiles/
-  uploadFolder: d://tmp/
+  uploadFolder: /root/uploadFiles/
+#  uploadFolder: d://tmp/
 
 #redis设置
 #redis

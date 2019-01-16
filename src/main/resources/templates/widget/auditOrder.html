@@ -36,7 +36,7 @@
             if (editData) {
                 var arrayObj = new Array();
                 for (var i = 0; i < editData.length; i++) {
-                    arrayObj.push(flagStr == 'audit' ? editData[i].id : editData[i].partQq)
+                    arrayObj.push(flagStr == 'audit' ? editData[i].id : editData[i].partId)
                 }
                 json.ids = arrayObj;
             }
@@ -104,7 +104,7 @@
             $('#check2').attr("title", '待审')
         }
         flagStr = flag;
-        console.log(data);
+        // console.log(data);
         editData = data;
         //表单初始赋值
         init();

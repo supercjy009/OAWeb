@@ -10,7 +10,7 @@ var header = [ //表头
     , {field: 'createDate', align: 'center', title: '上传日期'}
     , {field: 'userName', align: 'center', title: '上传人'}
     , {field: 'fileName', title: '文件名'}
-    , {field: 'type', align: 'center', title: '分类', templet: '#switchTpl'}
+    , {field: 'type', align: 'center', title: '分类', templet: '#'+getTemplet()}
 ];
 setDateRangePicker('createDate');
 // layui.use(['laydate'], function () {
@@ -62,7 +62,7 @@ layui.use(['table', 'form'], function () {
     table.render({
         id: 'id',
         elem: '#fileTable',
-        skin: 'line',
+        // skin: 'line',
         height: full,
         // height: 'full-280',
         url: ajaxUri + '/webAjax/file/queryAllOrder?partName=' + partNow, //数据接口
@@ -223,6 +223,41 @@ function InitParentMenu() {
             form.render('select');
         }
     });
+
+    switch (partNow) {
+        case 1:
+        case 2:
+        case 3:
+            $("#type").append("<option value='3'>工作汇报</option>");
+            $("#type").append("<option value='10'>订单</option>");
+            $("#type").append("<option value='1000'>其他</option>");
+            break;
+        case 'apply':
+            $("#type").append("<option value='3'>工作汇报</option>");
+            $("#type").append("<option value='8'>申请资料</option>");
+            $("#type").append("<option value='1000'>其他</option>");
+            break;
+        case 'marketing':
+            $("#type").append("<option value='3'>工作汇报</option>");
+            $("#type").append("<option value='9'>优化维护关键词</option>");
+            $("#type").append("<option value='1000'>其他</option>");
+            break;
+        case 'internal':
+            $("#type").append("<option value='3'>工作汇报</option>");
+            $("#type").append("<option value='1'>绩效考核</option>");
+            $("#type").append("<option value='2'>问卷</option>");
+            $("#type").append("<option value='1000'>其他</option>");
+            break;
+        case 'finance':
+            $("#type").append("<option value='3'>工作汇报</option>");
+            $("#type").append("<option value='4'>考勤</option>");
+            $("#type").append("<option value='5'>社保</option>");
+            $("#type").append("<option value='6'>对账单</option>");
+            $("#type").append("<option value='7'>票据</option>");
+            $("#type").append("<option value='1000'>其他</option>");
+            break;
+    }
+
 }
 
 function reloadTable(date) {

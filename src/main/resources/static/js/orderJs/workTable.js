@@ -27,7 +27,7 @@ layui.use(['table', 'form'], function () {
         id: 'id',
         elem: '#workPayTable',
         title: getTitlePart() + '办公支出',
-        skin: 'line',
+        // skin: 'line',
         height: full,
         url: ajaxUri + '/webAjax/workpay/queryAllOrder?partName=' + partNow, //数据接口
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档

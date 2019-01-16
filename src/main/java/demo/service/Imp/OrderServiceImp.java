@@ -122,9 +122,11 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartSettleState("0");//状态待结
         partTime.setSubmitState("0");//状态待交稿
         partTime.setDeduct("0");//应扣初始化为0
+        partTime.setPartAuditFinance("0"); //兼职接单表审核状态
+        partTime.setPartSettleStateFinance("0"); //兼职接单表结算状态
         partTime.setPartPhone(partTimeUser.getPartPhone());
         partTime.setPartAlipay(partTimeUser.getPartAlipay());
-        partTime.setPartMoneyReal("0");//实发稿酬
+//        partTime.setPartMoneyReal("0");//实发稿酬
         partTime.setCreateTime(new Date());//派单日期
 
         partTimeMapper.insert(partTime);
@@ -153,14 +155,14 @@ public class OrderServiceImp implements OrderService {
     @Transactional
     public int editPart(AppointPartVo vo) {
         PartTimeEntity partTime = partTimeMapper.selectByPrimaryKey(vo.getPartId());
-        PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
-        if (StringUtils.isEmpty(partTime.getDeduct()) && partTimeUser != null) {
-            //更新问题率
-            Integer issue = partTimeUser.getProblemRate() == null ? 0 : Integer.valueOf(partTimeUser.getProblemRate());
-            partTimeUser.setProblemRate(String.valueOf(issue + 1));
-            partUserMapper.updateByPrimaryKeySelective(partTimeUser);
-
-        }
+//        PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
+//        if (StringUtils.isEmpty(partTime.getDeduct()) && partTimeUser != null) {
+//            //更新问题率
+//            Integer issue = partTimeUser.getProblemRate() == null ? 0 : Integer.valueOf(partTimeUser.getProblemRate());
+//            partTimeUser.setProblemRate(String.valueOf(issue + 1));
+//            partUserMapper.updateByPrimaryKeySelective(partTimeUser);
+//
+//        }
         partTime.setPartRemark(vo.getPartRemark());
         partTime.setPartMoney(vo.getPartMoney());
         partTime.setDeduct(vo.getDeduct());
@@ -168,7 +170,12 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
+    @Transactional
     public int deleteOrder(Long[] ids) {
+        for (Long id : ids) {
+            OrderEntity order = orderEntityMapper.selectByPrimaryKey(id);
+            partTimeMapper.deletePart(order.getOrderNumber(), null);
+        }
         return orderEntityMapper.deleteByPrimaryKeys(ids);
     }
 

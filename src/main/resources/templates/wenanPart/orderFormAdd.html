@@ -47,15 +47,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label"><span style="color: red">*</span>金额 </label>
         <div class="layui-input-inline">
-            <input type="text" name="orderPrice" placeholder="请输入" required lay-verify="required" autocomplete="off"
+            <input type="text" name="orderPrice" placeholder="请输入" required lay-verify="required|number" autocomplete="off"
                    class="layui-input">
         </div>
 
         <label class="layui-form-label"><span style="color: red">*</span>付款状态</label>
         <div class="layui-input-inline">
             <select name="payState" lay-filter="user" required lay-verify="required">
-                <option value="1" selected="">已付</option>
-                <option value="0">未付</option>
+                <option value="1">已付</option>
+                <option value="0" selected="">未付</option>
                 <option value="2">部分付</option>
                 <option value="-1">待退款</option>
             </select>
@@ -164,7 +164,8 @@
         <label class="layui-form-label">退款途径</label>
         <div class="layui-input-inline">
             <select name="refundWay" lay-filter="user" lay-verify="">
-                <option value="微" selected="">微</option>
+                <option value="" selected="">请选择</option>
+                <option value="微">微</option>
                 <option value="支">支</option>
                 <option value="PP">PP</option>
                 <option value="工">工</option>

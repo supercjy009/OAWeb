@@ -179,6 +179,34 @@ function getTitlePart() {
     return name;
 }
 
+function getTemplet() {
+    var name = '';
+    switch (partNow) {
+        case 1:
+            name = 'switchTplWenAn';
+            break;
+        case 2:
+            name = 'switchTplWenAn';
+            break;
+        case 3:
+            name = 'switchTplWenAn';
+            break;
+        case 'apply':
+            name = 'switchTplApply';
+            break;
+        case 'marketing':
+            name = 'switchTplMarketing';
+            break;
+        case 'internal':
+            name = 'switchTplInternal';
+            break;
+        case 'finance':
+            name = 'switchTplFinance';
+            break;
+    }
+    return name;
+}
+
 function checkOn(tableName) {
     // table.on('row(' + tableName + ')', function (obj) {
     //     var checkCell = obj.tr.find(".layui-form-checkbox")[0];
