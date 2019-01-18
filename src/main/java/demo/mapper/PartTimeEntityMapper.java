@@ -33,4 +33,6 @@ public interface PartTimeEntityMapper {
     int auditOrder(AuditVo vo);
 
     int editFinaRemark(@Param("id") Long id, @Param("financeRemark") String financeRemark);
+
+    int updateIsDelete(@Param("ids") Long[] ids);
 }

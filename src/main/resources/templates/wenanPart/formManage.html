@@ -14,6 +14,16 @@
     .btn {
         padding: 6px 12px !important;
     }
+
+    .countStyle{
+        padding: 30px;
+    }
+    .countStyle strong{
+        margin: 5px;
+    }
+    .countStyle span{
+        margin-right: 10px;
+    }
 </style>
 <link rel="stylesheet" href="assets/css/table-style.css">
 <link rel="stylesheet" href="assets/layui/css/layui.css">
@@ -40,16 +50,16 @@
         <div class="layui-form-item" style="display: inline-block;margin-bottom: 0;">
             <div class="layui-input-inline">
                 <!--<input type="text" id="getOrderDate" placeholder="接单时间"-->
-                       <!--lay-key="1" class="layui-input">-->
+                <!--lay-key="1" class="layui-input">-->
                 <!--<div class="controls">-->
-                    <!--<div id="reportrange" class="pull-left dateRange" style="width:180px">-->
-                        <!--<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>-->
-                        <!--<span id="searchDateRange"></span>-->
-                        <!--<b class="caret"></b>-->
-                    <!--</div>-->
+                <!--<div id="reportrange" class="pull-left dateRange" style="width:180px">-->
+                <!--<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>-->
+                <!--<span id="searchDateRange"></span>-->
+                <!--<b class="caret"></b>-->
+                <!--</div>-->
                 <!--</div>-->
                 <input type="text" id="getOrderDate" placeholder="接单时间"
-                        class="layui-input">
+                       class="layui-input">
             </div>
             <div class="layui-input-inline">
                 <input type="text" id="deliveryDate" placeholder="交稿时间"
@@ -97,7 +107,9 @@
                     <option value="0">无</option>
                 </select>
             </div>
-
+            <!--<div class="layui-input-inline">-->
+                <input type="checkbox" lay-filter="hideSettle" id="hideSettle" lay-skin="primary" title="隐藏已付且已结">
+            <!--</div>-->
         </div>
         <div class="layui-form-item" style="display: inline-block;margin-bottom: 0;">
             <div class="layui-input-inline">
@@ -216,7 +228,7 @@
                 lay-event="export"><span>导出</span>
         </button>
 
-        <button name="btn:pms" value="order:export" style="display:none;margin: 0" class="btn btn-primary"
+        <button name="btn:pms" value="order:set" style="display:none;margin: 0" class="btn btn-primary"
                 lay-event="count"><span>统计</span>
         </button>
 

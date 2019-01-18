@@ -167,7 +167,7 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartRemark(vo.getPartRemark());
         partTime.setPartMoney(vo.getPartMoney());
         partTime.setDeduct(vo.getDeduct());
-        return partTimeMapper.updateByPrimaryKeySelective(partTime);
+        return partTimeMapper.updateByPrimaryKey(partTime);
     }
 
     @Override
@@ -196,5 +196,16 @@ public class OrderServiceImp implements OrderService {
         }
 
         return null;
+    }
+
+    @Override
+    public OrderCountVo countOrder(Long[] ids) {
+        OrderCountVo vo = new OrderCountVo();
+        List<OrderCountVo> list = orderEntityMapper.countOrder(ids);
+        vo.setOrderPrice(list.stream().mapToDouble(OrderCountVo::getOrderPrice).sum());
+        vo.setRefundMoney(list.stream().mapToDouble(OrderCountVo::getRefundMoney).sum());
+        vo.setPartMoney(list.stream().mapToDouble(OrderCountVo::getPartMoney).sum());
+        vo.setDeduct(list.stream().mapToDouble(OrderCountVo::getDeduct).sum());
+        return vo;
     }
 }

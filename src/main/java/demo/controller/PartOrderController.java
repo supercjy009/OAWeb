@@ -82,4 +82,11 @@ public class PartOrderController {
         mapOut.put("code", partService.addSettleDate(vo));
         return mapOut;
     }
+
+    @RequestMapping(value = "/deleteEntity", method = RequestMethod.POST)
+    public Map<String, Object> deleteEntity(@RequestParam Long[] ids) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", partService.deleteEntity(ids));
+        return mapOut;
+    }
 }

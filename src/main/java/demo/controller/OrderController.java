@@ -140,5 +140,11 @@ public class OrderController {
         return mapOut;
     }
 
-
+    @RequestMapping(value = "/countOrder", method = RequestMethod.POST)
+    public Map<String, Object> countOrder(@RequestParam Long[] ids) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", 1);
+        mapOut.put("data", orderService.countOrder(ids));
+        return mapOut;
+    }
 }

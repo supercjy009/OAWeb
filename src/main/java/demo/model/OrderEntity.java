@@ -2,6 +2,7 @@ package demo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderEntity {
@@ -35,7 +36,7 @@ public class OrderEntity {
     private String orderContent;
 
 
-    private String orderPrice;
+    private BigDecimal orderPrice;
 
     private String payState;
 
@@ -54,7 +55,7 @@ public class OrderEntity {
 
     private String refundWay;
 
-    private String refundMoney;
+    private BigDecimal refundMoney;
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date refundDate;
@@ -138,12 +139,12 @@ public class OrderEntity {
         this.orderContent = orderContent == null ? null : orderContent.trim();
     }
 
-    public String getOrderPrice() {
+    public BigDecimal getOrderPrice() {
         return orderPrice;
     }
 
-    public void setOrderPrice(String orderPrice) {
-        this.orderPrice = orderPrice == null ? null : orderPrice.trim();
+    public void setOrderPrice(BigDecimal orderPrice) {
+        this.orderPrice = orderPrice == null ? null : orderPrice.stripTrailingZeros();
     }
 
     public String getPayState() {
@@ -210,12 +211,12 @@ public class OrderEntity {
         this.refundWay = refundWay == null ? null : refundWay.trim();
     }
 
-    public String getRefundMoney() {
+    public BigDecimal getRefundMoney() {
         return refundMoney;
     }
 
-    public void setRefundMoney(String refundMoney) {
-        this.refundMoney = refundMoney == null ? null : refundMoney.trim();
+    public void setRefundMoney(BigDecimal refundMoney) {
+        this.refundMoney = refundMoney == null ? null : refundMoney.stripTrailingZeros();
     }
 
     public Date getRefundDate() {

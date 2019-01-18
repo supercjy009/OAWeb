@@ -10,7 +10,7 @@ var header = [ //表头
     , {field: 'partQq', title: 'QQ', width: 110}
     , {field: 'recentOrderDate', title: '最近接单日', width: 110}
     , {field: 'getOrderNumber', title: '接单数量', width: 90}
-    , {field: 'problemRate', title: '问题率', width: 80}
+    , {field: 'problemRateStr', title: '问题率', width: 80}
     , {field: 'outSettleCount', title: '待结数', width: 80}
     , {field: 'outDeliveryCount', title: '待交数', width: 80}
     , {field: 'totalReward', title: '总稿酬', width: 80}

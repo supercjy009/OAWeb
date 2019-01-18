@@ -200,6 +200,8 @@ layui.use(['table', 'form'], function () {
             case 'export':
                 exportExcel(table, ins);
                 break;
+            case 'count':
+                countData();
         }
     });
 
@@ -216,6 +218,32 @@ layui.use(['table', 'form'], function () {
         // console.log(active[type]);
         active[type] ? active[type].call(this) : '';
     });
+
+    form.on('checkbox(hideSettle)', function (data) { //监听下拉框
+        // alert(data.elem.checked);
+        table.reload('id', {
+            page: {
+                curr: 1 //重新从第 1 页开始
+            }
+            , where: {
+                orderDateReq: $('#getOrderDate').val(),
+                deliveryDateReq: $('#deliveryDate').val(),
+                payState: $('#payState').val(),
+                submitState: $('#submitState').val(),
+                partInfo: $('#partInfo').val(),
+                masterHand: $('#masterHand').val(),
+                referrer: $('#referrer').val(),
+                serviceId: $('#serviceName').val(),
+                sendServiceId: $('#sendServiceName').val(),
+                audit: $('#audit').val(),
+                partAudit: $('#partAudit').val(),
+                partSettleState: $('#partSettleState').val(),
+                settleDate: $('#settleDate').val(),
+                keyWord: $('#keyWord').val(),
+                hideSettle: data.elem.checked
+            }
+        });
+    })
 
 });
 
@@ -401,6 +429,43 @@ function viewProgress(data) {
             var iframe = window['layui-layer-iframe' + index];
             // 向子页面的全局函数child传参
             iframe.initAudit(data.id);
+        }
+    });
+}
+
+function countData() {
+    var checkStatus = table.checkStatus('id')
+        , data = checkStatus.data;
+    var orderPrice = 0, refundMoney = 0, partMoney = 0, deduct = 0;
+    var ids = [];
+    for (var i = 0; i < data.length; i++) {
+        ids.push(data[i].id)
+    }
+    $.ajax({
+        type: 'POST',
+        url: ajaxUri + '/webAjax/order/countOrder',
+        traditional: true,
+        data: {ids: ids},
+        complete: function (status) {
+            var str = status.responseJSON;
+            console.log(str.code);
+            if (str.code === 1) {
+                var dataO = str.data
+                layer.open({
+                    type: 1, //Page层类型
+                    title: '数据统计',
+                    shadeClose: true,
+                    offset: 'auto',
+                    skin: 'layui-layer-molv',
+                    area: ['35%', '15%'],
+                    content: "<div class='countStyle'><strong>接单金额统计:</strong><span>" + dataO.orderPrice + "</span>" +
+                    "<strong>退款金额统计:</strong><span>" + dataO.refundMoney + "</span>" +
+                    "<strong>兼职稿酬统计:</strong><span>" + dataO.partMoney + "</span>" +
+                    "<strong>应扣统计:</strong><span>" + dataO.deduct + "</span></div>"
+                });
+            } else {
+                parent.layer.alert('服务器异常.');
+            }
         }
     });
 }

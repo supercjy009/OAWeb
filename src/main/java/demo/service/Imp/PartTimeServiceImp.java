@@ -52,4 +52,9 @@ public class PartTimeServiceImp implements PartTimeService {
     public int addSettleDate(SettleDateVo vo) {
         return partTimeMapper.addSettleDate(vo);
     }
+
+    @Override
+    public int deleteEntity(Long[] ids) {
+        return partTimeMapper.updateIsDelete(ids);
+    }
 }

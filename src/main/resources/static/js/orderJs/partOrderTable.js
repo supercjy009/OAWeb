@@ -111,31 +111,33 @@ layui.use(['table', 'form'], function () {
 $("#deleteEntity").click(function () {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
-    if (data.length === 1) {
-        layer.alert("功能完善中.");
-        // layer.confirm('确认删除吗？', {
-        //     btn: ['确定', '取消'] //按钮
-        // }, function () {
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: ajaxUri + '/webAjax/order/deletePart',
-        //         data: {id: data[0].id},
-        //         complete: function (status) {
-        //             var str = status.responseJSON;
-        //             console.log(str.code);
-        //             if (str.code === 1) {
-        //                 parent.layer.alert('删除成功');
-        //                 reloadTable();
-        //             } else {
-        //                 parent.layer.alert('删除失败，服务器异常.');
-        //             }
-        //         }
-        //     });
-        // });
-    } else if (data.length > 1) {
-        layer.alert("删除时不能勾选多条数据");
+    if (data.length >= 1) {
+        layer.confirm('确认删除吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            var ids = [];
+            for (var i = 0; i < data.length; i++) {
+                ids.push(data[i].id)
+            }
+            $.ajax({
+                type: 'POST',
+                url: ajaxUri + '/webAjax/partOrder/deleteEntity',
+                traditional: true,
+                data: {ids: ids},
+                complete: function (status) {
+                    var str = status.responseJSON;
+                    console.log(str.code);
+                    if (str.code === 1) {
+                        parent.layer.alert('删除成功');
+                        reloadTable();
+                    } else {
+                        parent.layer.alert('删除失败，服务器异常.');
+                    }
+                }
+            });
+        });
     } else {
-        layer.alert("请先勾选一条数据");
+        layer.alert("请先勾选数据");
     }
 });
 

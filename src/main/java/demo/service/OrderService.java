@@ -29,4 +29,6 @@ public interface OrderService {
     int editFinaRemark(RemarkVo vo);
 
     List<ServiceVo> selectAllService(String serviceName, String flag, String partName);
+
+    OrderCountVo countOrder(Long[] ids);
 }

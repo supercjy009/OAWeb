@@ -25,6 +25,7 @@ public class OrderReqVo {
     private String keyWord;
     private String partName;//这是文案第几部门
     private Date settleDate;
+    private Boolean hideSettle;
     private Integer page;
     private Integer limit;
 
@@ -195,5 +196,13 @@ public class OrderReqVo {
 
     public void setReferrer(Boolean referrer) {
         this.referrer = referrer;
+    }
+
+    public Boolean getHideSettle() {
+        return hideSettle;
+    }
+
+    public void setHideSettle(Boolean hideSettle) {
+        this.hideSettle = hideSettle;
     }
 }

@@ -67,4 +67,6 @@ public interface OrderEntityMapper {
     List<ServiceVo> selectAllService(@Param("serviceName") String serviceName, @Param("partName") String partName);
 
     List<ServiceVo> selectAllSendService(@Param("serviceName") String serviceName, @Param("partName") String partName);
+
+    List<OrderCountVo> countOrder(@Param("ids") Long[] ids);
 }

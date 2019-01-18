@@ -17,6 +17,8 @@ public class PartTimeUser {
 
     private String problemRate;
 
+    private String problemRateStr;
+
     private Integer outSettleCount;
 
     private Integer outDeliveryCount;
@@ -90,13 +92,18 @@ public class PartTimeUser {
     }
 
     public void setProblemRate(String problemRate) {
+        this.problemRate = problemRate == null ? null : problemRate.trim();
         if (problemRate != null) {
             NumberFormat numberFormat = NumberFormat.getInstance();
             // 设置精确到小数点后2位
             numberFormat.setMaximumFractionDigits(0);
             String percent = (numberFormat.format(Float.valueOf(problemRate) * 100)) + "%";
-            this.problemRate = percent;
+            this.problemRateStr = percent;
         }
+    }
+
+    public String getProblemRateStr() {
+        return problemRateStr;
     }
 
     public Integer getOutSettleCount() {

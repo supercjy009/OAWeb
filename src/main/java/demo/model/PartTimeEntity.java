@@ -97,7 +97,7 @@ public class PartTimeEntity {
     }
 
     public void setPartMoney(BigDecimal partMoney) {
-        this.partMoney = partMoney.stripTrailingZeros();
+        this.partMoney = partMoney == null ? partMoney : partMoney.stripTrailingZeros();
     }
 
     public BigDecimal getDeduct() {
@@ -105,7 +105,7 @@ public class PartTimeEntity {
     }
 
     public void setDeduct(BigDecimal deduct) {
-        this.deduct = deduct.stripTrailingZeros();
+        this.deduct = deduct == null ? deduct : deduct.stripTrailingZeros();
     }
 
     public Date getSettleDate() {

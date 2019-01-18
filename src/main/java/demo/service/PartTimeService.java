@@ -20,4 +20,6 @@ public interface PartTimeService {
     int auditOrder(AuditVo vo);
 
     int addSettleDate(SettleDateVo vo);
+
+    int deleteEntity(Long[] ids);
 }
