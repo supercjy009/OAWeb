@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by p51 on 2018/6/5.
  */
-public class WorkPayReqVo {
+public class WorkPayReqVo extends BaseReqDto{
     private String partName;
     private Integer page;
     private Integer limit;

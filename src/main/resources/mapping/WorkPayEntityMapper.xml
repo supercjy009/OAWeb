@@ -208,6 +208,9 @@
             <if test="settle != null and settle !=''">
                 and settle = #{settle,jdbcType=VARCHAR}
             </if>
+            <if test="seeAll == null or seeAll == false">
+                AND r1.uid = #{uid,jdbcType=BIGINT}
+            </if>
         </where>
         order by pay_date desc
     </select>

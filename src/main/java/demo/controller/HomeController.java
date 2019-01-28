@@ -277,7 +277,7 @@ public class HomeController {
         Long roleId = sysUserroleEntities.get(0).getRoleId();
         resultMap.put("status", 200);
         resultMap.put("roleId", roleId);
-        resultMap.put("permission", sysPermissionSerivceImp.selectPermissionListByRoleId(roleId));
+        resultMap.put("permission", sysPermissionSerivceImp.selectPermissionListByRoleId());
         resultMap.put("message", "登录成功");
         msg = "sucess";
         // 此方法不处理登录成功,由shiro进行处理.

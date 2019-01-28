@@ -495,6 +495,9 @@
             <if test="hideSettle == true">
                 AND (pay_state != '1' OR part_settle_state != '1')
             </if>
+            <if test="seeAll == null or seeAll == false">
+                AND r1.uid = #{uid,jdbcType=BIGINT}
+            </if>
         </where>
         order by o.get_order_date desc
     </select>

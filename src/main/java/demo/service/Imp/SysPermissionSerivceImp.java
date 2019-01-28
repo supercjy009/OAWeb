@@ -4,8 +4,11 @@ import demo.mapper.SysPermissionEntityMapper;
 import demo.mapper.SysRolepermissionEntityMapper;
 import demo.model.SysPermissionEntity;
 import demo.model.SysRolepermissionEntity;
+import demo.model.SysUserroleEntity;
+import demo.model.UserinfoEntity;
 import demo.model.dto.AuthJson;
 import demo.service.SysPermissionService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,8 @@ public class SysPermissionSerivceImp implements SysPermissionService {
     SysPermissionEntityMapper sysPermissionEntityMapper;
     @Resource
     SysRolepermissionEntityMapper rolePermissionMapper;
+    @Resource
+    SysUserroleServiceImp sysUserroleServiceImp;
 
     @Override
     public SysPermissionEntity selectByPrimaryKey(Long id) {
@@ -83,7 +88,10 @@ public class SysPermissionSerivceImp implements SysPermissionService {
     }
 
     @Override
-    public List<String> selectPermissionListByRoleId(Long roleId) {
+    public List<String> selectPermissionListByRoleId() {
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        List<SysUserroleEntity> sysUserroleEntities = sysUserroleServiceImp.queryUserroleByuserid(userinfoEntity.getUid());
+        Long roleId = sysUserroleEntities.get(0).getRoleId();
         return sysPermissionEntityMapper.selectPermissionListByRoleId(roleId);
     }
 }

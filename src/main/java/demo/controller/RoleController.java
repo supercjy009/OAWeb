@@ -35,10 +35,9 @@ public class RoleController {
         if (sysUserroleEntities == null) {
             mapOut.put("code", -1005);
         } else {
-            Long roleId = sysUserroleEntities.get(0).getRoleId();
             mapOut.put("code", 1);
             mapOut.put("username", userinfoEntity.getUsername());
-            mapOut.put("permission", sysPermissionSerivceImp.selectPermissionListByRoleId(roleId));
+            mapOut.put("permission", sysPermissionSerivceImp.selectPermissionListByRoleId());
         }
         return mapOut;
     }

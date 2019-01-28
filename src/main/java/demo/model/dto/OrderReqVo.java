@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by p51 on 2018/7/25.
  */
-public class OrderReqVo {
+public class OrderReqVo extends BaseReqDto{
     private String orderDateReq; //接单时间(最近七天、当月等等)
     private Date orderDateStart;
     private Date orderDateEnd;

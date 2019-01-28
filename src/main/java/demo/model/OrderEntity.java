@@ -16,7 +16,7 @@ public class OrderEntity {
     private String serviceName;
 
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd hh:mm")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
     private Date getOrderDate;
 
 
@@ -26,7 +26,7 @@ public class OrderEntity {
     private String orderNumber;
 
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd hh:mm")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm")
     private Date deliveryDate;
 
 

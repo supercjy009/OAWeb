@@ -24,5 +24,5 @@ public interface SysPermissionService {
 
     List<SysPermissionEntity> queryPermissionByRoleId(Long roleId);
 
-    List<String> selectPermissionListByRoleId(Long roleId);
+    List<String> selectPermissionListByRoleId();
 }

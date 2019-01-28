@@ -26,7 +26,8 @@ import java.util.List;
 public class WorkPayServiceImp implements WorkPayService {
     @Resource
     WorkPayEntityMapper workPayEntityMapper;
-
+    @Resource
+    SysPermissionSerivceImp sysPermissionSerivceImp;
     @Override
     public PageInfo<WorkPayEntity> queryAllOrder(WorkPayReqVo vo) throws ParseException {
 //        if (vo.getPageNum() != null && vo.getPageSize() != null) {
@@ -38,6 +39,10 @@ public class WorkPayServiceImp implements WorkPayService {
             vo.setPayDateStart(format.parse(dateSplit[0].trim()));
             vo.setPayDateEnd(format.parse(dateSplit[1]));
         }
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        List<String> permissions = sysPermissionSerivceImp.selectPermissionListByRoleId();
+        vo.setSeeAll(permissions.contains("workpay:all") || permissions.contains("all"));
+        vo.setUid(userinfoEntity.getUid());
         List<WorkPayEntity> workPayList = workPayEntityMapper.selectAllOrder(vo);
 
         return new PageInfo<>(workPayList);

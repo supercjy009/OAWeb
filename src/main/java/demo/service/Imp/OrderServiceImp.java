@@ -35,7 +35,10 @@ public class OrderServiceImp implements OrderService {
     PartTimeEntityMapper partTimeMapper;
     @Resource
     PayProgressMapper progressMapper;
-
+    @Resource
+    SysPermissionSerivceImp sysPermissionSerivceImp;
+    @Resource
+    SysUserroleServiceImp sysUserroleServiceImp;
     @Override
     public PageInfo<PartTimeOrderRes> queryAllOrder(OrderReqVo vo) throws ParseException {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
@@ -50,6 +53,10 @@ public class OrderServiceImp implements OrderService {
             vo.setDeliveryDateStart(format.parse(dateSplit[0].trim()));
             vo.setDeliveryDateEnd(format.parse(dateSplit[1]));
         }
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        List<String> permissions = sysPermissionSerivceImp.selectPermissionListByRoleId();
+        vo.setSeeAll(permissions.contains("order:all") || permissions.contains("all"));
+        vo.setUid(userinfoEntity.getUid());
         List<PartTimeOrderRes> orderList = orderEntityMapper.selectAllOrder(vo);
         return new PageInfo<>(orderList);
     }

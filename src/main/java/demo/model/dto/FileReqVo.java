@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by p51 on 2018/6/5.
  */
-public class FileReqVo {
+public class FileReqVo extends BaseReqDto{
     private String createDate;
     private Date createDateStart;
     private Date createDateEnd;

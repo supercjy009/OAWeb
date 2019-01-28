@@ -32,7 +32,8 @@ public class FileServiceImp implements FileService {
     FileEntityMapper entityMapper;
     @Resource
     private FileUtil fileUtil;
-
+    @Resource
+    SysPermissionSerivceImp sysPermissionSerivceImp;
     @Override
     public PageInfo<FileEntityDto> queryAllOrder(FileReqVo vo) throws ParseException {
 //        if (vo.getPageNum() != null && vo.getPageSize() != null) {
@@ -44,6 +45,10 @@ public class FileServiceImp implements FileService {
             vo.setCreateDateStart(format.parse(dateSplit[0].trim()));
             vo.setCreateDateEnd(format.parse(dateSplit[1]));
         }
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        List<String> permissions = sysPermissionSerivceImp.selectPermissionListByRoleId();
+        vo.setSeeAll(permissions.contains("file:all") || permissions.contains("all"));
+        vo.setUid(userinfoEntity.getUid());
         List<FileEntityDto> entityList = entityMapper.selectAllOrder(vo);
 
         return new PageInfo<>(entityList);
