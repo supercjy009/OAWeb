@@ -34,7 +34,8 @@ spring:
 mybatis:
   mapperLocations: classpath:mapping/*.xml
   typeAliasesPackage: com.testshiro.model
-
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #pagehelper分页插件
 pagehelper:
     helperDialect: mysql

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/assets/layui/css/layui.css" media="all">
 </head>
 <body>
-<div class="layui-form" id="auditForm" style="padding: 20px 20px 20px 20px">
+<div class="layui-form" id="auditForm" style="padding: 20px 20px 20px 20px" lay-filter="auditForm">
     <div class="layui-form-item">
         <input type="text" id="settleDate" name="settleDate" placeholder="结算日期"
                lay-key="1" class="layui-input">
@@ -80,12 +80,11 @@
                 return false;
             });
 
-            // if (editData) {
-            //     // alert("aaa"+editData[0].id);
-            //     form.val('auditForm', {
-            //         settleDate: editData[0].settleDate
-            //     })
-            // }
+            if (editData) {
+                form.val('auditForm', {
+                    settleDate: editData[0].settleDate
+                })
+            }
         });
     }
 

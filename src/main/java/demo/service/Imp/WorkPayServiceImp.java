@@ -28,6 +28,7 @@ public class WorkPayServiceImp implements WorkPayService {
     WorkPayEntityMapper workPayEntityMapper;
     @Resource
     SysPermissionSerivceImp sysPermissionSerivceImp;
+
     @Override
     public PageInfo<WorkPayEntity> queryAllOrder(WorkPayReqVo vo) throws ParseException {
 //        if (vo.getPageNum() != null && vo.getPageSize() != null) {
@@ -41,7 +42,8 @@ public class WorkPayServiceImp implements WorkPayService {
         }
         UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
         List<String> permissions = sysPermissionSerivceImp.selectPermissionListByRoleId();
-        vo.setSeeAll(permissions.contains("workpay:all") || permissions.contains("all"));
+        String pValue = "1".equals(vo.getPartName()) || "2".equals(vo.getPartName()) || "3".equals(vo.getPartName()) ? "order" : vo.getPartName();
+        vo.setSeeAll(permissions.contains(pValue + ":workpay:all") || permissions.contains("all"));
         vo.setUid(userinfoEntity.getUid());
         List<WorkPayEntity> workPayList = workPayEntityMapper.selectAllOrder(vo);
 

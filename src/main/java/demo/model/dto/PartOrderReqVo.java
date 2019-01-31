@@ -12,6 +12,8 @@ public class PartOrderReqVo {
     private Date settleDate;
     private String keyWord;
     private Boolean isDelete;
+    private Boolean isPartUser;
+    private String partQq;
     private Integer page;
     private Integer limit;
 
@@ -78,5 +80,21 @@ public class PartOrderReqVo {
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
+    }
+
+    public Boolean getPartUser() {
+        return isPartUser;
+    }
+
+    public void setPartUser(Boolean partUser) {
+        isPartUser = partUser;
+    }
+
+    public String getPartQq() {
+        return partQq;
+    }
+
+    public void setPartQq(String partQq) {
+        this.partQq = partQq;
     }
 }

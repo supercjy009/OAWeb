@@ -60,7 +60,8 @@ layui.use(['table', 'form'], function () {
                 var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
                 //设置待审核单元格背景颜色
                 var audit = data[i].partAuditFinance;
-                if (audit == null || audit === '0' || audit === '-1') {
+                var settle = data[i].partSettleStateFinance;
+                if (audit == null || (audit === '0' && settle=== '-1')) {
                     $($checktr[0]).addClass("changeGray");
                     $($checktr[1]).addClass("changeGray");
                 }

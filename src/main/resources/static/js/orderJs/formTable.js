@@ -571,6 +571,10 @@ function addjiesuan() {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
     if (data.length >= 1) {
+        if (data[0].partQq == null) {
+            layer.alert("勾选的数据尚未指派兼职，请确认");
+            return;
+        }
         //iframe窗
         layer.open({
             type: 2,

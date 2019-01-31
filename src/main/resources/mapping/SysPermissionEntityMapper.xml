@@ -180,7 +180,7 @@
     <select id="queryPermission" resultMap="QueryResultMap">
         select p.id,p.name,p.available,p.parent_id,rp.permission_id as checked
         from sys_permission p left join sys_role_permission rp on p.id = rp.permission_id and rp.role_id =  #{roleId,jdbcType=BIGINT}
-        where p.parent_id = #{parentId,jdbcType=BIGINT} and p.available
+        where p.parent_id = #{parentId,jdbcType=BIGINT} and p.available = 1 and p.id != 0
     </select>
 
     <select id="selectPermissionByRoleId" resultMap="BaseResultMap">
@@ -194,6 +194,6 @@
         select
         permission
         from sys_permission p join sys_role_permission rp on p.id = rp.permission_id
-        where rp.role_id =  #{roleId,jdbcType=BIGINT}
+        where rp.role_id =  #{roleId,jdbcType=BIGINT} and p.available = 1
     </select>
 </mapper>

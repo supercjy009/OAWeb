@@ -2,6 +2,8 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import demo.config.SystemConstant;
+import demo.model.SysUserroleEntity;
 import demo.model.dto.AuditVo;
 import demo.model.dto.PartOrderReqVo;
 import demo.mapper.PartTimeEntityMapper;
@@ -23,10 +25,19 @@ import java.util.List;
 public class PartTimeServiceImp implements PartTimeService {
     @Resource
     PartTimeEntityMapper partTimeMapper;
+    @Resource
+    SysUserroleServiceImp sysUserroleServiceImp;
 
     @Override
     public PageInfo<PartTimeDto> queryAllOrder(PartOrderReqVo vo) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
+        UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
+        List<SysUserroleEntity> sysUserroleEntities = sysUserroleServiceImp.queryUserroleByuserid(userinfoEntity.getUid());
+        Long roleId = sysUserroleEntities.get(0).getRoleId();
+        vo.setPartUser(SystemConstant.PART_ROLE_ID.equals(roleId));
+        if (SystemConstant.PART_ROLE_ID.equals(roleId)) {
+            vo.setPartQq(userinfoEntity.getUsername());
+        }
         List<PartTimeDto> partList = partTimeMapper.selectAllOrder(vo);
         return new PageInfo<>(partList);
     }

@@ -1,5 +1,5 @@
-ajaxUri = "http://47.99.47.49:8080";
-// ajaxUri = "http://localhost:8080";
+// ajaxUri = "http://47.99.47.49:8080";
+ajaxUri = "http://localhost:8080";
 workPayInit = false;
 var userRoleId = 0;
 permissionList = [];
@@ -42,12 +42,14 @@ function permissionInit() {
     });
 }
 
-//左侧菜单权限设置
+//按钮权限设置
 function setBttonPermission() {
     $("button[name='btn:pms']").each(function () {
         //console.log('val == ' + $(this).attr("value"))
         var liValue = $(this).attr("value");
-        if (permissionList.indexOf(liValue) == -1 && permissionList.indexOf("all") == -1) {
+        var pValue = partNow == '1' || partNow == '2' || partNow == '3' ? 'order' : partNow;
+        pValue = pValue == '' ? '' :  pValue + ':';
+        if (permissionList.indexOf(pValue + liValue) == -1 && permissionList.indexOf("all") == -1) {
             $(this).remove();
         } else {
             $(this).show();

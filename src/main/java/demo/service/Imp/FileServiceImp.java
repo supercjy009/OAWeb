@@ -47,7 +47,8 @@ public class FileServiceImp implements FileService {
         }
         UserinfoEntity userinfoEntity = (UserinfoEntity) SecurityUtils.getSubject().getPrincipal();
         List<String> permissions = sysPermissionSerivceImp.selectPermissionListByRoleId();
-        vo.setSeeAll(permissions.contains("file:all") || permissions.contains("all"));
+        String pValue = "1".equals(vo.getPartName()) || "2".equals(vo.getPartName()) || "3".equals(vo.getPartName()) ? "order" : vo.getPartName();
+        vo.setSeeAll(permissions.contains(pValue + ":file:all") || permissions.contains("all"));
         vo.setUid(userinfoEntity.getUid());
         List<FileEntityDto> entityList = entityMapper.selectAllOrder(vo);
 

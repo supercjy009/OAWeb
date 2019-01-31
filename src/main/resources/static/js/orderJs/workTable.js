@@ -17,7 +17,7 @@ var header = [ //表头
     , {field: 'settle', title: '结算', templet: '#settleTpl'}
 ];
 
-
+setDateRangePicker('payDate');
 layui.use(['table', 'form'], function () {
     form = layui.form;
 
