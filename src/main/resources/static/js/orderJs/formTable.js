@@ -1,10 +1,10 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table, form;
+var table, form,tdNum = 22;
 
 var h1 = [
-    {align: 'center', title: '客户交易登记表', colspan: 22},
+    {align: 'center', title: '客户交易登记表', colspan: tdNum},
     {align: 'center', title: '派单登记表', colspan: 15}];
 
 var header = [ //表头
@@ -111,7 +111,7 @@ layui.use(['table', 'form'], function () {
                             var checkIndextrs = $(".layui-table-view tbody tr[data-index='" + (i - indexNum) + "']");
                             var $checkIndextr = $(checkIndextrs[ci]);
                             // debugger
-                            var left = ci == 0 ? 22 : 3;
+                            var left = ci == 0 ? tdNum : 3;
                             $checkIndextr.children('td').each(function (j) {  // 遍历 tr 的各个 td
                                 if (j < left) {
                                     $(this).attr("rowspan", indexNum + 1);
@@ -131,10 +131,23 @@ layui.use(['table', 'form'], function () {
                     }
                 }
 
-                //设置待审核单元格背景颜色
+                //设置订单待审核单元格背景颜色
                 var audit = data[i].audit;
-                if (audit === '0' || audit === '-1') {
-                    $checktr.addClass("changeGray");
+                if (audit === '0') {
+                    $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+                        if (j < tdNum) {
+                            $(this).addClass("changeGray");
+                        }
+                    });
+                }
+                //设置兼职待审核单元格背景颜色
+                var partAudit = data[i].partAudit;
+                if (partAudit === '0') {
+                    $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+                        if (j >= tdNum) {
+                            $(this).addClass("changeGray");
+                        }
+                    });
                 }
             }
             //得到数据总量
@@ -436,38 +449,41 @@ function viewProgress(data) {
 function countData() {
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
-    var orderPrice = 0, refundMoney = 0, partMoney = 0, deduct = 0;
-    var ids = [];
-    for (var i = 0; i < data.length; i++) {
-        ids.push(data[i].id)
-    }
-    $.ajax({
-        type: 'POST',
-        url: ajaxUri + '/webAjax/order/countOrder',
-        traditional: true,
-        data: {ids: ids},
-        complete: function (status) {
-            var str = status.responseJSON;
-            console.log(str.code);
-            if (str.code === 1) {
-                var dataO = str.data
-                layer.open({
-                    type: 1, //Page层类型
-                    title: '数据统计',
-                    shadeClose: true,
-                    offset: 'auto',
-                    skin: 'layui-layer-molv',
-                    area: ['35%', '15%'],
-                    content: "<div class='countStyle'><strong>接单金额统计:</strong><span>" + dataO.orderPrice + "</span>" +
-                    "<strong>退款金额统计:</strong><span>" + dataO.refundMoney + "</span>" +
-                    "<strong>兼职稿酬统计:</strong><span>" + dataO.partMoney + "</span>" +
-                    "<strong>应扣统计:</strong><span>" + dataO.deduct + "</span></div>"
-                });
-            } else {
-                parent.layer.alert('服务器异常.');
-            }
+    if (data.length >= 1) {
+        var ids = [];
+        for (var i = 0; i < data.length; i++) {
+            ids.push(data[i].id)
         }
-    });
+        $.ajax({
+            type: 'POST',
+            url: ajaxUri + '/webAjax/order/countOrder',
+            traditional: true,
+            data: {ids: ids},
+            complete: function (status) {
+                var str = status.responseJSON;
+                console.log(str.code);
+                if (str.code === 1) {
+                    var dataO = str.data
+                    layer.open({
+                        type: 1, //Page层类型
+                        title: '数据统计',
+                        shadeClose: true,
+                        offset: 'auto',
+                        skin: 'layui-layer-molv',
+                        area: ['35%', '15%'],
+                        content: "<div class='countStyle'><strong>接单金额统计:</strong><span>" + dataO.orderPrice + "</span>" +
+                        "<strong>退款金额统计:</strong><span>" + dataO.refundMoney + "</span>" +
+                        "<strong>兼职稿酬统计:</strong><span>" + dataO.partMoney + "</span>" +
+                        "<strong>应扣统计:</strong><span>" + dataO.deduct + "</span></div>"
+                    });
+                } else {
+                    parent.layer.alert('服务器异常.');
+                }
+            }
+        });
+    }else {
+        layer.alert("请先勾选需要统计的数据");
+    }
 }
 
 function editPartTime() {

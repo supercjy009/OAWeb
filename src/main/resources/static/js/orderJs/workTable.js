@@ -72,6 +72,7 @@ layui.use(['table', 'form'], function () {
                 }
                 , where: {
                     payDate: $('#payDate').val(),
+                    payUser:  $('#payUser').val(),
                     getUser: $('#getUser').val(),
                     audit: $('#audit').val(),
                     settle: $('#settle').val()

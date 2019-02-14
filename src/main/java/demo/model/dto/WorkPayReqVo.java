@@ -13,6 +13,7 @@ public class WorkPayReqVo extends BaseReqDto{
     private Date payDateStart;
     private Date payDateEnd;
     private String getUser;
+    private String payUser;
     private String audit;
     private String settle;
 
@@ -86,5 +87,13 @@ public class WorkPayReqVo extends BaseReqDto{
 
     public void setPayDateEnd(Date payDateEnd) {
         this.payDateEnd = payDateEnd;
+    }
+
+    public String getPayUser() {
+        return payUser;
+    }
+
+    public void setPayUser(String payUser) {
+        this.payUser = payUser;
     }
 }

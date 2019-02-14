@@ -1,6 +1,7 @@
 package demo.service;
 
 import com.github.pagehelper.PageInfo;
+import demo.model.dto.PartUserAddVo;
 import demo.model.dto.PartUserReqVo;
 import demo.model.dto.SettleDateVo;
 import demo.model.PartTimeUser;
@@ -15,7 +16,7 @@ public interface PartUserService {
 
     int addEntity(PartTimeUser order);
 
-    int updateEntity(PartTimeUser order);
+    int updateEntity(PartUserAddVo order);
 
     int deleteEntity(Long id);
 

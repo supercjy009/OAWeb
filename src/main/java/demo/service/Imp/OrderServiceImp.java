@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class OrderServiceImp implements OrderService {
     SysPermissionSerivceImp sysPermissionSerivceImp;
     @Resource
     SysUserroleServiceImp sysUserroleServiceImp;
+
     @Override
     public PageInfo<PartTimeOrderRes> queryAllOrder(OrderReqVo vo) throws ParseException {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
@@ -88,13 +90,25 @@ public class OrderServiceImp implements OrderService {
     public int updateOrder(OrderVo order) {
         Long orderId = order.getId();
         if (order.getProgressList() != null && order.getProgressList().size() != 0) {
+            List<PayProgress> oldProgressList = progressMapper.selectByOrderId(orderId);
+            List<Long> oldIds = new ArrayList<>();
+            for (PayProgress oldProgress : oldProgressList) {
+                //记录原始有哪些付款进度
+                oldIds.add(oldProgress.getId());
+            }
+
             for (int i = 0; i < order.getProgressList().size(); i++) {
                 PayProgress payProgress = order.getProgressList().get(i);
-                if (payProgress.getId() != null) {
-
+                if (payProgress.getId() != null && oldIds.contains(payProgress.getId())) {//包含说明没有被删除
+                    oldIds.remove(payProgress.getId());
+                } else {
+                    payProgress.setOrderId(orderId.intValue());
+                    progressMapper.insert(payProgress);
                 }
-                payProgress.setOrderId(orderId.intValue());
-                progressMapper.insert(payProgress);
+            }
+
+            for (Long oldId : oldIds) { //删除这些付款进度
+                progressMapper.deleteByPrimaryKey(oldId);
             }
         }
         order.setAudit("0");

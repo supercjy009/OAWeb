@@ -14,6 +14,7 @@ import demo.service.UserinfoService;
 import demo.util.MyDES;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -76,10 +77,12 @@ public class UserinfoServiceImp implements UserinfoService {
         String pawDES = MyDES.encryptBasedDes(paw);
         user.setPassword(pawDES);
         userinfoEntityMapper.updateByPrimaryKeySelective(user);
-        List<SysUserroleEntity> userroleEntities = sysUserroleEntityMapper.queryUserroleByuserid(user.getUid());
-        for (SysUserroleEntity userrole : userroleEntities) {
-            userrole.setRoleId(Long.valueOf(user.getRoleId()));
-            sysUserroleEntityMapper.updateByPrimaryKey(userrole);
+        if (!StringUtils.isEmpty(user.getRoleId())) {
+            List<SysUserroleEntity> userroleEntities = sysUserroleEntityMapper.queryUserroleByuserid(user.getUid());
+            for (SysUserroleEntity userrole : userroleEntities) {
+                userrole.setRoleId(Long.valueOf(user.getRoleId()));
+                sysUserroleEntityMapper.updateByPrimaryKey(userrole);
+            }
         }
         return 0;
     }

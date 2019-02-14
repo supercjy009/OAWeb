@@ -2,3 +2,8 @@
     border: 1px solid;
     text-align:center;
 }
+
+.label_warp_dashed {
+    border: 1px dashed;
+    text-align:center;
+}

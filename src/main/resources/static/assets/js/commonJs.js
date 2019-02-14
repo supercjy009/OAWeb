@@ -47,7 +47,7 @@ function setBttonPermission() {
     $("button[name='btn:pms']").each(function () {
         //console.log('val == ' + $(this).attr("value"))
         var liValue = $(this).attr("value");
-        var pValue = partNow == '1' || partNow == '2' || partNow == '3' ? 'order' : partNow;
+        var pValue = partNow == '1' || partNow == '2' || partNow == '3' ? '' : partNow;
         pValue = pValue == '' ? '' :  pValue + ':';
         if (permissionList.indexOf(pValue + liValue) == -1 && permissionList.indexOf("all") == -1) {
             $(this).remove();

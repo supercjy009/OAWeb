@@ -7,4 +7,6 @@ public class SystemConstant {
      * 密码加盐
      **/
     public static String PASSWORD_SALT = "{bcrypt}";
+
+    public static String PART_SALT_STRING = "part";
 }

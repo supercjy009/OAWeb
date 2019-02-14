@@ -202,6 +202,9 @@
             <if test="getUser != null and getUser !=''">
                 and get_user = #{getUser,jdbcType=VARCHAR}
             </if>
+            <if test="payUser != null and payUser !=''">
+                and pay_user = #{payUser,jdbcType=VARCHAR}
+            </if>
             <if test="audit != null and audit !=''">
                 and audit = #{audit,jdbcType=VARCHAR}
             </if>

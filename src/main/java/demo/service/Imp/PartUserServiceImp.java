@@ -2,18 +2,22 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import demo.config.SystemConstant;
 import demo.model.UserinfoEntity;
+import demo.model.dto.PartUserAddVo;
 import demo.model.dto.PartUserReqVo;
 import demo.model.dto.SettleDateVo;
 import demo.mapper.PartTimeEntityMapper;
 import demo.mapper.PartTimeUserMapper;
 import demo.model.PartTimeUser;
+import demo.model.dto.UserAddVo;
 import demo.service.PartUserService;
 import demo.service.UserinfoService;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Part;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -57,7 +61,18 @@ public class PartUserServiceImp implements PartUserService {
     }
 
     @Override
-    public int updateEntity(PartTimeUser order) {
+    public int updateEntity(PartUserAddVo order) {
+        PartTimeUser pUser = partTimeUserMapper.selectByPrimaryKey(order.getId());
+        if(!StringUtils.isEmpty(order.getPassWord()) || !pUser.getPartQq().equals(order.getPartQq())){
+            UserinfoEntity user = userService.queryUserInfoByusername(pUser.getPartQq());//这里一定要用pUser
+            UserAddVo userVo = new UserAddVo();
+            userVo.setUid(user.getUid());
+            userVo.setPassword(order.getPassWord());
+            userVo.setUsername(order.getPartQq());
+            userVo.setName(order.getPartQq());
+            userVo.setSalt(SystemConstant.PART_SALT_STRING);
+            userService.editEntity(userVo);
+        }
         return partTimeUserMapper.updateByPrimaryKeySelective(order);
     }
 
