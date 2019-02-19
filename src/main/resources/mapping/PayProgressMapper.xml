@@ -109,5 +109,6 @@
     <include refid="Base_Column_List" />
     from oa_pay_process
     where order_id = #{orderId,jdbcType=INTEGER}
+    order by pay_date
   </select>
 </mapper>

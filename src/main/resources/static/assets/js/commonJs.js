@@ -2,10 +2,11 @@
 ajaxUri = "http://localhost:8080";
 workPayInit = false;
 var userRoleId = 0;
+var selTr;
 permissionList = [];
 curUserName = "";
 partNow = "";
-var full = 'full-220';
+var full = 'full-200';
 
 function getRandomString(len) {
     len = len || 32;
@@ -48,7 +49,7 @@ function setBttonPermission() {
         //console.log('val == ' + $(this).attr("value"))
         var liValue = $(this).attr("value");
         var pValue = partNow == '1' || partNow == '2' || partNow == '3' ? '' : partNow;
-        pValue = pValue == '' ? '' :  pValue + ':';
+        pValue = pValue == '' ? '' : pValue + ':';
         if (permissionList.indexOf(pValue + liValue) == -1 && permissionList.indexOf("all") == -1) {
             $(this).remove();
         } else {
@@ -210,12 +211,78 @@ function getTemplet() {
 }
 
 function checkOn(tableName) {
-    // table.on('row(' + tableName + ')', function (obj) {
-    //     var checkCell = obj.tr.find(".layui-form-checkbox")[0];
-    //     if (obj.tr.hasClass('layui-bg-orange')) {
-    //         obj.tr.removeClass('layui-bg-orange');
-    //     } else {
-    //         obj.tr.addClass('layui-bg-orange');
-    //     }
-    // });
+    table.on('rowDouble(' + tableName + ')', function (obj) {
+        // table.on('checkbox(' + tableName + ')', function (obj) {
+        //     debugger
+        //     var checkCell = obj.tr.find(".layui-form-checkbox")[0];
+        //     var checkCell2 = obj.tr.find(".layui-form-checkbox")[1];
+        //     if ($(checkCell).hasClass('layui-form-checked')) {
+        //         obj.tr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+        //             if (j < tdNum) {
+        //                 $(this).addClass("bg-form-tr");
+        //             }
+        //         });
+        //     }else {
+        //         obj.tr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+        //             if (j < tdNum) {
+        //                 $(this).removeClass("bg-form-tr");
+        //             }
+        //         });
+        //     }
+        //
+        //     if ($(checkCell2).hasClass('layui-form-checked')) {
+        //         obj.tr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+        //             if (j >= tdNum) {
+        //                 $(this).addClass("bg-form-tr");
+        //             }
+        //         });
+        //     }else {
+        //         obj.tr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+        //             if (j >= tdNum) {
+        //                 $(this).removeClass("bg-form-tr");
+        //             }
+        //         });
+        //     }
+
+        var data = obj.data;
+
+        //标注选中样式
+        if (selTr && selTr.attr("data-index") == obj.tr.attr("data-index")) {
+            obj.tr.children('td').slice(0, tdNum).removeClass('bg-form-tr');
+            selTr = null;
+            return;
+        }
+        obj.tr.children('td').slice(0, tdNum).addClass('bg-form-tr');
+        obj.tr.siblings().children('td').removeClass('bg-form-tr');
+        selTr = obj.tr;
+        var checkStatus = table.checkStatus(obj.config.id);
+        // if (selTr && selTr.hasClass('bg-form-tr')) {
+        //     selTr.removeClass('bg-form-tr');
+        //     selTr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+        //         // if (j < tdNum) {
+        //         $(this).removeClass("bg-form-tr");
+        //         // }
+        //     });
+        // }
+        // if (selTr && selTr.attr("data-index") == obj.tr.attr("data-index")) {
+        //     selTr = null;
+        //     return;
+        // }
+        //     selTr = obj.tr;
+        //     if (obj.tr.hasClass('bg-form-tr')) {
+        //         obj.tr.removeClass('bg-form-tr');
+        //         obj.tr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+        //             // if (j < tdNum) {
+        //             $(this).removeClass("bg-form-tr");
+        //             // }
+        //         });
+        //     } else {
+        //         obj.tr.addClass('bg-form-tr');
+        //         obj.tr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+        //             // if (j < tdNum) {
+        //             $(this).addClass("bg-form-tr");
+        //             // }
+        //         });
+        //     }
+    });
 }

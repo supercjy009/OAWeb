@@ -2,3 +2,11 @@
     /*background-color: #d0d0d0;*/
     background-color: #dcdcdc;
 }
+
+.layui-unselect {
+    color: #00a0f0;
+}
+
+.bg-form-tr {
+    background-color: #e6e3a2 !important;
+}

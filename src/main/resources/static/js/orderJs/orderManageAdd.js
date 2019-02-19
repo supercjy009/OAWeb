@@ -137,7 +137,7 @@ function deleteProgress(i) {
         btn: ['确定', '取消'] //按钮
     }, function () {
         $("#payProgress" + i).remove();
-        progressList.splice(i, 1,"");
+        progressList.splice(i, 1,null);
         console.log(progressList)
         layer.msg("移除成功")
     });
@@ -195,7 +195,7 @@ $("#addPayProgress").click(function () {
     // $("#payProgress").after(itemDiv);
     // form.render();
     //iframe窗
-    var ind = progressList.length;
+    var ind = progressList.length - 1;
     $("#payProgress").after("<div class='layui-form-item' id='payProgress" + ind + "'>" +
         "<label class='layui-form-label'><span style='color: red'>*</span> </label>" +
         "<label class='layui-form-label label_warp'>" + data.payDate + "</label>" +

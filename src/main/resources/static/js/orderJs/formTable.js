@@ -1,8 +1,9 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table, form,tdNum = 22;
-
+var table, form, tdNum = 22;
+var layuitable = null;  //当前的layui table
+var scrollTop = 0, scrollLeft = 0;      //记录位置
 var h1 = [
     {align: 'center', title: '客户交易登记表', colspan: tdNum},
     {align: 'center', title: '派单登记表', colspan: 15}];
@@ -13,10 +14,10 @@ var header = [ //表头
     {field: 'serviceName', title: '接单客服', width: 100, rowspan: 2}
     , {field: 'getOrderDate', title: '接单时间', width: 145, rowspan: 2}
     , {field: 'customerIm', title: '客户IM', width: 100, rowspan: 2}
-    , {field: 'orderNumber', title: '订单编号', width: 100, rowspan: 2}
+    , {field: 'orderNumber', title: '订单编号', width: 130, rowspan: 2}
     , {field: 'deliveryDate', title: '交稿时间', width: 145, rowspan: 2}
     , {field: 'customerMail', title: '客户邮箱', width: 100, rowspan: 2}
-    , {field: 'orderContent', title: '订单内容', width: 100, rowspan: 2}
+    , {field: 'orderContent', title: '订单内容', width: 145, rowspan: 2}
     , {field: 'orderPrice', title: '金额', width: 100, rowspan: 2}
     , {field: 'payState', title: '付款状态', width: 100, rowspan: 2, templet: '#payStateTpl'}
     , {field: 'payDate', event: 'viewProgress', style: 'cursor: pointer;', title: '付款进度', width: 110, rowspan: 2}
@@ -26,7 +27,7 @@ var header = [ //表头
     , {align: 'center', title: '退款详情', colspan: 6}
     , {field: 'audit', title: '审核', width: 100, templet: '#auditTpl', rowspan: 2}
     , {checkbox: true, rowspan: 2}
-    , {field: 'partQq', title: '兼职QQ', width: 100, rowspan: 2}
+    , {field: 'partQq', title: '兼职QQ', width: 130, rowspan: 2}
     , {field: 'submitState', title: '交稿状态', width: 100, rowspan: 2, templet: '#submitStateTpl'}
     , {field: 'partPhone', title: '兼职电话', width: 100, rowspan: 2}
     , {field: 'partAlipay', title: '兼职支付宝', width: 100, rowspan: 2}
@@ -153,6 +154,11 @@ layui.use(['table', 'form'], function () {
             //得到数据总量
             console.log(count);
             // $("#fromManageTable").rowspan(0)
+            //还原scroll位置
+            if (layuitable != null && layuitable.length > 0) {
+                layuitable[0].scrollTop = scrollTop;
+                layuitable[0].scrollLeft = scrollLeft;
+            }
         }
     });
 
@@ -481,7 +487,7 @@ function countData() {
                 }
             }
         });
-    }else {
+    } else {
         layer.alert("请先勾选需要统计的数据");
     }
 }
@@ -541,7 +547,7 @@ function addOrder() {
     var index = layer.open({
         type: 2,
         title: '新建',
-        shadeClose: true,
+        shadeClose: false,
         shade: 0.8,
         area: ['70%', '90%'],
         content: '/wenanPart/orderFormAdd',
@@ -564,7 +570,7 @@ function editOrder() {
         layer.open({
             type: 2,
             title: '修改',
-            shadeClose: true,
+            shadeClose: false,
             shade: 0.8,
             area: ['70%', '90%'],
             content: '/wenanPart/orderFormAdd',
@@ -667,6 +673,16 @@ function jiaogaoState() {
 
 function reloadTable() {
     // var workPayReload = $('#workPayReload');
+    //获取表格重载之前scrollTop位置
+    var dev_obj = document.getElementById('table_and_page_div_id'); //table的父div
+    if (dev_obj != null) {
+        layuitable = dev_obj.getElementsByClassName("layui-table-main");
+    }
+    if (layuitable != null && layuitable.length > 0) {
+        scrollTop = layuitable[0].scrollTop; //layuitable获取到的是 class=layui-table-main的集合
+        scrollLeft = layuitable[0].scrollLeft;
+    }
+
     table.reload('id', {
         page: {
             curr: 1 //重新从第 1 页开始

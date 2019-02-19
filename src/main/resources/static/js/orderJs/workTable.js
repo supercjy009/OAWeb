@@ -4,7 +4,7 @@
 var table, form, ins;
 
 var header = [ //表头
-    {checkbox: true, fixed: true},
+    {checkbox: true},
     {title: '序号', type: 'numbers'}
     // , {field: 'id', title: 'ID', width: 0, style: 'display:none;'}
     , {field: 'payDate', title: '支出日期'}

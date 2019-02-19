@@ -1,331 +1,306 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="demo.mapper.PartTimeEntityMapper">
-    <resultMap id="BaseResultMap" type="demo.model.PartTimeEntity">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="part_qq" jdbcType="VARCHAR" property="partQq"/>
-        <result column="submit_state" jdbcType="VARCHAR" property="submitState"/>
-        <result column="part_phone" jdbcType="VARCHAR" property="partPhone"/>
-        <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay"/>
-        <result column="part_money" jdbcType="DECIMAL" property="partMoney"/>
-        <result column="deduct" jdbcType="DECIMAL" property="deduct"/>
-        <result column="settle_date" jdbcType="TIMESTAMP" property="settleDate"/>
-        <result column="part_remark" jdbcType="VARCHAR" property="partRemark"/>
-        <result column="part_audit" jdbcType="VARCHAR" property="partAudit"/>
-        <result column="part_settle_state" jdbcType="VARCHAR" property="partSettleState"/>
-        <result column="finance_remark" jdbcType="VARCHAR" property="financeRemark"/>
-        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
-        <result column="service_name" jdbcType="VARCHAR" property="serviceName"/>
-        <result column="send_service_id" jdbcType="BIGINT" property="sendServiceId"/>
-        <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName"/>
-        <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="part_money_finance" jdbcType="VARCHAR" property="partMoneyFinance"/>
-        <result column="part_audit_finance" jdbcType="VARCHAR" property="partAuditFinance"/>
-        <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance"/>
-        <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark"/>
-        <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark"/>
-        <result column="is_delete" jdbcType="BIT" property="isDelete"/>
-    </resultMap>
-    <resultMap id="QueryResultMap" type="demo.model.dto.PartTimeDto">
-        <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="part_qq" jdbcType="VARCHAR" property="partQq"/>
-        <result column="submit_state" jdbcType="VARCHAR" property="submitState"/>
-        <result column="part_phone" jdbcType="VARCHAR" property="partPhone"/>
-        <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay"/>
-        <result column="part_money" jdbcType="DECIMAL" property="partMoney"/>
-        <result column="deduct" jdbcType="DECIMAL" property="deduct"/>
-        <result column="settle_date" jdbcType="TIMESTAMP" property="settleDate"/>
-        <result column="part_remark" jdbcType="VARCHAR" property="partRemark"/>
-        <result column="part_audit" jdbcType="VARCHAR" property="partAudit"/>
-        <result column="part_settle_state" jdbcType="VARCHAR" property="partSettleState"/>
-        <result column="finance_remark" jdbcType="VARCHAR" property="financeRemark"/>
-        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
-        <result column="service_name" jdbcType="VARCHAR" property="serviceName"/>
-        <result column="send_service_id" jdbcType="BIGINT" property="sendServiceId"/>
-        <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName"/>
-        <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="part_money_finance" jdbcType="VARCHAR" property="partMoneyFinance"/>
-        <result column="part_audit_finance" jdbcType="VARCHAR" property="partAuditFinance"/>
-        <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance"/>
-        <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark"/>
-        <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark"/>
-        <result column="is_delete" jdbcType="BIT" property="isDelete"/>
-        <result column="delivery_date" jdbcType="TIMESTAMP" property="deliveryDate"/>
-    </resultMap>
-
-    <sql id="Query_Column_List">
-    p.id, p.part_qq, p.submit_state, p.part_phone, p.part_alipay, p.part_money, p.deduct, p.settle_date,
-    p.part_remark, p.part_audit, p.part_settle_state, p.finance_remark, p.order_number, p.service_name,
-    p.send_service_id,p.send_service_name, p.part_money_real, p.create_time, p.part_money_finance, p.part_audit_finance,
-    p.part_settle_state_finance, p.part_finance_remark,p.part_user_remark,p.is_delete
-  </sql>
-
-    <sql id="Base_Column_List">
+  <resultMap id="BaseResultMap" type="demo.model.PartTimeEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="part_qq" jdbcType="VARCHAR" property="partQq" />
+    <result column="submit_state" jdbcType="VARCHAR" property="submitState" />
+    <result column="part_phone" jdbcType="VARCHAR" property="partPhone" />
+    <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay" />
+    <result column="part_money" jdbcType="DECIMAL" property="partMoney" />
+    <result column="deduct" jdbcType="DECIMAL" property="deduct" />
+    <result column="settle_date" jdbcType="TIMESTAMP" property="settleDate" />
+    <result column="part_remark" jdbcType="VARCHAR" property="partRemark" />
+    <result column="part_audit" jdbcType="VARCHAR" property="partAudit" />
+    <result column="part_settle_state" jdbcType="VARCHAR" property="partSettleState" />
+    <result column="finance_remark" jdbcType="VARCHAR" property="financeRemark" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="send_service_id" jdbcType="BIGINT" property="sendServiceId" />
+    <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName" />
+    <result column="order_master_hand" jdbcType="BIT" property="orderMasterHand" />
+    <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="part_money_finance" jdbcType="VARCHAR" property="partMoneyFinance" />
+    <result column="part_audit_finance" jdbcType="VARCHAR" property="partAuditFinance" />
+    <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance" />
+    <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark" />
+    <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
     id, part_qq, submit_state, part_phone, part_alipay, part_money, deduct, settle_date, 
     part_remark, part_audit, part_settle_state, finance_remark, order_number, service_name, 
-    send_service_id, send_service_name, part_money_real, create_time, part_money_finance, 
-    part_audit_finance, part_settle_state_finance, part_finance_remark, part_user_remark, 
-    is_delete
+    send_service_id, send_service_name, order_master_hand, part_money_real, create_time, 
+    part_money_finance, part_audit_finance, part_settle_state_finance, part_finance_remark, 
+    part_user_remark, is_delete
   </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from oa_part_time
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oa_part_time
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from oa_part_time
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="demo.model.PartTimeEntity">
+  <insert id="insert" parameterType="demo.model.PartTimeEntity">
     insert into oa_part_time (id, part_qq, submit_state, 
       part_phone, part_alipay, part_money, 
       deduct, settle_date, part_remark, 
       part_audit, part_settle_state, finance_remark, 
       order_number, service_name, send_service_id, 
-      send_service_name, part_money_real, create_time, 
-      part_money_finance, part_audit_finance, part_settle_state_finance, 
-      part_finance_remark, part_user_remark, is_delete
-      )
+      send_service_name, order_master_hand, part_money_real, 
+      create_time, part_money_finance, part_audit_finance, 
+      part_settle_state_finance, part_finance_remark, 
+      part_user_remark, is_delete)
     values (#{id,jdbcType=INTEGER}, #{partQq,jdbcType=VARCHAR}, #{submitState,jdbcType=VARCHAR}, 
       #{partPhone,jdbcType=VARCHAR}, #{partAlipay,jdbcType=VARCHAR}, #{partMoney,jdbcType=DECIMAL}, 
       #{deduct,jdbcType=DECIMAL}, #{settleDate,jdbcType=TIMESTAMP}, #{partRemark,jdbcType=VARCHAR}, 
       #{partAudit,jdbcType=VARCHAR}, #{partSettleState,jdbcType=VARCHAR}, #{financeRemark,jdbcType=VARCHAR}, 
       #{orderNumber,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, #{sendServiceId,jdbcType=BIGINT}, 
-      #{sendServiceName,jdbcType=VARCHAR}, #{partMoneyReal,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{partMoneyFinance,jdbcType=VARCHAR}, #{partAuditFinance,jdbcType=VARCHAR}, #{partSettleStateFinance,jdbcType=VARCHAR}, 
-      #{partFinanceRemark,jdbcType=VARCHAR}, #{partUserRemark,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}
-      )
+      #{sendServiceName,jdbcType=VARCHAR}, #{orderMasterHand,jdbcType=BIT}, #{partMoneyReal,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{partMoneyFinance,jdbcType=VARCHAR}, #{partAuditFinance,jdbcType=VARCHAR}, 
+      #{partSettleStateFinance,jdbcType=VARCHAR}, #{partFinanceRemark,jdbcType=VARCHAR}, 
+      #{partUserRemark,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT})
   </insert>
-    <insert id="insertSelective" parameterType="demo.model.PartTimeEntity">
-        insert into oa_part_time
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="partQq != null">
-                part_qq,
-            </if>
-            <if test="submitState != null">
-                submit_state,
-            </if>
-            <if test="partPhone != null">
-                part_phone,
-            </if>
-            <if test="partAlipay != null">
-                part_alipay,
-            </if>
-            <if test="partMoney != null">
-                part_money,
-            </if>
-            <if test="deduct != null">
-                deduct,
-            </if>
-            <if test="settleDate != null">
-                settle_date,
-            </if>
-            <if test="partRemark != null">
-                part_remark,
-            </if>
-            <if test="partAudit != null">
-                part_audit,
-            </if>
-            <if test="partSettleState != null">
-                part_settle_state,
-            </if>
-            <if test="financeRemark != null">
-                finance_remark,
-            </if>
-            <if test="orderNumber != null">
-                order_number,
-            </if>
-            <if test="serviceName != null">
-                service_name,
-            </if>
-            <if test="sendServiceId != null">
-                send_service_id,
-            </if>
-            <if test="sendServiceName != null">
-                send_service_name,
-            </if>
-            <if test="partMoneyReal != null">
-                part_money_real,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="partMoneyFinance != null">
-                part_money_finance,
-            </if>
-            <if test="partAuditFinance != null">
-                part_audit_finance,
-            </if>
-            <if test="partSettleStateFinance != null">
-                part_settle_state_finance,
-            </if>
-            <if test="partFinanceRemark != null">
-                part_finance_remark,
-            </if>
-            <if test="partUserRemark != null">
-                part_user_remark,
-            </if>
-            <if test="isDelete != null">
-                is_delete,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="partQq != null">
-                #{partQq,jdbcType=VARCHAR},
-            </if>
-            <if test="submitState != null">
-                #{submitState,jdbcType=VARCHAR},
-            </if>
-            <if test="partPhone != null">
-                #{partPhone,jdbcType=VARCHAR},
-            </if>
-            <if test="partAlipay != null">
-                #{partAlipay,jdbcType=VARCHAR},
-            </if>
-            <if test="partMoney != null">
-                #{partMoney,jdbcType=DECIMAL},
-            </if>
-            <if test="deduct != null">
-                #{deduct,jdbcType=DECIMAL},
-            </if>
-            <if test="settleDate != null">
-                #{settleDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="partRemark != null">
-                #{partRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="partAudit != null">
-                #{partAudit,jdbcType=VARCHAR},
-            </if>
-            <if test="partSettleState != null">
-                #{partSettleState,jdbcType=VARCHAR},
-            </if>
-            <if test="financeRemark != null">
-                #{financeRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="orderNumber != null">
-                #{orderNumber,jdbcType=VARCHAR},
-            </if>
-            <if test="serviceName != null">
-                #{serviceName,jdbcType=VARCHAR},
-            </if>
-            <if test="sendServiceId != null">
-                #{sendServiceId,jdbcType=BIGINT},
-            </if>
-            <if test="sendServiceName != null">
-                #{sendServiceName,jdbcType=VARCHAR},
-            </if>
-            <if test="partMoneyReal != null">
-                #{partMoneyReal,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="partMoneyFinance != null">
-                #{partMoneyFinance,jdbcType=VARCHAR},
-            </if>
-            <if test="partAuditFinance != null">
-                #{partAuditFinance,jdbcType=VARCHAR},
-            </if>
-            <if test="partSettleStateFinance != null">
-                #{partSettleStateFinance,jdbcType=VARCHAR},
-            </if>
-            <if test="partFinanceRemark != null">
-                #{partFinanceRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="partUserRemark != null">
-                #{partUserRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="isDelete != null">
-                #{isDelete,jdbcType=BIT},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="demo.model.PartTimeEntity">
-        update oa_part_time
-        <set>
-            <if test="partQq != null">
-                part_qq = #{partQq,jdbcType=VARCHAR},
-            </if>
-            <if test="submitState != null">
-                submit_state = #{submitState,jdbcType=VARCHAR},
-            </if>
-            <if test="partPhone != null">
-                part_phone = #{partPhone,jdbcType=VARCHAR},
-            </if>
-            <if test="partAlipay != null">
-                part_alipay = #{partAlipay,jdbcType=VARCHAR},
-            </if>
-            <if test="partMoney != null">
-                part_money = #{partMoney,jdbcType=DECIMAL},
-            </if>
-            <if test="deduct != null">
-                deduct = #{deduct,jdbcType=DECIMAL},
-            </if>
-            <if test="settleDate != null">
-                settle_date = #{settleDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="partRemark != null">
-                part_remark = #{partRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="partAudit != null">
-                part_audit = #{partAudit,jdbcType=VARCHAR},
-            </if>
-            <if test="partSettleState != null">
-                part_settle_state = #{partSettleState,jdbcType=VARCHAR},
-            </if>
-            <if test="financeRemark != null">
-                finance_remark = #{financeRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="orderNumber != null">
-                order_number = #{orderNumber,jdbcType=VARCHAR},
-            </if>
-            <if test="serviceName != null">
-                service_name = #{serviceName,jdbcType=VARCHAR},
-            </if>
-            <if test="sendServiceId != null">
-                send_service_id = #{sendServiceId,jdbcType=BIGINT},
-            </if>
-            <if test="sendServiceName != null">
-                send_service_name = #{sendServiceName,jdbcType=VARCHAR},
-            </if>
-            <if test="partMoneyReal != null">
-                part_money_real = #{partMoneyReal,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="partMoneyFinance != null">
-                part_money_finance = #{partMoneyFinance,jdbcType=VARCHAR},
-            </if>
-            <if test="partAuditFinance != null">
-                part_audit_finance = #{partAuditFinance,jdbcType=VARCHAR},
-            </if>
-            <if test="partSettleStateFinance != null">
-                part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR},
-            </if>
-            <if test="partFinanceRemark != null">
-                part_finance_remark = #{partFinanceRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="partUserRemark != null">
-                part_user_remark = #{partUserRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="isDelete != null">
-                is_delete = #{isDelete,jdbcType=BIT},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="demo.model.PartTimeEntity">
+  <insert id="insertSelective" parameterType="demo.model.PartTimeEntity">
+    insert into oa_part_time
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="partQq != null">
+        part_qq,
+      </if>
+      <if test="submitState != null">
+        submit_state,
+      </if>
+      <if test="partPhone != null">
+        part_phone,
+      </if>
+      <if test="partAlipay != null">
+        part_alipay,
+      </if>
+      <if test="partMoney != null">
+        part_money,
+      </if>
+      <if test="deduct != null">
+        deduct,
+      </if>
+      <if test="settleDate != null">
+        settle_date,
+      </if>
+      <if test="partRemark != null">
+        part_remark,
+      </if>
+      <if test="partAudit != null">
+        part_audit,
+      </if>
+      <if test="partSettleState != null">
+        part_settle_state,
+      </if>
+      <if test="financeRemark != null">
+        finance_remark,
+      </if>
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="sendServiceId != null">
+        send_service_id,
+      </if>
+      <if test="sendServiceName != null">
+        send_service_name,
+      </if>
+      <if test="orderMasterHand != null">
+        order_master_hand,
+      </if>
+      <if test="partMoneyReal != null">
+        part_money_real,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="partMoneyFinance != null">
+        part_money_finance,
+      </if>
+      <if test="partAuditFinance != null">
+        part_audit_finance,
+      </if>
+      <if test="partSettleStateFinance != null">
+        part_settle_state_finance,
+      </if>
+      <if test="partFinanceRemark != null">
+        part_finance_remark,
+      </if>
+      <if test="partUserRemark != null">
+        part_user_remark,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partQq != null">
+        #{partQq,jdbcType=VARCHAR},
+      </if>
+      <if test="submitState != null">
+        #{submitState,jdbcType=VARCHAR},
+      </if>
+      <if test="partPhone != null">
+        #{partPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="partAlipay != null">
+        #{partAlipay,jdbcType=VARCHAR},
+      </if>
+      <if test="partMoney != null">
+        #{partMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deduct != null">
+        #{deduct,jdbcType=DECIMAL},
+      </if>
+      <if test="settleDate != null">
+        #{settleDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partRemark != null">
+        #{partRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="partAudit != null">
+        #{partAudit,jdbcType=VARCHAR},
+      </if>
+      <if test="partSettleState != null">
+        #{partSettleState,jdbcType=VARCHAR},
+      </if>
+      <if test="financeRemark != null">
+        #{financeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendServiceId != null">
+        #{sendServiceId,jdbcType=BIGINT},
+      </if>
+      <if test="sendServiceName != null">
+        #{sendServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMasterHand != null">
+        #{orderMasterHand,jdbcType=BIT},
+      </if>
+      <if test="partMoneyReal != null">
+        #{partMoneyReal,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partMoneyFinance != null">
+        #{partMoneyFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partAuditFinance != null">
+        #{partAuditFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partSettleStateFinance != null">
+        #{partSettleStateFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partFinanceRemark != null">
+        #{partFinanceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="partUserRemark != null">
+        #{partUserRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="demo.model.PartTimeEntity">
+    update oa_part_time
+    <set>
+      <if test="partQq != null">
+        part_qq = #{partQq,jdbcType=VARCHAR},
+      </if>
+      <if test="submitState != null">
+        submit_state = #{submitState,jdbcType=VARCHAR},
+      </if>
+      <if test="partPhone != null">
+        part_phone = #{partPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="partAlipay != null">
+        part_alipay = #{partAlipay,jdbcType=VARCHAR},
+      </if>
+      <if test="partMoney != null">
+        part_money = #{partMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="deduct != null">
+        deduct = #{deduct,jdbcType=DECIMAL},
+      </if>
+      <if test="settleDate != null">
+        settle_date = #{settleDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partRemark != null">
+        part_remark = #{partRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="partAudit != null">
+        part_audit = #{partAudit,jdbcType=VARCHAR},
+      </if>
+      <if test="partSettleState != null">
+        part_settle_state = #{partSettleState,jdbcType=VARCHAR},
+      </if>
+      <if test="financeRemark != null">
+        finance_remark = #{financeRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sendServiceId != null">
+        send_service_id = #{sendServiceId,jdbcType=BIGINT},
+      </if>
+      <if test="sendServiceName != null">
+        send_service_name = #{sendServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMasterHand != null">
+        order_master_hand = #{orderMasterHand,jdbcType=BIT},
+      </if>
+      <if test="partMoneyReal != null">
+        part_money_real = #{partMoneyReal,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="partMoneyFinance != null">
+        part_money_finance = #{partMoneyFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partAuditFinance != null">
+        part_audit_finance = #{partAuditFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partSettleStateFinance != null">
+        part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR},
+      </if>
+      <if test="partFinanceRemark != null">
+        part_finance_remark = #{partFinanceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="partUserRemark != null">
+        part_user_remark = #{partUserRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="demo.model.PartTimeEntity">
     update oa_part_time
     set part_qq = #{partQq,jdbcType=VARCHAR},
       submit_state = #{submitState,jdbcType=VARCHAR},
@@ -342,6 +317,7 @@
       service_name = #{serviceName,jdbcType=VARCHAR},
       send_service_id = #{sendServiceId,jdbcType=BIGINT},
       send_service_name = #{sendServiceName,jdbcType=VARCHAR},
+      order_master_hand = #{orderMasterHand,jdbcType=BIT},
       part_money_real = #{partMoneyReal,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       part_money_finance = #{partMoneyFinance,jdbcType=VARCHAR},
@@ -352,11 +328,45 @@
       is_delete = #{isDelete,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <resultMap id="QueryResultMap" type="demo.model.dto.PartTimeDto">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="part_qq" jdbcType="VARCHAR" property="partQq" />
+        <result column="submit_state" jdbcType="VARCHAR" property="submitState" />
+        <result column="part_phone" jdbcType="VARCHAR" property="partPhone" />
+        <result column="part_alipay" jdbcType="VARCHAR" property="partAlipay" />
+        <result column="part_money" jdbcType="DECIMAL" property="partMoney" />
+        <result column="deduct" jdbcType="DECIMAL" property="deduct" />
+        <result column="settle_date" jdbcType="TIMESTAMP" property="settleDate" />
+        <result column="part_remark" jdbcType="VARCHAR" property="partRemark" />
+        <result column="part_audit" jdbcType="VARCHAR" property="partAudit" />
+        <result column="part_settle_state" jdbcType="VARCHAR" property="partSettleState" />
+        <result column="finance_remark" jdbcType="VARCHAR" property="financeRemark" />
+        <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+        <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+        <result column="send_service_id" jdbcType="BIGINT" property="sendServiceId" />
+        <result column="send_service_name" jdbcType="VARCHAR" property="sendServiceName" />
+        <result column="part_money_real" jdbcType="VARCHAR" property="partMoneyReal" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="part_money_finance" jdbcType="VARCHAR" property="partMoneyFinance" />
+        <result column="part_audit_finance" jdbcType="VARCHAR" property="partAuditFinance" />
+        <result column="part_settle_state_finance" jdbcType="VARCHAR" property="partSettleStateFinance" />
+        <result column="part_finance_remark" jdbcType="VARCHAR" property="partFinanceRemark" />
+        <result column="part_user_remark" jdbcType="VARCHAR" property="partUserRemark" />
+        <result column="is_delete" jdbcType="BIT" property="isDelete" />
+        <result column="delivery_date" jdbcType="TIMESTAMP" property="deliveryDate" />
+    </resultMap>
+
+    <sql id="Query_Column_List">
+    p.id, p.part_qq, p.submit_state, p.part_phone, p.part_alipay, p.part_money, p.deduct, p.settle_date,
+    p.part_remark, p.part_audit, p.part_settle_state, p.finance_remark, p.order_number, p.service_name,
+    p.send_service_id,p.send_service_name, p.part_money_real, p.create_time, p.part_money_finance, p.part_audit_finance,
+    p.part_settle_state_finance, p.part_finance_remark,p.part_user_remark,p.is_delete
+  </sql>
 
 
     <select id="getOrderPartByQq" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from oa_part_time
         where order_number = #{orderNumber,jdbcType=VARCHAR} AND part_qq = #{partQq,jdbcType=VARCHAR}
     </select>
@@ -374,7 +384,7 @@
     <!-- 这个方法是我自己加的 -->
     <select id="selectAllOrder" parameterType="demo.model.dto.PartOrderReqVo" resultMap="QueryResultMap">
         select
-        <include refid="Query_Column_List"/>,o.delivery_date
+        <include refid="Query_Column_List" />,o.delivery_date
         from oa_part_time p
         left join oa_order o on p.order_number = o.order_number
         <where>
@@ -405,20 +415,6 @@
         order by create_time desc
     </select>
 
-    <update id="updateIsDelete">
-        <!--
-          WARNING - @mbg.generated
-          This element is automatically generated by MyBatis Generator, do not modify.
-        -->
-        update oa_part_time set is_delete = 1
-        where id
-        in
-        <foreach item="item" index="index" collection="ids"
-                 open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
-
     <update id="addSettleDate" parameterType="demo.model.dto.SettleDateVo">
         update oa_part_time
         <set>
@@ -428,45 +424,8 @@
 
         </set>
         where id in
-        <foreach item="item" index="index" collection="ids"
-                 open="(" separator="," close=")">
+        <foreach close=")" collection="ids" index="index" item="item" open="(" separator=",">
             #{item}
         </foreach>
-    </update>
-
-    <update id="auditOrder" parameterType="demo.model.dto.AuditVo">
-        <!--
-          WARNING - @mbg.generated
-          This element is automatically generated by MyBatis Generator, do not modify.
-        -->
-        update oa_part_time
-        <set>
-            <if test="audit != null">
-                part_audit_finance = #{audit,jdbcType=VARCHAR},
-            </if>
-
-            <if test="settle != null">
-                part_settle_state_finance = #{settle,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id in
-        <foreach item="item" index="index" collection="ids"
-                 open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
-
-    <update id="editFinaRemark">
-        <!--
-          WARNING - @mbg.generated
-          This element is automatically generated by MyBatis Generator, do not modify.
-        -->
-        update oa_part_time
-        <set>
-            <if test="financeRemark != null">
-                finance_remark = #{financeRemark,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=BIGINT}
     </update>
 </mapper>

@@ -64,6 +64,7 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
+    @Transactional
     public int addOrder(OrderVo order) {
         OrderEntity entity = orderEntityMapper.selectByOrderNumber(order.getOrderNumber());
         if (entity != null) {
@@ -79,6 +80,9 @@ public class OrderServiceImp implements OrderService {
         if (order.getProgressList() != null && order.getProgressList().size() != 0) {
             for (int i = 0; i < order.getProgressList().size(); i++) {
                 PayProgress payProgress = order.getProgressList().get(i);
+                if (payProgress == null) {
+                    continue;
+                }
                 payProgress.setOrderId(orderId.intValue());
                 progressMapper.insert(payProgress);
             }
@@ -99,6 +103,9 @@ public class OrderServiceImp implements OrderService {
 
             for (int i = 0; i < order.getProgressList().size(); i++) {
                 PayProgress payProgress = order.getProgressList().get(i);
+                if (payProgress == null) {
+                    continue;
+                }
                 if (payProgress.getId() != null && oldIds.contains(payProgress.getId())) {//包含说明没有被删除
                     oldIds.remove(payProgress.getId());
                 } else {
@@ -150,7 +157,7 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartAlipay(partTimeUser.getPartAlipay());
 //        partTime.setPartMoneyReal("0");//实发稿酬
         partTime.setCreateTime(new Date());//派单日期
-
+        partTime.setOrderMasterHand(partTimeUser.getMasterHand());
         partTimeMapper.insert(partTime);
         //更新最近接单日和接单数量
         partTimeUser.setRecentOrderDate(new Date());
@@ -185,6 +192,7 @@ public class OrderServiceImp implements OrderService {
 //            partUserMapper.updateByPrimaryKeySelective(partTimeUser);
 //
 //        }
+        partTime.setPartAudit("0");
         partTime.setPartRemark(vo.getPartRemark());
         partTime.setPartMoney(vo.getPartMoney());
         partTime.setDeduct(vo.getDeduct());

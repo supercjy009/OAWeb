@@ -36,6 +36,8 @@ public class PartTimeEntity {
 
     private String sendServiceName;
 
+    private Boolean orderMasterHand;
+
     private String partMoneyReal;
 
     private Date createTime;
@@ -97,7 +99,7 @@ public class PartTimeEntity {
     }
 
     public void setPartMoney(BigDecimal partMoney) {
-        this.partMoney = partMoney == null ? partMoney : partMoney.stripTrailingZeros();
+        this.partMoney = partMoney;
     }
 
     public BigDecimal getDeduct() {
@@ -105,7 +107,7 @@ public class PartTimeEntity {
     }
 
     public void setDeduct(BigDecimal deduct) {
-        this.deduct = deduct == null ? deduct : deduct.stripTrailingZeros();
+        this.deduct = deduct;
     }
 
     public Date getSettleDate() {
@@ -178,6 +180,14 @@ public class PartTimeEntity {
 
     public void setSendServiceName(String sendServiceName) {
         this.sendServiceName = sendServiceName == null ? null : sendServiceName.trim();
+    }
+
+    public Boolean getOrderMasterHand() {
+        return orderMasterHand;
+    }
+
+    public void setOrderMasterHand(Boolean orderMasterHand) {
+        this.orderMasterHand = orderMasterHand;
     }
 
     public String getPartMoneyReal() {

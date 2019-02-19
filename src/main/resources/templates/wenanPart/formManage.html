@@ -15,13 +15,15 @@
         padding: 6px 12px !important;
     }
 
-    .countStyle{
+    .countStyle {
         padding: 30px;
     }
-    .countStyle strong{
+
+    .countStyle strong {
         margin: 5px;
     }
-    .countStyle span{
+
+    .countStyle span {
         margin-right: 10px;
     }
 </style>
@@ -67,7 +69,7 @@
             </div>
             <div class="layui-input-inline">
                 <select id="payState" lay-filter="" lay-verify="required">
-                    <option value="" selected="">付款状态</option>
+                    <option value="" selected="" class="sel_color">付款状态</option>
                     <!--<option value="">全部</option>-->
                     <option value="1">已付</option>
                     <option value="0">未付</option>
@@ -108,7 +110,7 @@
                 </select>
             </div>
             <!--<div class="layui-input-inline">-->
-                <input type="checkbox" lay-filter="hideSettle" id="hideSettle" lay-skin="primary" title="隐藏已付且已结">
+            <input type="checkbox" lay-filter="hideSettle" id="hideSettle" lay-skin="primary" title="隐藏已付且已结">
             <!--</div>-->
         </div>
         <div class="layui-form-item" style="display: inline-block;margin-bottom: 0;">
@@ -164,7 +166,9 @@
     </div>
 
     <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table>
-    <table id="fromManageTable" lay-filter="fromManage"></table>
+    <div class="table-responsive" id="table_and_page_div_id">
+        <table id="fromManageTable" lay-filter="fromManage"></table>
+    </div>
 </div>
 
 
@@ -228,11 +232,11 @@
                 lay-event="export"><span>导出</span>
         </button>
 
-        <button name="btn:pms" value="order:set" style="display:none;margin: 0" class="btn btn-primary"
+        <button name="btn:pms" value="order:count" style="display:none;margin: 0" class="btn btn-primary"
                 lay-event="count"><span>统计</span>
         </button>
 
-        <button name="btn:pms" value="order:set" style="display:none;margin: 0" class="btn btn-danger"
+        <button name="btn:pms" value="order:deleteMore" style="display:none;margin: 0" class="btn btn-danger"
                 lay-event="deleteMultiOrder"><span>批量删除</span>
         </button>
         <!--<button class="btn btn-primary marginr"><span>导出</span>-->
