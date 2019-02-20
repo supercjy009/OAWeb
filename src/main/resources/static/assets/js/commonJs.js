@@ -6,7 +6,7 @@ var selTr;
 permissionList = [];
 curUserName = "";
 partNow = "";
-var full = 'full-200';
+var full = 'full-220';
 
 function getRandomString(len) {
     len = len || 32;
@@ -255,7 +255,7 @@ function checkOn(tableName) {
         obj.tr.children('td').slice(0, tdNum).addClass('bg-form-tr');
         obj.tr.siblings().children('td').removeClass('bg-form-tr');
         selTr = obj.tr;
-        var checkStatus = table.checkStatus(obj.config.id);
+        // var checkStatus = table.checkStatus(obj.config.id);
         // if (selTr && selTr.hasClass('bg-form-tr')) {
         //     selTr.removeClass('bg-form-tr');
         //     selTr.children('td').each(function (j) {  // 遍历 tr 的各个 td

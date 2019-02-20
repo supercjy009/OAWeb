@@ -27,7 +27,8 @@ public class PartTimeServiceImp implements PartTimeService {
     PartTimeEntityMapper partTimeMapper;
     @Resource
     SysUserroleServiceImp sysUserroleServiceImp;
-
+    @Resource
+    SysPermissionSerivceImp sysPermissionSerivceImp;
     @Override
     public PageInfo<PartTimeDto> queryAllOrder(PartOrderReqVo vo) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
@@ -38,6 +39,9 @@ public class PartTimeServiceImp implements PartTimeService {
         if (SystemConstant.PART_ROLE_ID.equals(roleId)) {
             vo.setPartQq(userinfoEntity.getUsername());
         }
+        List<String> permissions = sysPermissionSerivceImp.selectPermissionListByRoleId();
+        vo.setSeeAll(permissions.contains("partTime:order:all") || permissions.contains("all"));
+        vo.setUid(userinfoEntity.getUid());
         List<PartTimeDto> partList = partTimeMapper.selectAllOrder(vo);
         return new PageInfo<>(partList);
     }

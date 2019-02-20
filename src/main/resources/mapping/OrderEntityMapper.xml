@@ -492,7 +492,7 @@
                 AND (customer_im LIKE '%${keyWord}%' OR o.order_number LIKE '%${keyWord}%')
             </if>
             <if test="hideSettle == true">
-                AND (pay_state != '1' OR part_settle_state != '1')
+                AND (pay_state != '1' OR part_settle_state != '1' OR p.id is null)
             </if>
             <if test="seeAll == null or seeAll == false">
                 AND r1.uid = #{uid,jdbcType=BIGINT}

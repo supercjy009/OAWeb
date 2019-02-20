@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class PartOrderReqVo {
+public class PartOrderReqVo extends BaseReqDto{
     private String partAuditFinance;
     private String partSettleStateFinance;
     private String moneyState;

@@ -61,7 +61,8 @@ layui.use(['table', 'form'], function () {
                 //设置待审核单元格背景颜色
                 var audit = data[i].partAuditFinance;
                 var settle = data[i].partSettleStateFinance;
-                if (audit == null || (audit === '0' && settle=== '-1')) {
+                // if (audit == null || (audit === '0' && settle=== '-1')) {
+                if (audit === '0' && settle=== '-1') {
                     $($checktr[0]).addClass("changeGray");
                     $($checktr[1]).addClass("changeGray");
                 }
@@ -163,7 +164,7 @@ function editEntity(flag) {
                 var iframe = window['layui-layer-iframe' + index];
                 // 向子页面的全局函数child传参
 
-                iframe.initEdit(data);
+                iframe.initEdit(data,flag);
             }
         });
     } else if (data.length > 1) {

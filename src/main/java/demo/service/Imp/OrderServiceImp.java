@@ -151,8 +151,8 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartSettleState("0");//状态待结
         partTime.setSubmitState("0");//状态待交稿
         partTime.setDeduct(BigDecimal.ZERO);//应扣初始化为0
-        partTime.setPartAuditFinance("0"); //兼职接单表审核状态
-        partTime.setPartSettleStateFinance("0"); //兼职接单表结算状态
+//        partTime.setPartAuditFinance("0"); //兼职接单表审核状态
+//        partTime.setPartSettleStateFinance("-1"); //兼职接单表结算状态
         partTime.setPartPhone(partTimeUser.getPartPhone());
         partTime.setPartAlipay(partTimeUser.getPartAlipay());
 //        partTime.setPartMoneyReal("0");//实发稿酬

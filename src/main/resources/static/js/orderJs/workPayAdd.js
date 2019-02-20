@@ -13,13 +13,6 @@ $("#close").click(function () {
 function init() {
     layui.use(['form', 'laydate'], function () {
         form = layui.form, laydate = layui.laydate;
-        //日期
-        laydate.render({
-            elem: '#date',
-            type: 'date', //只选年月日
-            value: new Date(),
-            isInitValue: true
-        });
 
         //各种基于事件的操作，下面会有进一步介绍
 
@@ -59,8 +52,12 @@ function init() {
             }
             return false;
         });
-
         if (editData) {
+            //日期
+            laydate.render({
+                elem: '#date',
+                type: 'date', //只选年月日
+            });
             // alert("aaa"+editData[0].id);
             form.val('payEdit', {
                 "payDate": editData[0].payDate // "name": "value"
@@ -69,6 +66,14 @@ function init() {
                 , "remark": editData[0].remark
                 , "getUser": editData[0].getUser
             })
+        }else {
+            //日期
+            laydate.render({
+                elem: '#date',
+                type: 'date', //只选年月日
+                value: new Date(),
+                isInitValue: true
+            });
         }
     });
 }

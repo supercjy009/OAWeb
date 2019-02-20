@@ -115,7 +115,7 @@
 </script>
 
 <script type="text/html" id="partAuditTpl">
-    {{#  if(d.partAuditFinance === '0' || d.partAuditFinance == null){ }}
+    {{#  if(d.partAuditFinance === '0'){ }}
     <span style="color: #f52727;">{{ '待审' }}</span>
     {{#  } else if(d.partAuditFinance === '1') { }}
     {{ '已审' }}
@@ -123,8 +123,8 @@
 </script>
 
 <script type="text/html" id="settleTpl">
-    {{#  if(d.partSettleStateFinance === '0' || d.partSettleStateFinance == null){ }}
-    <span style="color: #f52727;">{{ '待结' }}</span>
+    {{#  if(d.partSettleStateFinance === '0'){ }}
+    <span style="color: #414bf5;">{{ '待结' }}</span>
     {{#  } else if(d.partSettleStateFinance === '1') { }}
     {{ '已结' }}
     {{#  } else if(d.partSettleStateFinance === '-1') { }}

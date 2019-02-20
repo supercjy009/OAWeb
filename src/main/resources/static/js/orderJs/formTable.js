@@ -59,7 +59,7 @@ layui.use(['table', 'form'], function () {
         id: 'id',
         elem: '#fromManageTable',
         title: getTitlePart() + '订单',
-        height: full,
+        height: 'full-200',
         // skin: 'row',
         url: ajaxUri + '/webAjax/order/queryAllOrder?partName=' + partNow, //数据接口
         toolbar: '#toolbarDemo',
@@ -143,7 +143,8 @@ layui.use(['table', 'form'], function () {
                 }
                 //设置兼职待审核单元格背景颜色
                 var partAudit = data[i].partAudit;
-                if (partAudit === '0') {
+                var partSettleState = data[i].partSettleState;
+                if (partAudit === '0' && partSettleState === '0') {
                     $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
                         if (j >= tdNum) {
                             $(this).addClass("changeGray");
@@ -240,28 +241,7 @@ layui.use(['table', 'form'], function () {
 
     form.on('checkbox(hideSettle)', function (data) { //监听下拉框
         // alert(data.elem.checked);
-        table.reload('id', {
-            page: {
-                curr: 1 //重新从第 1 页开始
-            }
-            , where: {
-                orderDateReq: $('#getOrderDate').val(),
-                deliveryDateReq: $('#deliveryDate').val(),
-                payState: $('#payState').val(),
-                submitState: $('#submitState').val(),
-                partInfo: $('#partInfo').val(),
-                masterHand: $('#masterHand').val(),
-                referrer: $('#referrer').val(),
-                serviceId: $('#serviceName').val(),
-                sendServiceId: $('#sendServiceName').val(),
-                audit: $('#audit').val(),
-                partAudit: $('#partAudit').val(),
-                partSettleState: $('#partSettleState').val(),
-                settleDate: $('#settleDate').val(),
-                keyWord: $('#keyWord').val(),
-                hideSettle: data.elem.checked
-            }
-        });
+        reloadTable(data.elem.checked);
     })
 
 });
@@ -621,17 +601,21 @@ function submitAudit(flag) {
     var title
     var checkStatus = table.checkStatus('id')
         , data = checkStatus.data;
+    var area = ['220px', '270px'];
     if (flag == 'audit') {
         title = "订单审核";
     } else if (flag == 'partAudit') {
         title = "兼职审核";
+        area = ['220px', '220px'];
     } else if (flag == 'submit') {
+        area = ['220px', '220px'];
         title = "交稿状态";
         if (data.length > 1) {
             layer.alert("不能勾选多条数据");
             return;
         }
     } else if (flag == 'settle') {
+        area = ['220px', '220px'];
         title = "结算"
     }
     if (data.length >= 1) {
@@ -641,6 +625,7 @@ function submitAudit(flag) {
             title: title,
             shadeClose: true,
             shade: 0.8,
+            area: area,
             content: '/widget/auditOrder',
             success: function (layero, index) {
                 // 获取子页面的iframe
@@ -671,7 +656,7 @@ function jiaogaoState() {
 }
 
 
-function reloadTable() {
+function reloadTable(hideSettle) {
     // var workPayReload = $('#workPayReload');
     //获取表格重载之前scrollTop位置
     var dev_obj = document.getElementById('table_and_page_div_id'); //table的父div
@@ -701,7 +686,8 @@ function reloadTable() {
             partAudit: $('#partAudit').val(),
             partSettleState: $('#partSettleState').val(),
             settleDate: $('#settleDate').val(),
-            keyWord: $('#keyWord').val()
+            keyWord: $('#keyWord').val(),
+            hideSettle: hideSettle
         }
     });
 }
