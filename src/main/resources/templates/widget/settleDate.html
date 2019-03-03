@@ -55,6 +55,7 @@
                 }, function () {
                     layer.msg(JSON.stringify(data.field));
                     json.settleDate = data.field.settleDate
+                    json.fieldName = flagStr === 11 ? "partOrder" : "part";
                     var jasondata = JSON.stringify(json);
                     $.ajax({
                         type: 'POST',

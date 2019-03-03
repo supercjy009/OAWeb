@@ -448,6 +448,9 @@
                 AND `delivery_date` &gt;= #{deliveryDateStart, jdbcType=TIMESTAMP} AND `delivery_date` &lt;=
                 DATE_FORMAT(#{deliveryDateEnd},'%Y-%m-%d 23:59:59')
             </if>
+            <if test="partInfo != null and partInfo != ''">
+                AND part_qq LIKE '%${partInfo}%'
+            </if>
             <if test="payState != null and payState !='' and payState != '-100'">
                 AND pay_state = #{payState,jdbcType=VARCHAR}
             </if>
@@ -475,11 +478,17 @@
             <if test="partName != null and partName !=''">
                 AND part_name = #{partName,jdbcType=VARCHAR}
             </if>
-            <if test="audit != null and audit !=''">
+            <if test="audit != null and audit !='' and audit != 0">
                 AND audit = #{audit,jdbcType=VARCHAR}
             </if>
-            <if test="partAudit != null and partAudit !=''">
+            <if test="audit !='' and audit == 0">
+                AND (audit is NULL OR audit = '' OR audit = '0')
+            </if>
+            <if test="partAudit != null and partAudit !='' and partAudit != 0">
                 AND part_audit = #{partAudit,jdbcType=VARCHAR}
+            </if>
+            <if test="partAudit !='' and partAudit == 0">
+                AND (part_Qq is not null  AND part_audit is NULL OR part_audit = '' OR part_audit = '0')
             </if>
             <if test="partSettleState != null and partSettleState !=''">
                 AND part_settle_state = #{partSettleState,jdbcType=VARCHAR}

@@ -6,7 +6,7 @@ var table, ins;
 var h1 = [
     {checkbox: true, fixed: 'left', rowspan: 2}
     , {title: '序号', type: 'numbers', rowspan: 2}
-    , {field: 'partQq', title: '兼职QQ', rowspan: 2, width: 100}
+    , {field: 'partQq', title: '兼职QQ', rowspan: 2, width: 120}
     , {align: 'center', title: '兼职接单登记表', colspan: 9}
     , {align: 'center', title: '财务结算登记表', colspan: 6}];
 

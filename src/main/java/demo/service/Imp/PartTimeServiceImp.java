@@ -105,7 +105,7 @@ public class PartTimeServiceImp implements PartTimeService {
             EditRecordEntity record = new EditRecordEntity();
             record.setRecordId(id);
             record.setFieldName("settleDate");
-            record.setTableName("partOrder");
+            record.setTableName(vo.getFieldName());
             EditRecordEntity key = recordMapper.selectByPrimaryKey(record);
             if (key == null) {
                 recordMapper.insert(record);

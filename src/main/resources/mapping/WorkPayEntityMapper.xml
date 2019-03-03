@@ -205,8 +205,11 @@
             <if test="payUser != null and payUser !=''">
                 and pay_user = #{payUser,jdbcType=VARCHAR}
             </if>
-            <if test="audit != null and audit !=''">
-                and audit = #{audit,jdbcType=VARCHAR}
+            <if test="audit != null and audit !='' and audit != 0">
+                AND audit = #{audit,jdbcType=VARCHAR}
+            </if>
+            <if test="audit !='' and audit == 0">
+                AND (audit is NULL OR audit = '' OR audit = '0')
             </if>
             <if test="settle != null and settle !=''">
                 and settle = #{settle,jdbcType=VARCHAR}

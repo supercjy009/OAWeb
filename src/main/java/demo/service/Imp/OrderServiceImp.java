@@ -186,7 +186,7 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartAudit("");//审核待审(改为空，标志为初始状态)
         partTime.setPartSettleState("0");//状态待结
         partTime.setSubmitState("0");//状态待交稿
-        partTime.setDeduct(BigDecimal.ZERO);//应扣初始化为0
+//        partTime.setDeduct(BigDecimal.ZERO);//应扣初始化为0
 //        partTime.setPartAuditFinance("0"); //兼职接单表审核状态
 //        partTime.setPartSettleStateFinance("-1"); //兼职接单表结算状态
         partTime.setPartPhone(partTimeUser.getPartPhone());
@@ -226,7 +226,7 @@ public class OrderServiceImp implements OrderService {
     @Transactional
     public int editPart(AppointPartVo vo) {
         PartTimeEntity originalPartTime = partTimeMapper.selectByPrimaryKey(vo.getPartId());
-
+        PartTimeEntity partTimeEdit = new PartTimeEntity();
 //        PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
 //        if (StringUtils.isEmpty(partTime.getDeduct()) && partTimeUser != null) {
 //            //更新问题率
@@ -235,18 +235,15 @@ public class OrderServiceImp implements OrderService {
 //            partUserMapper.updateByPrimaryKeySelective(partTimeUser);
 //
 //        }
-        PartTimeEntity partTimeEdit = new PartTimeEntity();
         partTimeEdit.setId(vo.getPartId());
-        partTimeEdit.setPartAudit("0");
-
         partTimeEdit.setPartRemark(vo.getPartRemark());
         partTimeEdit.setPartMoney(vo.getPartMoney());
-        partTimeEdit.setDeduct(vo.getDeduct());
+        //为了变色，因为null应扣就不能变色了。。compareEntity里有判断
+        partTimeEdit.setDeduct(vo.getDeduct() == null ? new BigDecimal(1234.4321) : vo.getDeduct());
 
         //记录哪些单元格需要变色
         List<String> rec = new ArrayList<>();
         try {
-            originalPartTime.setPartAudit("0");
             rec = EntityUtil.compareEntity(originalPartTime, partTimeEdit);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -261,7 +258,11 @@ public class OrderServiceImp implements OrderService {
                 recordMapper.insert(record);
             }
         }
-        return partTimeMapper.updateByPrimaryKeySelective(partTimeEdit);
+        originalPartTime.setPartAudit("0");
+        originalPartTime.setPartRemark(vo.getPartRemark());
+        originalPartTime.setPartMoney(vo.getPartMoney());
+        originalPartTime.setDeduct(vo.getDeduct());
+        return partTimeMapper.updateByPrimaryKey(originalPartTime);
     }
 
     @Override

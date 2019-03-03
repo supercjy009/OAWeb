@@ -277,7 +277,7 @@
                 DATE_FORMAT(#{recentDateEnd},'%Y-%m-%d 23:59:59')
             </if>
             <if test="flag != null and flag !=''">
-                AND o.part_qq = #{flag,jdbcType=VARCHAR}
+                AND o.part_qq LIKE '%${flag}%'
             </if>
             <if test="getOrderNumber != null">
                 AND o.get_order_number = #{getOrderNumber,jdbcType=INTEGER}

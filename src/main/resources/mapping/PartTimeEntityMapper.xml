@@ -391,8 +391,11 @@
             <if test="keyWord != null and keyWord !=''">
                 (p.send_service_name LIKE '%${keyWord}%' OR p.order_number LIKE '%${keyWord}%')
             </if>
-            <if test="partAuditFinance != null and partAuditFinance !=''">
+            <if test="partAuditFinance != null and partAuditFinance !='' and partAuditFinance != 0">
                 and p.part_audit_finance = #{partAuditFinance,jdbcType=VARCHAR}
+            </if>
+            <if test="partAuditFinance !='' and partAuditFinance == 0">
+                AND (p.part_audit_finance is NULL OR p.part_audit_finance = '' OR p.part_audit_finance = '0')
             </if>
             <if test="partSettleStateFinance != null and partSettleStateFinance !=''">
                 and p.part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR}
@@ -436,9 +439,14 @@
         update oa_part_time
         <set>
             <if test="settleDate != null">
-                settle_date = #{settleDate,jdbcType=TIMESTAMP}, part_settle_state = '1'
+                settle_date = #{settleDate,jdbcType=TIMESTAMP}, part_settle_state = '1',
             </if>
-
+            <if test="fieldName == 'part'">
+                part_audit = '0'
+            </if>
+            <if test="fieldName == 'partOrder'">
+                part_audit_finance = '0'
+            </if>
         </set>
         where id in
         <foreach item="item" index="index" collection="ids"

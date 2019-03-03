@@ -93,7 +93,7 @@
     <script src="/js/orderJs/workTable.js"></script>
 
     <script type="text/html" id="auditTpl">
-        {{#  if(d.audit === '0'){ }}
+        {{#  if(d.audit === '0' || !d.audit || d.audit == ''){ }}
         <span style="color: #f52727;">{{ '待审' }}</span>
         {{#  } else { }}
         {{ '已审' }}

@@ -290,6 +290,39 @@ function InitParentMenu() {
             form.render('select');
         }
     });
+
+    //兼职信息
+    layui.config({
+        base: '/assets/layui/'
+    })
+
+    layui.use(['tableSelect'], function () {
+        var tableSelect = layui.tableSelect;
+        tableSelect.render({
+            elem: '#partQq',	//定义输入框input对象
+            searchKey: 'flag',	//搜索输入框的name值 默认keyword
+            searchPlaceholder: '兼职QQ',	//搜索输入框的提示文字 默认关键词搜索
+            table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem
+                url: ajaxUri + '/webAjax/partUser/queryAllOrder',
+                cols: [[
+                    {type: 'radio'},
+                    {field: 'partQq', title: 'QQ', width: 110}
+                    , {field: 'recentOrderDate', title: '最近接单日', width: 110}
+                    , {field: 'getOrderNumber', title: '接单数量', width: 100}
+                    , {field: 'problemRate', title: '问题率', width: 80}
+                    , {field: 'outSettleCount', title: '待结数', width: 80}
+                    , {field: 'outDeliveryCount', title: '待交数', width: 80}
+                    , {field: 'major', title: '专业'}
+                    , {field: 'englishLevel', title: '英语水平', width: 100}
+                ] ]
+            },
+            done: function (elem, data) {
+                //选择完后的回调，包含2个返回值 elem:返回之前input对象；data:表格返回的选中的数据 []
+                //拿到data[]后 就按照业务需求做想做的事情啦~比如加个隐藏域放ID...
+                $(elem).val(data.data[0].partQq);
+            }
+        })
+    });
 }
 
 function financeRemark() {
@@ -691,7 +724,7 @@ function reloadTable(hideSettle) {
             deliveryDateReq: $('#deliveryDate').val(),
             payState: $('#payState').val(),
             submitState: $('#submitState').val(),
-            partInfo: $('#partInfo').val(),
+            partInfo: $('#partQq').val(),
             masterHand: $('#masterHand').val(),
             referrer: $('#referrer').val(),
             serviceId: $('#serviceName').val(),

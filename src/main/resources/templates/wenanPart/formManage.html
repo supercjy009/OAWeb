@@ -68,6 +68,10 @@
                        class="layui-input">
             </div>
             <div class="layui-input-inline">
+                <input type="text" id="partQq" name="partQq" placeholder="兼职信息" lay-verify="" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-input-inline">
                 <select id="payState" lay-filter="" lay-verify="required">
                     <option value="" selected="" class="sel_color">付款状态</option>
                     <!--<option value="">全部</option>-->
@@ -84,13 +88,6 @@
                     <!--<option value="">全部</option>-->
                     <option value="0">待交</option>
                     <option value="1">已交</option>
-                </select>
-            </div>
-            <div class="layui-input-inline">
-                <select id="partInfo" lay-filter="" lay-verify="required">
-                    <option value="" selected="">兼职信息</option>
-                    <!--<option value="1">a</option>-->
-                    <!--<option value="2">b</option>-->
                 </select>
             </div>
             <div class="layui-input-inline">
@@ -288,7 +285,7 @@
 </script>
 
 <script type="text/html" id="partAuditTpl">
-    {{#  if(d.partAudit === '0' || !d.partAudit || d.partAudit == ''){ }}
+    {{#  if(d.partAudit === '0' || (d.partQq && (!d.partAudit || d.partAudit == ''))){ }}
     <span style="color: #f52727;">{{ '待审' }}</span>
     {{#  } else if(d.partAudit === '1') { }}
     {{ '已审' }}
