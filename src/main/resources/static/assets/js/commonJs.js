@@ -1,5 +1,5 @@
-// ajaxUri = "http://47.99.47.49:8080";
-ajaxUri = "http://localhost:8080";
+ajaxUri = "http://47.99.47.49:8080";
+// ajaxUri = "http://localhost:8080";
 workPayInit = false;
 var userRoleId = 0;
 var selTr;
@@ -56,6 +56,26 @@ function setBttonPermission() {
             $(this).show();
         }
     });
+}
+
+function getEditRecord(tableName) {
+    // 初始化
+    var record = null;
+    $.ajax({
+        // url: 'tree.json',
+        url: ajaxUri + '/webAjax/order/queryEditRecord?tableName=' + tableName,
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            if (data.code === 1) {
+                record = data.data
+            }
+        },
+        error: function (xml, errstr, err) {
+            layer.alert(errstr + '，获取单元格修改记录失败！');
+        }
+    });
+    return record;
 }
 
 function setDateRangePicker(el) {

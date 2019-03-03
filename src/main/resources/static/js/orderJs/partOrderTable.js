@@ -1,7 +1,7 @@
 /**
  * Created by p51 on 2018/5/30.
  */
-var table,ins;
+var table, ins;
 
 var h1 = [
     {checkbox: true, fixed: 'left', rowspan: 2}
@@ -38,7 +38,7 @@ layui.use(['table', 'form'], function () {
     ins = table.render({
         id: 'id',
         elem: '#partOrderTable',
-        title:'兼职接单登记表',
+        title: '兼职接单登记表',
         // skin: 'row',
         height: full,
         url: ajaxUri + '/webAjax/partOrder/queryAllOrder', //数据接口
@@ -46,11 +46,12 @@ layui.use(['table', 'form'], function () {
             // layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
             //,curr: 5 //设定初始在第 5 页
             limit: 1000,
-            limits: [1000,500, 100, 50, 20, 10]
+            limits: [1000, 500, 100, 50, 20, 10]
         },
         cols: [h1, header],
         done: function (res, curr, count) {
             setBttonPermission();
+            var record = getEditRecord("partOrder");
             //如果是异步请求数据方式，res即为你接口返回的信息。
             var data = res.data;
             if (!data) {
@@ -62,10 +63,17 @@ layui.use(['table', 'form'], function () {
                 var audit = data[i].partAuditFinance;
                 var settle = data[i].partSettleStateFinance;
                 // if (audit == null || (audit === '0' && settle=== '-1')) {
-                if (audit === '0' && settle=== '-1') {
+                if (audit === '-100') {
                     $($checktr[0]).addClass("changeGray");
                     $($checktr[1]).addClass("changeGray");
                 }
+                $checktr.children('td').each(function (j) {
+                    var head = header[j - 3];
+                    if (record && head && head.field && record[data[i].id] && record[data[i].id].indexOf(head.field) > -1) {
+                        console.log(j + head.field + "==" + record[data[i].id]);
+                        $(this).addClass("changeGray");
+                    }
+                });
             }
             console.log(count);
         }
@@ -164,7 +172,7 @@ function editEntity(flag) {
                 var iframe = window['layui-layer-iframe' + index];
                 // 向子页面的全局函数child传参
 
-                iframe.initEdit(data,flag);
+                iframe.initEdit(data, flag);
             }
         });
     } else if (data.length > 1) {

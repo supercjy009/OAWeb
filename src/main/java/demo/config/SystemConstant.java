@@ -9,4 +9,5 @@ public class SystemConstant {
     public static String PASSWORD_SALT = "{bcrypt}";
 
     public static String PART_SALT_STRING = "part";
+
 }

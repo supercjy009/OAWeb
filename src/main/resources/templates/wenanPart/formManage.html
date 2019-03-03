@@ -278,7 +278,7 @@
 
 </script>
 <script type="text/html" id="auditTpl">
-    {{#  if(d.audit === '0'){ }}
+    {{#  if(d.audit === '0' || !d.audit || d.audit == ''){ }}
     <span style="color: #f52727;">{{ '待审' }}</span>
     {{#  } else if(d.audit === '1') { }}
     {{ '通过' }}
@@ -288,7 +288,7 @@
 </script>
 
 <script type="text/html" id="partAuditTpl">
-    {{#  if(d.partAudit === '0'){ }}
+    {{#  if(d.partAudit === '0' || !d.partAudit || d.partAudit == ''){ }}
     <span style="color: #f52727;">{{ '待审' }}</span>
     {{#  } else if(d.partAudit === '1') { }}
     {{ '已审' }}

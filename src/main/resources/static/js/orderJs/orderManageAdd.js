@@ -94,6 +94,7 @@ function init() {
         if (editData) {
             // alert("aaa"+editData[0].id);
             console.log("editData=1 ==========" + JSON.stringify(editData[0]))
+            $("#orderNumber").attr("disabled",true);
             form.val('orderEdit', {
                 "customerIm": editData[0].customerIm // "name": "value"
                 , "customerMail": editData[0].customerMail

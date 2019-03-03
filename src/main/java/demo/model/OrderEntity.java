@@ -2,8 +2,11 @@ package demo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderEntity {
 
@@ -249,5 +252,37 @@ public class OrderEntity {
 
     public void setPartName(String partName) {
         this.partName = partName == null ? null : partName.trim();
+    }
+
+    public Map<Long, String> compareEntity(OrderEntity entity) throws IllegalAccessException {
+        Map<Long, String> record = new HashMap<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            field.setAccessible(true);
+            Object o1 = field.get(entity);
+            Object o2 = field.get(this);
+            if (o1 != null && !o1.equals(o2)) {
+                record.put(this.id, field.getName());
+            }
+        }
+
+        return record;
+    }
+
+    public static void main(String[] args) {
+        OrderEntity entity = new OrderEntity();
+        entity.setPayProgress("aaaaa");
+        Field[] fields = entity.getClass().getDeclaredFields();
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            String n = field.getName();
+            try {
+                System.out.println(field.get(entity));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+//            System.out.println(n);
+        }
     }
 }

@@ -398,7 +398,7 @@
                 and p.part_settle_state_finance = #{partSettleStateFinance,jdbcType=VARCHAR}
             </if>
             <if test="moneyState == 1">
-                and p.part_money_finance is not null
+                and (p.part_money_finance is not null and p.part_money_finance != '')
             </if>
             <if test="moneyState == 0 and moneyState != ''">
                 and (p.part_money_finance is null or p.part_money_finance = '')

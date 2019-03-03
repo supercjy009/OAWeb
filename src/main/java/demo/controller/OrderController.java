@@ -1,6 +1,8 @@
 package demo.controller;
 
 import com.github.pagehelper.PageInfo;
+import demo.mapper.EditRecordEntityMapper;
+import demo.model.EditRecordEntity;
 import demo.model.SysRoleEntity;
 import demo.model.dto.*;
 import demo.mapper.PayProgressMapper;
@@ -14,10 +16,7 @@ import javax.annotation.Resource;
 import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by p51 on 2018/5/16.
@@ -31,6 +30,8 @@ public class OrderController {
     WorkPayService workService;
     @Resource
     PayProgressMapper progressMapper;
+    @Resource
+    EditRecordEntityMapper recordMapper;
 
     @InitBinder
     public void InitBinder(WebDataBinder dataBinder) {
@@ -48,6 +49,26 @@ public class OrderController {
             }
 
         });
+    }
+
+    @RequestMapping(value = "/queryEditRecord", method = RequestMethod.GET)
+    public Map<String, Object> queryEditRecord(@RequestParam String tableName) {
+        Map<String, Object> mapOut = new HashMap<>();
+        mapOut.put("code", 1);
+        List<EditRecordEntity> rList = recordMapper.selectRecordByTable(tableName);
+        Map<Long, List<String>> rMap = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        for (EditRecordEntity record : rList) {
+            if (rMap.containsKey(record.getRecordId())) {
+                list = rMap.get(record.getRecordId());
+            } else {
+                list = new ArrayList<>();
+            }
+            list.add(record.getFieldName());
+            rMap.put(record.getRecordId(), list);
+        }
+        mapOut.put("data", rMap);
+        return mapOut;
     }
 
     @RequestMapping(value = "/queryAllOrder", method = RequestMethod.GET)

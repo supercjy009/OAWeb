@@ -46,14 +46,23 @@ layui.use(['table', 'form'], function () {
             // debugger
             // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
             setBttonPermission();
+            var record = getEditRecord("workPay");
             var data = res.data;
             for (var i = 0; i < data.length; i++) {
                 var audit = data[i].audit;
                 var settle = data[i].settle;
-                if (audit === '0' && settle === '0') {
-                    var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
+                var $checktr = $(".layui-table-view tbody tr[data-index='" + i + "']");
+                if (!audit || audit === '') {
                     $checktr.addClass("changeGray");
                 }
+
+                $checktr.children('td').each(function (j) {
+                    var head = header[j];
+                    if (record && head && head.field && record[data[i].id] && record[data[i].id].indexOf(head.field) > -1) {
+                        console.log(j + head.field + "==" + record[data[i].id]);
+                        $(this).addClass("changeGray");
+                    }
+                });
             }
             //得到数据总量
             console.log(count);

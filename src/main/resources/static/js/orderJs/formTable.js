@@ -73,6 +73,9 @@ layui.use(['table', 'form'], function () {
         cols: [h1, header, h2],
         done: function (res, curr, count) {
             setBttonPermission();
+            //获取需要变色的单元格
+            var record = getEditRecord("order");
+            var record2 = getEditRecord("part");
             // $('table.layui-table thead tr th:eq(1)').addClass('layui-hide');
             var $title = $(".layui-table-view thead th");
             for (var n = 0; n < $title.length; n++) {
@@ -88,6 +91,7 @@ layui.use(['table', 'form'], function () {
             var indexNum = 0;
             var totalNum = 0;
             var clearIndex = false;
+
             for (var i = 0; i < data.length; i++) {
                 var indexTds = $(".layui-table-view tbody tr[data-index='" + i + "'] td[data-field='1']");
                 for (var x = 0; x < indexTds.length; x++) {
@@ -134,23 +138,33 @@ layui.use(['table', 'form'], function () {
 
                 //设置订单待审核单元格背景颜色
                 var audit = data[i].audit;
-                if (audit === '0') {
-                    $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
-                        if (j < tdNum) {
-                            $(this).addClass("changeGray");
-                        }
-                    });
-                }
-                //设置兼职待审核单元格背景颜色
                 var partAudit = data[i].partAudit;
                 var partSettleState = data[i].partSettleState;
-                if (partAudit === '0' && partSettleState === '0') {
-                    $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
-                        if (j >= tdNum) {
+                $checktr.children('td').each(function (j) {  // 遍历 tr 的各个 td
+                    if (j < tdNum && (!audit || audit === '')) {//刚新建的为空
+                        $(this).addClass("changeGray");
+                    }
+                    //设置兼职待审核单元格背景颜色
+                    if ((!partAudit || partAudit === '') && partSettleState === '0' && j > tdNum) {
+                        $(this).addClass("changeGray");
+                    }
+                    var head;
+                    if (j <= 22) {
+                        head = j < 15 ? header[j] : h2[j - 15];
+                        if (record && head && head.field && record[data[i].id] && record[data[i].id].indexOf(head.field) > -1) {
+                            console.log(j + head.field + "==" + record[data[i].id]);
                             $(this).addClass("changeGray");
                         }
-                    });
-                }
+                    } else {//这一段是专门处理兼职的
+                        head = header[j - 5];
+                        //record2是兼职的，之所以分成两段代码，就是怕record和record2的id重复
+                        if (record2 && head && head.field && record2[data[i].partId] && record2[data[i].partId].indexOf(head.field) > -1) {
+                            console.log(j + head.field + "==" + record2[data[i].partId]);
+                            $(this).addClass("changeGray");
+                        }
+                    }
+
+                });
             }
             //得到数据总量
             console.log(count);

@@ -3,19 +3,18 @@ package demo.service.Imp;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import demo.config.SystemConstant;
-import demo.model.SysUserroleEntity;
-import demo.model.dto.AuditVo;
-import demo.model.dto.PartOrderReqVo;
+import demo.mapper.EditRecordEntityMapper;
+import demo.model.*;
+import demo.model.dto.*;
 import demo.mapper.PartTimeEntityMapper;
-import demo.model.PartTimeEntity;
-import demo.model.UserinfoEntity;
-import demo.model.dto.PartTimeDto;
-import demo.model.dto.SettleDateVo;
 import demo.service.PartTimeService;
+import demo.util.EntityUtil;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +28,9 @@ public class PartTimeServiceImp implements PartTimeService {
     SysUserroleServiceImp sysUserroleServiceImp;
     @Resource
     SysPermissionSerivceImp sysPermissionSerivceImp;
+    @Resource
+    EditRecordEntityMapper recordMapper;
+
     @Override
     public PageInfo<PartTimeDto> queryAllOrder(PartOrderReqVo vo) {
         PageHelper.startPage(vo.getPage(), vo.getLimit());
@@ -54,17 +56,61 @@ public class PartTimeServiceImp implements PartTimeService {
 
     @Override
     public int updateOrder(PartTimeEntity order) {
-        order.setPartAuditFinance("0");
+        //记录哪些单元格需要变色
+        PartTimeEntity originalOrder = partTimeMapper.selectByPrimaryKey(order.getId());
+        List<String> rec = new ArrayList<>();
+        if (order.getPartMoneyFinance() != null && !order.getPartMoneyFinance().equals(originalOrder.getPartMoneyFinance())) {
+            rec.add("partMoneyFinance");
+        }
+        if (order.getPartUserRemark() != null && !order.getPartUserRemark().equals(originalOrder.getPartUserRemark())) {
+            rec.add("partUserRemark");
+        }
+        if (order.getPartMoneyReal() != null && !order.getPartMoneyReal().equals(originalOrder.getPartMoneyReal())) {
+            rec.add("partMoneyReal");
+        }
+
+        if (order.getPartFinanceRemark() != null && !order.getPartFinanceRemark().equals(originalOrder.getPartFinanceRemark())) {
+            rec.add("partFinanceRemark");
+        }
+        for (String fieldName : rec) {
+            EditRecordEntity record = new EditRecordEntity();
+            record.setRecordId(Long.valueOf(originalOrder.getId()));
+            record.setFieldName(fieldName);
+            record.setTableName("partOrder");
+            EditRecordEntity key = recordMapper.selectByPrimaryKey(record);
+            if (key == null) {
+                recordMapper.insert(record);
+            }
+        }
+        if (!"-100".equals(order.getPartAuditFinance()) || originalOrder.getPartMoneyFinance() != null) { // -100代表新建
+            order.setPartAuditFinance("0");
+        }
         return partTimeMapper.updateByPrimaryKeySelective(order);
     }
 
     @Override
     public int auditOrder(AuditVo vo) {
+        if ("1".equals(vo.getAudit())) {//删除变色的单元格
+            DeleteRecordVo deleteVo = new DeleteRecordVo();
+            deleteVo.setTableName("partOrder");
+            deleteVo.setIds(vo.getIds());
+            recordMapper.deleteRecord(deleteVo);
+        }
         return partTimeMapper.auditOrder(vo);
     }
 
     @Override
     public int addSettleDate(SettleDateVo vo) {
+        for (Long id : vo.getIds()) {
+            EditRecordEntity record = new EditRecordEntity();
+            record.setRecordId(id);
+            record.setFieldName("settleDate");
+            record.setTableName("partOrder");
+            EditRecordEntity key = recordMapper.selectByPrimaryKey(record);
+            if (key == null) {
+                recordMapper.insert(record);
+            }
+        }
         return partTimeMapper.addSettleDate(vo);
     }
 

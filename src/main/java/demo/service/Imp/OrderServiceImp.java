@@ -2,13 +2,11 @@ package demo.service.Imp;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import demo.mapper.*;
 import demo.model.dto.*;
-import demo.mapper.OrderEntityMapper;
-import demo.mapper.PartTimeEntityMapper;
-import demo.mapper.PartTimeUserMapper;
-import demo.mapper.PayProgressMapper;
 import demo.model.*;
 import demo.service.OrderService;
+import demo.util.EntityUtil;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +17,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by p51 on 2018/5/16.
@@ -36,6 +32,8 @@ public class OrderServiceImp implements OrderService {
     PartTimeEntityMapper partTimeMapper;
     @Resource
     PayProgressMapper progressMapper;
+    @Resource
+    EditRecordEntityMapper recordMapper;
     @Resource
     SysPermissionSerivceImp sysPermissionSerivceImp;
     @Resource
@@ -74,7 +72,7 @@ public class OrderServiceImp implements OrderService {
         order.setServiceName(userinfoEntity.getName());
         order.setServiceId(userinfoEntity.getUid().toString());
         order.setGetOrderDate(new Date());
-        order.setAudit("0");
+        order.setAudit("");
         orderEntityMapper.insert(order);
         Long orderId = order.getId();
         if (order.getProgressList() != null && order.getProgressList().size() != 0) {
@@ -91,8 +89,10 @@ public class OrderServiceImp implements OrderService {
     }
 
     @Override
+    @Transactional
     public int updateOrder(OrderVo order) {
         Long orderId = order.getId();
+        Boolean editProgress = false;
         if (order.getProgressList() != null && order.getProgressList().size() != 0) {
             List<PayProgress> oldProgressList = progressMapper.selectByOrderId(orderId);
             List<Long> oldIds = new ArrayList<>();
@@ -100,7 +100,6 @@ public class OrderServiceImp implements OrderService {
                 //记录原始有哪些付款进度
                 oldIds.add(oldProgress.getId());
             }
-
             for (int i = 0; i < order.getProgressList().size(); i++) {
                 PayProgress payProgress = order.getProgressList().get(i);
                 if (payProgress == null) {
@@ -109,21 +108,58 @@ public class OrderServiceImp implements OrderService {
                 if (payProgress.getId() != null && oldIds.contains(payProgress.getId())) {//包含说明没有被删除
                     oldIds.remove(payProgress.getId());
                 } else {
+                    editProgress = true;
                     payProgress.setOrderId(orderId.intValue());
                     progressMapper.insert(payProgress);
                 }
             }
 
             for (Long oldId : oldIds) { //删除这些付款进度
+                editProgress = true;
                 progressMapper.deleteByPrimaryKey(oldId);
             }
         }
         order.setAudit("0");
+        //记录哪些单元格需要变色
+        OrderEntity originalOrder = orderEntityMapper.selectByPrimaryKey(orderId);
+        List<String> rec = new ArrayList<>();
+        try {
+            originalOrder.setAudit("0");
+            rec = EntityUtil.compareEntity(originalOrder, order);
+            if(editProgress){
+                rec.add("payDate");
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        for (String fieldName : rec) {
+            EditRecordEntity record = new EditRecordEntity();
+            record.setRecordId(originalOrder.getId());
+            record.setFieldName(fieldName);
+            record.setTableName("order");
+            EditRecordEntity key = recordMapper.selectByPrimaryKey(record);
+            if (key == null) {
+                recordMapper.insert(record);
+            }
+        }
         return orderEntityMapper.updateByPrimaryKeySelective(order);
     }
 
     @Override
     public int auditOrder(AuditVo vo) {
+        if ("1".equals(vo.getAudit())) {//删除变色的单元格
+            DeleteRecordVo deleteVo = new DeleteRecordVo();
+            deleteVo.setTableName("order");
+            deleteVo.setIds(vo.getIds());
+            recordMapper.deleteRecord(deleteVo);
+        }
+        if ("1".equals(vo.getPartAudit())) {//删除变色的兼职单元格
+            DeleteRecordVo deleteVo = new DeleteRecordVo();
+            deleteVo.setTableName("part");
+            deleteVo.setIds(vo.getIds());
+            recordMapper.deleteRecord(deleteVo);
+        }
+
         return orderEntityMapper.auditOrder(vo);
     }
 
@@ -147,7 +183,7 @@ public class OrderServiceImp implements OrderService {
         partTime.setPartQq(vo.getPartQq());
         partTime.setPartMoney(vo.getPartMoney() == null ? BigDecimal.ZERO : vo.getPartMoney());
         partTime.setPartRemark(vo.getPartRemark());
-        partTime.setPartAudit("0");//审核待审
+        partTime.setPartAudit("");//审核待审(改为空，标志为初始状态)
         partTime.setPartSettleState("0");//状态待结
         partTime.setSubmitState("0");//状态待交稿
         partTime.setDeduct(BigDecimal.ZERO);//应扣初始化为0
@@ -170,6 +206,12 @@ public class OrderServiceImp implements OrderService {
     @Override
     @Transactional
     public int deletePart(AppointPartVo vo) {
+        //删除单元格变色
+        DeleteRecordVo deleteVo = new DeleteRecordVo();
+        deleteVo.setTableName("part");
+        Long[] ids = {Long.valueOf(vo.getPartId())};
+        deleteVo.setIds(ids);
+        recordMapper.deleteRecord(deleteVo);
         PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
         if (partTimeUser != null) {
             //更新接单数量
@@ -183,7 +225,8 @@ public class OrderServiceImp implements OrderService {
     @Override
     @Transactional
     public int editPart(AppointPartVo vo) {
-        PartTimeEntity partTime = partTimeMapper.selectByPrimaryKey(vo.getPartId());
+        PartTimeEntity originalPartTime = partTimeMapper.selectByPrimaryKey(vo.getPartId());
+
 //        PartTimeUser partTimeUser = partUserMapper.getPartUserByQq(vo.getPartQq());
 //        if (StringUtils.isEmpty(partTime.getDeduct()) && partTimeUser != null) {
 //            //更新问题率
@@ -192,16 +235,44 @@ public class OrderServiceImp implements OrderService {
 //            partUserMapper.updateByPrimaryKeySelective(partTimeUser);
 //
 //        }
-        partTime.setPartAudit("0");
-        partTime.setPartRemark(vo.getPartRemark());
-        partTime.setPartMoney(vo.getPartMoney());
-        partTime.setDeduct(vo.getDeduct());
-        return partTimeMapper.updateByPrimaryKey(partTime);
+        PartTimeEntity partTimeEdit = new PartTimeEntity();
+        partTimeEdit.setId(vo.getPartId());
+        partTimeEdit.setPartAudit("0");
+
+        partTimeEdit.setPartRemark(vo.getPartRemark());
+        partTimeEdit.setPartMoney(vo.getPartMoney());
+        partTimeEdit.setDeduct(vo.getDeduct());
+
+        //记录哪些单元格需要变色
+        List<String> rec = new ArrayList<>();
+        try {
+            originalPartTime.setPartAudit("0");
+            rec = EntityUtil.compareEntity(originalPartTime, partTimeEdit);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        for (String fieldName : rec) {
+            EditRecordEntity record = new EditRecordEntity();
+            record.setRecordId(Long.valueOf(originalPartTime.getId()));
+            record.setFieldName(fieldName);
+            record.setTableName("part");
+            EditRecordEntity key = recordMapper.selectByPrimaryKey(record);
+            if (key == null) {
+                recordMapper.insert(record);
+            }
+        }
+        return partTimeMapper.updateByPrimaryKeySelective(partTimeEdit);
     }
 
     @Override
     @Transactional
     public int deleteOrder(Long[] ids) {
+        //删除单元格变色
+        DeleteRecordVo deleteVo = new DeleteRecordVo();
+        deleteVo.setTableName("order");
+        deleteVo.setIds(ids);
+        recordMapper.deleteRecord(deleteVo);
+
         for (Long id : ids) {
             OrderEntity order = orderEntityMapper.selectByPrimaryKey(id);
             partTimeMapper.deletePart(order.getOrderNumber(), null);

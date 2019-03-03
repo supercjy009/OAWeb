@@ -2,6 +2,7 @@ package demo.controller;
 
 import demo.Process.Indexprocess;
 import demo.VerificationCode.GifCaptcha;
+import demo.mapper.EditRecordEntityMapper;
 import demo.model.SysPermissionEntity;
 import demo.model.SysUserroleEntity;
 import demo.model.UserinfoEntity;
