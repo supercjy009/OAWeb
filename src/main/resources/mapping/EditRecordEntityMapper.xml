@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo.mapper.EditRecordEntityMapper">
+    <resultMap id="BaseResultMap" type="demo.model.EditRecordEntity">
+        <id column="record_id" jdbcType="BIGINT" property="recordId"/>
+        <id column="field_name" jdbcType="VARCHAR" property="fieldName"/>
+        <id column="table_name" jdbcType="VARCHAR" property="tableName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    record_id, table_name, field_name
+  </sql>
+    <delete id="deleteByPrimaryKey" parameterType="demo.model.EditRecordEntity">
+    delete from edit_record
+    where record_id = #{recordId,jdbcType=BIGINT}
+      and field_name = #{fieldName,jdbcType=VARCHAR}
+      and table_name = #{tableName,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="demo.model.EditRecordEntity">
+    insert into edit_record (record_id, field_name, table_name
+      )
+    values (#{recordId,jdbcType=BIGINT}, #{fieldName,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="demo.model.EditRecordEntity">
+        insert into edit_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">
+                record_id,
+            </if>
+            <if test="fieldName != null">
+                field_name,
+            </if>
+            <if test="tableName != null">
+                table_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recordId != null">
+                #{recordId,jdbcType=BIGINT},
+            </if>
+            <if test="fieldName != null">
+                #{fieldName,jdbcType=VARCHAR},
+            </if>
+            <if test="tableName != null">
+                #{tableName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="demo.model.EditRecordEntity">
+        update edit_record
+        <set>
+            <if test="fieldName != null">
+                field_name = #{fieldName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where record_id = #{recordId,jdbcType=BIGINT}
+        and table_name = #{tableName,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="demo.model.EditRecordEntity">
+    update edit_record
+    set field_name = #{fieldName,jdbcType=VARCHAR}
+    where record_id = #{recordId,jdbcType=BIGINT}
+      and table_name = #{tableName,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectByPrimaryKey" parameterType="demo.model.EditRecordEntity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from edit_record
+        where record_id = #{recordId,jdbcType=BIGINT}
+        and field_name = #{fieldName,jdbcType=VARCHAR}
+        and table_name = #{tableName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectRecordByTable" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from edit_record
+        where table_name = #{tableName,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteRecord" parameterType="demo.model.dto.DeleteRecordVo">
+        delete from edit_record
+        where table_name = #{tableName,jdbcType=VARCHAR}
+        and record_id
+        in
+        <foreach item="item" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>
