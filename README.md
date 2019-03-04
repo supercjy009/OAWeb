@@ -11,18 +11,15 @@ spring boot项目，数据库mysql，shiro管理登录会话session
 └── src
     ├── main  
     │	├── java  
-    │	│   └── com.interest 
     │	│	├── controller  controller类
-    │	│	├── dao  dao类
+    │	│	├── mapper  dao类
     │	│	├── model  entity类
-    │	│	├── oauth2  spring security oauth2配置类
-    │	│	├── properties  项目配置类
-    │	│	├── security  spring security配置类
+    │	│	├── config  项目配置类
     │	│	├── service  service类
-    │	│	└── utils  工具类
+    │	│	└── util  工具类
     │	└── resource  
-    │	    ├── createTable 表数结构及表数据
-    │	    ├── mybatis.mapper mybatis的mapper.xml
+    │	    ├── mapping mybatis的mapper.xml
+    │	    ├── templates 页面
     │	    └── application.yml 项目配置文件
     └── test  测试
 ```
@@ -33,7 +30,7 @@ spring boot项目，数据库mysql，shiro管理登录会话session
  - mybatis
  - Shiro
  - Redis
- - layui
+ - thymeleaf、layui
 
 ## 接口设计：
 
